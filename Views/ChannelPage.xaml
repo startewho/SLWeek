@@ -11,21 +11,18 @@
     xmlns:vm="using:SLWeek.ViewModels"
     xmlns:m="using:SLWeek.Models"
     mc:Ignorable="d">
-    
+
     <Page.Resources>
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <x:String x:Key="AppName">My Application</x:String>
         <vm:ChannelPage_Model x:Key="DesignVM"/>
     </Page.Resources>
-
     <!--Begin App Bar Binding Patch. If you don't need Binding Top/Bottom Appbar please ignore these code -->
     <!--
     <Page.DataContext>
         <Binding  RelativeSource="{RelativeSource Mode=Self}" Path="ViewModel"/>
     </Page.DataContext>
-    <mvvm:MVVMPage.ViewModel>
-        <Binding Source="{StaticResource DesignVM}" />
-    </mvvm:MVVMPage.ViewModel>
+  
 	<mvvm:MVVMPage.BottomAppBar>
 		<AppBar d:DataContext="{StaticResource DesignVM}"><TextBlock TextWrapping="Wrap" Text="{Binding BindableInstanceId, Mode=OneWay}"/></AppBar>
 	</mvvm:MVVMPage.BottomAppBar>    
@@ -37,8 +34,12 @@
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <ListView x:Name="listview" ItemsSource="{x:Bind MainVM.SoureList}" SelectionChanged="listview_SelectionChanged">
-         
+        <ListView x:Name="listview" ItemsSource="{Binding SoureList}" SelectionChanged="listview_SelectionChanged">
+            <Interactivity:Interaction.Behaviors>
+                <Core:EventTriggerBehavior EventName="SelectionChanged">
+                    <Core:InvokeCommandAction Command="{Binding CommandGotoPost}" CommandParameter="{Binding SelectedItem, ElementName=listview}"/>
+                </Core:EventTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="m:PostModel">
                     <StackPanel Orientation="Horizontal" Height="38">

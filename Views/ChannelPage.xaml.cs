@@ -23,7 +23,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using SLWeek.Source;
 using SLWeek.Models;
-
+using SLWeek.Utils;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace SLWeek.Views
@@ -33,13 +33,13 @@ namespace SLWeek.Views
     /// </summary>
     public sealed partial class ChannelPage : MVVMPage
     {
-        public ChannelPage_Model MainVM { get; set; }
+      
         public ChannelPage():base(null)
         
         {
  
             this.InitializeComponent();
-            MainVM = new ChannelPage_Model();
+         
 
 
         }
@@ -48,7 +48,7 @@ namespace SLWeek.Views
         
          
             this.InitializeComponent();
-            MainVM = new ChannelPage_Model();
+          
 
         }
      
@@ -62,6 +62,7 @@ namespace SLWeek.Views
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+     
             base.OnNavigatedFrom(e);
         }
 
@@ -74,8 +75,8 @@ namespace SLWeek.Views
             {
 
                 var postvm = new PostDetailPage_Model(item);
-                Detail.Navigate(typeof(PostDetailPage), postvm);
-
+                this.Detail.Navigate(typeof(PostDetailPage), postvm);
+                
                 //await vm.StageManager.DefaultStage.Show(postvm);
                 //frame.Navigate(typeof(PostDetailPage_Model));
             }

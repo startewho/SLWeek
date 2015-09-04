@@ -26,6 +26,10 @@ namespace SLWeek.ViewModels
         public MainPage_Model()
         {
             this.IsSplitViewPaneOpen = !this.IsSplitViewPaneOpen;
+           
+            MenuItems.Add(new MenuItem { Icon = "", Title = "频道", PageType = typeof(ChannelPage) });
+            MenuItems.Add(new MenuItem { Icon = "", Title = "专栏", PageType = typeof(AuthorPage) });
+            SelectedMenuItem = MenuItems.First();
         }
 
         private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();

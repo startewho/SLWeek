@@ -33,17 +33,7 @@ namespace SLWeek
         public MainPage()
         {
             this.InitializeComponent();
-        
-
-            var vm = new MainPage_Model();
-            vm.MenuItems.Add(new MenuItem { Icon = "", Title = "Welcome", PageType = typeof(ChannelPage) });
-
-           // vm.MenuItems.Add(new MenuItem { Icon = "", Title = "HomePage", PageType = typeof(PostDetailPage) });
-
-            // select the first menu item
-            vm.SelectedMenuItem = vm.MenuItems.First();
-            this.MainVM = vm;
-      
+ 
             // add entry animations
             var transitions = new TransitionCollection { };
             var transition = new NavigationThemeTransition { };
@@ -51,7 +41,7 @@ namespace SLWeek
             this.VMFrame.ContentTransitions = transitions;
         }
 
-        public MainPage_Model MainVM { get; set; }
+
 
         public Frame RootFrame
         {

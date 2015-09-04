@@ -1,12 +1,9 @@
 ﻿<mvvm:MVVMPage 
     x:Name="pageRoot"
-    x:Class="SLWeek.PostDetailPage"
+    x:Class="SLWeek.Views.AuthorPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SLWeek"
     xmlns:mvvm="using:MVVMSidekick.Views"     
-   xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
-    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:SLWeek.ViewModels"
@@ -15,7 +12,7 @@
     <Page.Resources>
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <x:String x:Key="AppName">My Application</x:String>
-
+        <vm:AuthorPage_Model x:Key="DesignVM"/>
     </Page.Resources>
     <!--Begin App Bar Binding Patch. If you don't need Binding Top/Bottom Appbar please ignore these code -->
     <!--
@@ -30,15 +27,15 @@
 	</mvvm:MVVMPage.BottomAppBar>    
     -->
     <!--End App Bar Binding Patch. If you don't need Binding  Top/Bottom Appbar please ignore these code -->
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <Button Height="30" Click="Button_Click" Content="Back" Width="60" VerticalAlignment="Top" Background="#33D31E1E"/>
-        <WebView Source="{Binding CurrentPost.PostUri}" Margin="0,30,0,0">
-        </WebView>
-     
+
+            <TextBlock x:Name="pageTitle" Text="{Binding Title}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+                        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"/>
+  
     </Grid>
 </mvvm:MVVMPage>

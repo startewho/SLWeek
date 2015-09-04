@@ -35,8 +35,9 @@ namespace SLWeek
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            Offset = 0;
         }
-
+        public double Offset;
         public static void InitNavigationConfigurationInThisAssembly()
         {
             MVVMSidekick.Startups.StartupFunctions.RunAllConfig();

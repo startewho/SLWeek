@@ -21,36 +21,32 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using SLWeek.Views;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace SLWeek
+namespace SLWeek.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class PostDetailPage : MVVMPage
+    public sealed partial class AuthorPage : MVVMPage
     {
-     
-        public PostDetailPage()
+
+        public AuthorPage()
             : this(null)
         {
             this.InitializeComponent();
         }
-        public PostDetailPage(PostDetailPage_Model model)
+        public AuthorPage(AuthorPage_Model model)
             : base(model)
         {
             this.InitializeComponent();
-            
         }
 
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var vm = e.Parameter as PostDetailPage_Model;
-            this.DataContext = vm;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -58,10 +54,5 @@ namespace SLWeek
             base.OnNavigatedFrom(e);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
-            this.Frame.Navigate(typeof(ChannelPage));
-        }
     }
 }
