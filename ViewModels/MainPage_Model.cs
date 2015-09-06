@@ -53,10 +53,13 @@ namespace SLWeek.ViewModels
             get { return _SelectedMenuItemLocator(this).Value; }
             set
             {
-                
+                if (value!=null)
+                {
                     _SelectedMenuItemLocator(this).SetValueAndTryNotify(value);
                     _IsSplitViewPaneOpenLocator(this).SetValueAndTryNotify(false);
                     _SelectedPageTypeLocator(this).SetValueAndTryNotify(value.PageType);
+                }
+                   
               
              
             }

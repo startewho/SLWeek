@@ -15,7 +15,6 @@
     <Page.Resources>
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <x:String x:Key="AppName">My Application</x:String>
-
     </Page.Resources>
     <!--Begin App Bar Binding Patch. If you don't need Binding Top/Bottom Appbar please ignore these code -->
     <!--
@@ -36,9 +35,15 @@
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <Button Height="30" Click="Button_Click" Content="Back" Width="60" VerticalAlignment="Top" Background="#33D31E1E"/>
+        <Button x:Name="button" Height="30" Content="Back" Width="60" VerticalAlignment="Top" Background="#33D31E1E">
+            <Interactivity:Interaction.Behaviors>
+                <Core:EventTriggerBehavior EventName="Click">
+                    <Core:InvokeCommandAction Command="{Binding CommandBack}" />
+                </Core:EventTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
+        </Button>
         <WebView Source="{Binding CurrentPost.PostUri}" Margin="0,30,0,0">
         </WebView>
-     
+
     </Grid>
 </mvvm:MVVMPage>

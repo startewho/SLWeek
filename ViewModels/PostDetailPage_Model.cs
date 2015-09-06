@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using SLWeek.Models;
+using SLWeek.ViewModels;
+using SLWeek.Views;
 namespace SLWeek.ViewModels
 {
 
@@ -80,8 +82,9 @@ namespace SLWeek.ViewModels
                         vm,
                         async e =>
                         {
-                            var view = vm.StageManager.CurrentBindingView;
-                            //Todo: Add Back logic here, or
+                           vm.StageManager.DefaultStage.Frame.Navigate(typeof(ChannelPage));
+                         //await vm.StageManager.DefaultStage.Show(new ChannelPage_Model());
+                          
                             await MVVMSidekick.Utilities.TaskExHelper.Yield();
                         })
                     .DoNotifyDefaultEventRouter(vm, commandId)

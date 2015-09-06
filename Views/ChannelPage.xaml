@@ -10,45 +10,32 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:SLWeek.ViewModels"
     xmlns:m="using:SLWeek.Models"
+    NavigationCacheMode="Required"
     mc:Ignorable="d">
-
-    <Page.Resources>
+    <mvvm:MVVMPage.Resources>
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">My Application</x:String>
         <vm:ChannelPage_Model x:Key="DesignVM"/>
-    </Page.Resources>
-    <!--Begin App Bar Binding Patch. If you don't need Binding Top/Bottom Appbar please ignore these code -->
-    <!--
-    <Page.DataContext>
-        <Binding  RelativeSource="{RelativeSource Mode=Self}" Path="ViewModel"/>
-    </Page.DataContext>
-  
-	<mvvm:MVVMPage.BottomAppBar>
-		<AppBar d:DataContext="{StaticResource DesignVM}"><TextBlock TextWrapping="Wrap" Text="{Binding BindableInstanceId, Mode=OneWay}"/></AppBar>
-	</mvvm:MVVMPage.BottomAppBar>    
-    -->
-    <!--End App Bar Binding Patch. If you don't need Binding  Top/Bottom Appbar please ignore these code -->
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="{StaticResource DesignVM}">
+    </mvvm:MVVMPage.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <ListView x:Name="listview" ItemsSource="{Binding SoureList}" SelectionChanged="listview_SelectionChanged">
+        <ListView x:Name="listview" ItemsSource="{Binding SoureList,Mode=TwoWay}">
             <Interactivity:Interaction.Behaviors>
                 <Core:EventTriggerBehavior EventName="SelectionChanged">
                     <Core:InvokeCommandAction Command="{Binding CommandGotoPost}" CommandParameter="{Binding SelectedItem, ElementName=listview}"/>
                 </Core:EventTriggerBehavior>
             </Interactivity:Interaction.Behaviors>
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="m:PostModel">
+                <DataTemplate >
                     <StackPanel Orientation="Horizontal" Height="38">
-                        <TextBlock Grid.RowSpan="2" Text="{x:Bind Icon, Mode=OneWay}" Style="{StaticResource IconTextBlockStyle}" />
-                        <TextBlock Grid.Column="1" Text="{x:Bind Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
+                        <TextBlock Grid.RowSpan="2" Text="{Binding Icon, Mode=OneWay}" Style="{StaticResource IconTextBlockStyle}" />
+                        <TextBlock Grid.Column="1" Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Frame x:Name="Detail"/>
     </Grid>
 </mvvm:MVVMPage>

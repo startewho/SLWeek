@@ -1,5 +1,4 @@
 ﻿
-using SLWeek.ViewModels;
 using System.Reactive;
 using System.Reactive.Linq;
 using MVVMSidekick.ViewModels;
@@ -24,6 +23,8 @@ using Windows.UI.Xaml.Navigation;
 using SLWeek.Source;
 using SLWeek.Models;
 using SLWeek.Utils;
+using SLWeek.ViewModels;
+
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace SLWeek.Views
@@ -33,53 +34,42 @@ namespace SLWeek.Views
     /// </summary>
     public sealed partial class ChannelPage : MVVMPage
     {
-      
+
+    public ChannelPage_Model VM { get; set; }
+
         public ChannelPage():base(null)
         
         {
  
             this.InitializeComponent();
-         
-
 
         }
         public ChannelPage(ChannelPage_Model model):base(model)
         {
-        
          
             this.InitializeComponent();
-          
-
+         
         }
      
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-          
-         
+           
+
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-     
             base.OnNavigatedFrom(e);
+         
         }
-
-      
 
         private void listview_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var item = (sender as ListView).SelectedItem as PostModel;
-            if (item != null)
-            {
-
-                var postvm = new PostDetailPage_Model(item);
-                this.Detail.Navigate(typeof(PostDetailPage), postvm);
-                
-                //await vm.StageManager.DefaultStage.Show(postvm);
-                //frame.Navigate(typeof(PostDetailPage_Model));
-            }
+            var item = listview.SelectedItem as PostModel;
+            var postvm = new PostDetailPage_Model(item);
+            this.Frame.Navigate(typeof(PostDetailPage), postvm) ;
         }
     }
 }

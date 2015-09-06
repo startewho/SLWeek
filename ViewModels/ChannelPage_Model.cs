@@ -94,22 +94,21 @@ namespace SLWeek.ViewModels
                             var item = e.EventArgs.Parameter as PostModel;
                             if (item != null)
                             {
-                                var frame = vm.StageManager.DefaultStage.Frame;
+
                                 var postvm = new PostDetailPage_Model(item);
-                                frame.Navigate(typeof(PostDetailPage), postvm);
-                                var view = vm.StageManager.CurrentBindingView;
-                                //await vm.StageManager.DefaultStage.Show(postvm);
-                                //frame.Navigate(typeof(PostDetailPage_Model));
+                                await vm.StageManager.DefaultStage.Show(postvm);
+
                             }
 
                             //Todo: Add GotoPost logic here, or
                             await MVVMSidekick.Utilities.TaskExHelper.Yield();
 
-                         
+
                         })
                     .DoNotifyDefaultEventRouter(vm, commandId)
                     .Subscribe()
                     .DisposeWith(vm);
+                   
 
                 var cmdmdl = cmd.CreateCommandModel(resource);
 
