@@ -14,6 +14,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using SLWeek.Source;
 using SLWeek.Models;
+using SLWeek.Utils;
 namespace SLWeek.ViewModels
 {
 
@@ -26,10 +27,44 @@ namespace SLWeek.ViewModels
         {
             Init();
         }
+        private bool isLoaded;
 
+       
+        protected override Task OnBindedViewLoad(MVVMSidekick.Views.IView view)
+        {
+            if (!isLoaded)
+            {
+                this.SubscribeCommand();
+                this.isLoaded = true;
+            }
+          
+            return base.OnBindedViewLoad(view);
+        }
+        private void SubscribeCommand()
+        {
+            MVVMSidekick.EventRouting.EventRouter.Instance.GetEventChannel<Object>()
+                .Where(x => x.EventName == "NavToDetailByEventRouter")
+                     .Subscribe(
+                         async e =>
+                         {
+                             await MVVMSidekick.Utilities.TaskExHelper.Yield();
+                             var item = e.EventData as PostDetailPage_Model;
+                             if (item != null)
+                             {
+                                 item.HtmlText = await HttpHelper.GetTextByGet(item.PostUrl, "");
+                                 //  StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
+                                 await StageManager.DefaultStage.Show(item);
+                             }
+                           
+                         }
+                     ).DisposeWith(this);
+        }
+
+        ///// <summary>
+        ///// This will be
         private void Init()
         {
-            SoureList = new IncrementalLoadingCollection<PostSource, PostModel>("shehui",20);
+            SoureList = new IncrementalLoadingCollection<PostSource, PostDetailPage_Model>("shehui",20);
         }
         public String Title
         {
@@ -58,16 +93,17 @@ namespace SLWeek.ViewModels
 
 
 
-        public IncrementalLoadingCollection<PostSource,PostModel> SoureList
+        public IncrementalLoadingCollection<PostSource,PostDetailPage_Model> SoureList
         {
-            get { return _MyPropertyLocator(this).Value; }
-            set { _MyPropertyLocator(this).SetValueAndTryNotify(value); }
+            get { return _SoureListLocator(this).Value; }
+            set { _SoureListLocator(this).SetValueAndTryNotify(value); }
         }
-        #region Property IncrementalLoadingCollection<PersonSource,PostModel> MyProperty Setup        
-        protected Property<IncrementalLoadingCollection<PostSource,PostModel>> _MyProperty = new Property<IncrementalLoadingCollection<PostSource,PostModel>> { LocatorFunc = _MyPropertyLocator };
-        static Func<BindableBase, ValueContainer<IncrementalLoadingCollection<PostSource,PostModel>>> _MyPropertyLocator = RegisterContainerLocator<IncrementalLoadingCollection<PostSource,PostModel>>("MyProperty", model => model.Initialize("MyProperty", ref model._MyProperty, ref _MyPropertyLocator, _MyPropertyDefaultValueFactory));
-        static Func<IncrementalLoadingCollection<PostSource,PostModel>> _MyPropertyDefaultValueFactory = () => default(IncrementalLoadingCollection<PostSource,PostModel>);
+        #region Property IncrementalLoadingCollection<PostSource,PostDetailPage_Model> SoureList Setup        
+        protected Property<IncrementalLoadingCollection<PostSource,PostDetailPage_Model>> _SoureList = new Property<IncrementalLoadingCollection<PostSource,PostDetailPage_Model>> { LocatorFunc = _SoureListLocator };
+        static Func<BindableBase, ValueContainer<IncrementalLoadingCollection<PostSource,PostDetailPage_Model>>> _SoureListLocator = RegisterContainerLocator<IncrementalLoadingCollection<PostSource,PostDetailPage_Model>>("SoureList", model => model.Initialize("SoureList", ref model._SoureList, ref _SoureListLocator, _SoureListDefaultValueFactory));
+        static Func<IncrementalLoadingCollection<PostSource,PostDetailPage_Model>> _SoureListDefaultValueFactory = () => default(IncrementalLoadingCollection<PostSource,PostDetailPage_Model>);
         #endregion
+
 
 
         public CommandModel<ReactiveCommand, String> CommandGotoPost
@@ -91,12 +127,11 @@ namespace SLWeek.ViewModels
                         vm,
                         async e =>
                         {
-                            var item = e.EventArgs.Parameter as PostModel;
+                            var item = e.EventArgs.Parameter as PostDetailPage_Model;
                             if (item != null)
                             {
-
-                                var postvm = new PostDetailPage_Model(item);
-                                await vm.StageManager.DefaultStage.Show(postvm);
+                                item.HtmlText = await HttpHelper.GetTextByGet(item.PostUrl, "");
+                                await vm.StageManager.DefaultStage.Show(item);
 
                             }
 

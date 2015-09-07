@@ -21,23 +21,25 @@ namespace SLWeek.Utils
             httpClient.DefaultRequestHeaders.UserAgent.Add(new HttpProductInfoHeaderValue("ie", Strings.UerAgent));
         }
 
-        public static async Task<string> GetTextByPost(string posturi,string poststr, List<KeyValuePair<string,string>> body)
+        public static async Task<string> GetTextByPost(string posturi, string poststr, List<KeyValuePair<string, string>> body)
         {
             HttpClient httpClient = new HttpClient();
             CreateHttpClient(ref httpClient);
             HttpFormUrlEncodedContent postData = new HttpFormUrlEncodedContent(body);
-            HttpResponseMessage response =await httpClient.PostAsync(new Uri(posturi), postData);
+            HttpResponseMessage response = await httpClient.PostAsync(new Uri(posturi), postData);
             string responseString = await response.Content.ReadAsStringAsync();
             return responseString;
         }
 
-        public async Task<string> GetTextByGet(string posturi, string querystr)
+        public static async Task<string> GetTextByGet(string posturi, string querystr)
         {
             HttpClient httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.GetAsync(new Uri(posturi+querystr));
-            
+            HttpResponseMessage response = await httpClient.GetAsync(new Uri(posturi + querystr));
+
             string responseString = await response.Content.ReadAsStringAsync();
             return responseString;
         }
+
     }
+        
 }

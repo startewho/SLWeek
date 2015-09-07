@@ -93,6 +93,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utils\WebViewExtension.cs" />
     <Compile Include="Views\AuthorPage.xaml.cs">
       <DependentUpon>AuthorPage.xaml</DependentUpon>
     </Compile>
@@ -110,7 +111,6 @@
     <Compile Include="Control\SwipeableSplitView.cs" />
     <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Converters\ObjectToMenuItemConverter.cs" />
-    <Compile Include="Models\PostModel.cs" />
     <Compile Include="Models\PostType.cs" />
     <Compile Include="Startups\ChannelPage.cs" />
     <Compile Include="Utils\HttpHelper.cs" />

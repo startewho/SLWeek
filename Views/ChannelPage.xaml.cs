@@ -35,8 +35,6 @@ namespace SLWeek.Views
     public sealed partial class ChannelPage : MVVMPage
     {
 
-    public ChannelPage_Model VM { get; set; }
-
         public ChannelPage():base(null)
         
         {
@@ -65,11 +63,5 @@ namespace SLWeek.Views
          
         }
 
-        private void listview_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var item = listview.SelectedItem as PostModel;
-            var postvm = new PostDetailPage_Model(item);
-            this.Frame.Navigate(typeof(PostDetailPage), postvm) ;
-        }
     }
 }
