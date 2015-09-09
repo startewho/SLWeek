@@ -14,5 +14,13 @@ namespace SLWeek.Utils
         public static readonly string UerAgent = "Mozilla/5.0 (Linux; U; Android 4.2.2; en-cn; MEmu Build/JDQ39E) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30";
         public static readonly List<string> PostType = new List<string>() { "shehui", "wenhua", "guoji", "shishang" };
         public static double Offset;
+
+         public static string HrefAddHost(string originaltext)
+         {
+            
+            originaltext= originaltext.Replace("src=\"/upload", "src=\"" + HostUri+"/upload");
+            originaltext = originaltext.Replace("href=\"/upload", "href=\"" + HostUri+ "/upload");
+            return originaltext;
+         }
     }
 }

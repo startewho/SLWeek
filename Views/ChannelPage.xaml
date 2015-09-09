@@ -23,7 +23,7 @@
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <ListView x:Name="listview" ItemsSource="{Binding SoureList,Mode=TwoWay}" ItemTemplate="{StaticResource PostDetailItemDataTemplate}"/>
+        <ListView x:Name="Listview" ItemsSource="{Binding SoureList}" ItemTemplate="{StaticResource PostDetailItemDataTemplate}"/>
          
     </Grid>
 </mvvm:MVVMPage>

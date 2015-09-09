@@ -51,8 +51,7 @@ namespace SLWeek
         {
      
             base.OnNavigatedTo(e);
-            var vm = e.Parameter as PostDetailPage_Model;
-            this.DataContext = vm;
+   
 
         }
 

@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using SLWeek.Utils;
 
 namespace SLWeek.Utils
 {
@@ -36,10 +31,9 @@ namespace SLWeek.Utils
             if (e.NewValue != null)
             {
 
-                var url = e.NewValue.ToString();
                 webView.Settings.IsJavaScriptEnabled = true;
-                 webView.Navigate(new Uri(url));
-           
+                webView.Navigate(new Uri(e.NewValue.ToString()));
+                
             }
 
         }
@@ -70,11 +64,10 @@ namespace SLWeek.Utils
 
             if (e.NewValue != null)
             {
-                var htmltext = e.NewValue.ToString();
-
                 webView.Settings.IsJavaScriptEnabled = true;
-                webView.NavigateToString(htmltext);
-
+                webView.Settings.IsIndexedDBEnabled = true;
+                webView.NavigateToString(e.NewValue.ToString());
+             
             }
         }
     }

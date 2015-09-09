@@ -12,8 +12,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:SLWeek.ViewModels"
     mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <mvvm:MVVMPage.Resources>
+        <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
+        <vm:PostDetailPage_Model x:Key="DesignVM"/>
+    </mvvm:MVVMPage.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="{StaticResource DesignVM}">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
@@ -26,7 +29,7 @@
                 </Core:EventTriggerBehavior>
             </Interactivity:Interaction.Behaviors>
         </Button>
-        <TextBlock Text="{Binding Title}" VerticalAlignment="Top" Height="30"  Width="143" HorizontalAlignment="Right"/>
+        <TextBlock Text="{Binding Title}" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right"/>
         <WebView utils:WebViewExtensions.HtmlText ="{Binding HtmlText}"  Margin="0,30,0,0"/>
     </Grid>
 </mvvm:MVVMPage>

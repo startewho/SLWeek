@@ -25,7 +25,15 @@ namespace SLWeek.ViewModels
         // 如果您已经安装了 MVVMSidekick 代码片段，请用 propvm +tab +tab 输入属性
         public ChannelPage_Model()
         {
+
+            if (IsInDesignMode)
+            {
+                Title = "InDesginMode";
+            }
+
             Init();
+
+
         }
         private bool isLoaded;
 
@@ -51,7 +59,9 @@ namespace SLWeek.ViewModels
                              var item = e.EventData as PostDetailPage_Model;
                              if (item != null)
                              {
-                                 item.HtmlText = await HttpHelper.GetTextByGet(item.PostUrl, "");
+                                 var htmltext = await HttpHelper.GetTextByGet(item.PostUrl, "");
+                                 //item.HtmlText = Strings.HrefAddHost(htmltext);
+
                                  //  StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
                                  await StageManager.DefaultStage.Show(item);
                              }

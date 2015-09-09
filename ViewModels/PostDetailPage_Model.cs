@@ -21,8 +21,17 @@ namespace SLWeek.ViewModels
     [DataContract]
     public class PostDetailPage_Model : ViewModelBase<PostDetailPage_Model>
     {
-        // If you have install the code sniplets, use "propvm + [tab] +[tab]" create a property。
-        // 如果您已经安装了 MVVMSidekick 代码片段，请用 propvm +tab +tab 输入属性
+
+
+        public PostDetailPage_Model()
+        {
+            if (IsInDesignMode)
+            {
+                Title = "In Design Mode";
+                HtmlText = "Html";
+            }
+        }
+
         public int Id
         {
             get { return _IdLocator(this).Value; }
@@ -79,6 +88,8 @@ namespace SLWeek.ViewModels
         static Func<BindableBase, ValueContainer<string>> _HtmlTextLocator = RegisterContainerLocator<string>("HtmlText", model => model.Initialize("HtmlText", ref model._HtmlText, ref _HtmlTextLocator, _HtmlTextDefaultValueFactory));
         static Func<string> _HtmlTextDefaultValueFactory = () => default(string);
         #endregion
+
+
 
 
         public Uri Icon
