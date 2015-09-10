@@ -60,8 +60,7 @@ namespace SLWeek.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-         
         }
-
+     
     }
 }

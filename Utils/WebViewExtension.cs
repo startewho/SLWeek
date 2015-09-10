@@ -1,11 +1,15 @@
 ﻿using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-
+using Windows.Web.Http;
+using SLWeek.Utils;
 namespace SLWeek.Utils
 {
     public static class WebViewExtensions
     {
+
+        #region UriSource
+
         public static string GetUriSource(WebView view)
         {
             return (string)view.GetValue(UriSourceProperty);
@@ -21,7 +25,7 @@ namespace SLWeek.Utils
             "UriSource", typeof(string), typeof(WebViewExtensions),
             new PropertyMetadata(null, OnUriSourcePropertyChanged));
 
-        private static  void OnUriSourcePropertyChanged(DependencyObject sender,
+        private static async void OnUriSourcePropertyChanged(DependencyObject sender,
             DependencyPropertyChangedEventArgs e)
         {
             var webView = sender as WebView;
@@ -30,15 +34,21 @@ namespace SLWeek.Utils
 
             if (e.NewValue != null)
             {
-
+           
                 webView.Settings.IsJavaScriptEnabled = true;
-                webView.Navigate(new Uri(e.NewValue.ToString()));
+                var url = e.NewValue as string;
+                var html =await HttpHelper.GetTextByGet(url);
+                 html= HrefAddHost(html);
+                webView.NavigateToString(html);
                 
             }
 
         }
 
+        #endregion
 
+
+        #region HtmlText
 
 
 
@@ -67,9 +77,21 @@ namespace SLWeek.Utils
                 webView.Settings.IsJavaScriptEnabled = true;
                 webView.Settings.IsIndexedDBEnabled = true;
                 webView.NavigateToString(e.NewValue.ToString());
-             
             }
         }
+
+        #endregion
+
+
+         public static string HrefAddHost(string originaltext)
+        {
+
+            originaltext = originaltext.Replace("src=\"/upload", "src=\"" + Strings.HostUri + "/upload");
+            originaltext = originaltext.Replace("href=\"/upload", "href=\"" + Strings.HostUri + "/upload");
+            originaltext = originaltext.Replace("body{ background:#fff;}", "body{ background:#fff;-ms-content-zooming:none; }");
+            return originaltext;
+        }
+      
     }
 
 }

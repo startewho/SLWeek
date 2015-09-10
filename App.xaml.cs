@@ -86,6 +86,12 @@ namespace SLWeek
                 // parameter
                 mainPage.RootFrame.Navigate(typeof(MainPage), e.Arguments);
             }
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+
+            if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
+            {
+                HardwareButtons.BackPressed += OnBackPressed;
+            }
             // Ensure the current window is active
             Window.Current.Activate();
         }
@@ -113,5 +119,28 @@ namespace SLWeek
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+
+
+        void OnBackPressed(object sender, BackPressedEventArgs e)
+        {
+            var mainWindow = (MainPage)Window.Current.Content;
+            if (mainWindow.RootFrame.CanGoBack)
+            {
+                e.Handled = true;
+                mainWindow.RootFrame.GoBack();
+            }
+        }
+
+        // handle software back button press
+        void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            var mainWindow = (MainPage)Window.Current.Content;
+            if (mainWindow.RootFrame.CanGoBack)
+            {
+                e.Handled = true;
+                mainWindow.RootFrame.GoBack();
+            }
+        }
+
     }
 }

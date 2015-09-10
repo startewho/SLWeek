@@ -31,10 +31,10 @@ namespace SLWeek.Utils
             return responseString;
         }
 
-        public static async Task<string> GetTextByGet(string posturi, string querystr)
+        public static async Task<string> GetTextByGet(string posturi)
         {
             HttpClient httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.GetAsync(new Uri(posturi + querystr));
+            HttpResponseMessage response = await httpClient.GetAsync(new Uri(posturi));
 
             string responseString = await response.Content.ReadAsStringAsync();
             return responseString;

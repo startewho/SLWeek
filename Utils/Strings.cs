@@ -15,12 +15,6 @@ namespace SLWeek.Utils
         public static readonly List<string> PostType = new List<string>() { "shehui", "wenhua", "guoji", "shishang" };
         public static double Offset;
 
-         public static string HrefAddHost(string originaltext)
-         {
-            
-            originaltext= originaltext.Replace("src=\"/upload", "src=\"" + HostUri+"/upload");
-            originaltext = originaltext.Replace("href=\"/upload", "href=\"" + HostUri+ "/upload");
-            return originaltext;
-         }
+     
     }
 }

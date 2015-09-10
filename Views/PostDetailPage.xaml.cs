@@ -51,7 +51,7 @@ namespace SLWeek
         {
      
             base.OnNavigatedTo(e);
-   
+     
 
         }
 
@@ -60,6 +60,31 @@ namespace SLWeek
             base.OnNavigatedFrom(e);
         }
 
-    
+
+
+        private void WebView_OnNewWindowRequested(WebView sender, WebViewNewWindowRequestedEventArgs e)
+        {
+            if (e.Referrer.Host == "www.xxxxxx.com")
+            {
+                var newWebView = new WebView();
+                newWebView.Navigate(e.Uri);
+              
+                e.Handled = true;
+            }
+
+        }
+
+   
+
+        private void WebView_OnNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        {
+        
+        }
+
+
+        private void WebView_OnUnsupportedUriSchemeIdentified(WebView sender, WebViewUnsupportedUriSchemeIdentifiedEventArgs args)
+        {
+            args.Handled = true;
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace SLWeek.ViewModels
             }
 
             Init();
-
+          
 
         }
         private bool isLoaded;
@@ -42,32 +42,29 @@ namespace SLWeek.ViewModels
         {
             if (!isLoaded)
             {
-                this.SubscribeCommand();
+              
                 this.isLoaded = true;
             }
-          
+            this.SubscribeCommand();
             return base.OnBindedViewLoad(view);
         }
         private void SubscribeCommand()
         {
             MVVMSidekick.EventRouting.EventRouter.Instance.GetEventChannel<Object>()
                 .Where(x => x.EventName == "NavToDetailByEventRouter")
-                     .Subscribe(
-                         async e =>
-                         {
-                             await MVVMSidekick.Utilities.TaskExHelper.Yield();
-                             var item = e.EventData as PostDetailPage_Model;
-                             if (item != null)
-                             {
-                                 var htmltext = await HttpHelper.GetTextByGet(item.PostUrl, "");
-                                 //item.HtmlText = Strings.HrefAddHost(htmltext);
+                .Subscribe(
+                    async e =>
+                    {
+                        await MVVMSidekick.Utilities.TaskExHelper.Yield();
+                        var item = e.EventData as PostDetailPage_Model;
+                        if (item != null)
+                        {
+                            //  StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
+                            await StageManager.DefaultStage.Show(item);
+                        }
 
-                                 //  StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
-                                 await StageManager.DefaultStage.Show(item);
-                             }
-                           
-                         }
-                     ).DisposeWith(this);
+                    }
+                ).DisposeWith(this);
         }
 
         ///// <summary>
@@ -140,7 +137,7 @@ namespace SLWeek.ViewModels
                             var item = e.EventArgs.Parameter as PostDetailPage_Model;
                             if (item != null)
                             {
-                                item.HtmlText = await HttpHelper.GetTextByGet(item.PostUrl, "");
+                           
                                 await vm.StageManager.DefaultStage.Show(item);
 
                             }

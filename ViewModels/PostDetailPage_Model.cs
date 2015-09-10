@@ -5,6 +5,7 @@ using MVVMSidekick.Views;
 using MVVMSidekick.Reactive;
 using MVVMSidekick.Services;
 using MVVMSidekick.Commands;
+using MVVMSidekick.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ using System.Runtime.Serialization;
 using SLWeek.Models;
 using SLWeek.ViewModels;
 using SLWeek.Views;
+// ReSharper disable InconsistentNaming
 namespace SLWeek.ViewModels
 {
 
@@ -30,6 +32,13 @@ namespace SLWeek.ViewModels
                 Title = "In Design Mode";
                 HtmlText = "Html";
             }
+            SubscribeCommand();
+        }
+
+
+        private void SubscribeCommand()
+        {
+       
         }
 
         public int Id
@@ -152,7 +161,8 @@ namespace SLWeek.ViewModels
                         vm,
                         async e =>
                         {
-                           vm.StageManager.DefaultStage.Frame.Navigate(typeof(ChannelPage));
+
+                           vm.StageManager.DefaultStage.Frame.GoBack();
                          //await vm.StageManager.DefaultStage.Show(new ChannelPage_Model());
                           
                             await MVVMSidekick.Utilities.TaskExHelper.Yield();

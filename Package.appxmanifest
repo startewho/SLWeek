@@ -20,11 +20,6 @@
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
-      <uap:ApplicationContentUriRules>
-        <uap:Rule Match="http://lifeweeker3.cms.palmtrends.com" Type="include" WindowsRuntimeAccess="all" />
-        <uap:Rule Match="http://libs.baidu.com" Type="include" WindowsRuntimeAccess="all" />
-        <uap:Rule Match="http://www.baidu.com" Type="include" WindowsRuntimeAccess="all" />
-      </uap:ApplicationContentUriRules>
     </Application>
   </Applications>
   <Capabilities>
