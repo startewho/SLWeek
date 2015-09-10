@@ -29,23 +29,25 @@ namespace SLWeek.ViewModels
             if (IsInDesignMode)
             {
                 Title = "InDesginMode";
+                SoureList=new IncrementalLoadingCollection<PostSource, PostDetail>("",20);
+               
+                PostKindList=new List<string>() {"shehui","keji","yixue"};
             }
 
             Init();
-          
-
         }
         private bool isLoaded;
 
        
         protected override Task OnBindedViewLoad(MVVMSidekick.Views.IView view)
         {
+
             if (!isLoaded)
             {
-              
+                this.SubscribeCommand();
                 this.isLoaded = true;
             }
-            this.SubscribeCommand();
+
             return base.OnBindedViewLoad(view);
         }
         private void SubscribeCommand()
@@ -56,11 +58,11 @@ namespace SLWeek.ViewModels
                     async e =>
                     {
                         await MVVMSidekick.Utilities.TaskExHelper.Yield();
-                        var item = e.EventData as PostDetailPage_Model;
+                        var item = e.EventData as PostDetail;
                         if (item != null)
                         {
-                            //  StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
-                            await StageManager.DefaultStage.Show(item);
+                             await StageManager.DefaultStage.Show(new PostDetailPage_Model(item));
+                           //  StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
                         }
 
                     }
@@ -71,7 +73,8 @@ namespace SLWeek.ViewModels
         ///// This will be
         private void Init()
         {
-            SoureList = new IncrementalLoadingCollection<PostSource, PostDetailPage_Model>("shehui",20);
+            SoureList = new IncrementalLoadingCollection<PostSource, PostDetail>("shehui",20);
+            PostKindList = new List<string>() { "shehui", "keji", "yixue" };
         }
         public String Title
         {
@@ -84,15 +87,18 @@ namespace SLWeek.ViewModels
         static Func<BindableBase, String> _TitleDefaultValueFactory = m => m.GetType().Name;
         #endregion
 
-        public string Postkind
+
+
+
+        public List<string> PostKindList
         {
-            get { return _PostkindLocator(this).Value; }
-            set { _PostkindLocator(this).SetValueAndTryNotify(value); }
+            get { return _PostKindListLocator(this).Value; }
+            set { _PostKindListLocator(this).SetValueAndTryNotify(value); }
         }
-        #region Property string Postkind Setup        
-        protected Property<string> _Postkind = new Property<string> { LocatorFunc = _PostkindLocator };
-        static Func<BindableBase, ValueContainer<string>> _PostkindLocator = RegisterContainerLocator<string>("Postkind", model => model.Initialize("Postkind", ref model._Postkind, ref _PostkindLocator, _PostkindDefaultValueFactory));
-        static Func<string> _PostkindDefaultValueFactory = () => default(string);
+        #region Property List<string> PostKindList Setup        
+        protected Property<List<string>> _PostKindList = new Property<List<string>> { LocatorFunc = _PostKindListLocator };
+        static Func<BindableBase, ValueContainer<List<string>>> _PostKindListLocator = RegisterContainerLocator<List<string>>("PostKindList", model => model.Initialize("PostKindList", ref model._PostKindList, ref _PostKindListLocator, _PostKindListDefaultValueFactory));
+        static Func<List<string>> _PostKindListDefaultValueFactory = () => default(List<string>);
         #endregion
 
 
@@ -100,15 +106,15 @@ namespace SLWeek.ViewModels
 
 
 
-        public IncrementalLoadingCollection<PostSource,PostDetailPage_Model> SoureList
+        public IncrementalLoadingCollection<PostSource, PostDetail> SoureList
         {
             get { return _SoureListLocator(this).Value; }
             set { _SoureListLocator(this).SetValueAndTryNotify(value); }
         }
         #region Property IncrementalLoadingCollection<PostSource,PostDetailPage_Model> SoureList Setup        
-        protected Property<IncrementalLoadingCollection<PostSource,PostDetailPage_Model>> _SoureList = new Property<IncrementalLoadingCollection<PostSource,PostDetailPage_Model>> { LocatorFunc = _SoureListLocator };
-        static Func<BindableBase, ValueContainer<IncrementalLoadingCollection<PostSource,PostDetailPage_Model>>> _SoureListLocator = RegisterContainerLocator<IncrementalLoadingCollection<PostSource,PostDetailPage_Model>>("SoureList", model => model.Initialize("SoureList", ref model._SoureList, ref _SoureListLocator, _SoureListDefaultValueFactory));
-        static Func<IncrementalLoadingCollection<PostSource,PostDetailPage_Model>> _SoureListDefaultValueFactory = () => default(IncrementalLoadingCollection<PostSource,PostDetailPage_Model>);
+        protected Property<IncrementalLoadingCollection<PostSource, PostDetail>> _SoureList = new Property<IncrementalLoadingCollection<PostSource, PostDetail>> { LocatorFunc = _SoureListLocator };
+        static Func<BindableBase, ValueContainer<IncrementalLoadingCollection<PostSource, PostDetail>>> _SoureListLocator = RegisterContainerLocator<IncrementalLoadingCollection<PostSource, PostDetail>>("SoureList", model => model.Initialize("SoureList", ref model._SoureList, ref _SoureListLocator, _SoureListDefaultValueFactory));
+        static Func<IncrementalLoadingCollection<PostSource, PostDetail>> _SoureListDefaultValueFactory = () => default(IncrementalLoadingCollection<PostSource, PostDetail>);
         #endregion
 
 
@@ -134,11 +140,11 @@ namespace SLWeek.ViewModels
                         vm,
                         async e =>
                         {
-                            var item = e.EventArgs.Parameter as PostDetailPage_Model;
+                            var item = e.EventArgs.Parameter as PostDetail;
                             if (item != null)
                             {
-                           
-                                await vm.StageManager.DefaultStage.Show(item);
+                                
+                                await vm.StageManager.DefaultStage.Show(new PostDetailPage_Model(item));
 
                             }
 
@@ -162,6 +168,45 @@ namespace SLWeek.ViewModels
 
         #endregion
 
+
+        public CommandModel<ReactiveCommand, String> CommandRefresh
+        {
+            get { return _CommandRefreshLocator(this).Value; }
+            set { _CommandRefreshLocator(this).SetValueAndTryNotify(value); }
+        }
+        #region Property CommandModel<ReactiveCommand, String> CommandRefresh Setup        
+
+        protected Property<CommandModel<ReactiveCommand, String>> _CommandRefresh = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandRefreshLocator };
+        static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandRefreshLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>("CommandRefresh", model => model.Initialize("CommandRefresh", ref model._CommandRefresh, ref _CommandRefreshLocator, _CommandRefreshDefaultValueFactory));
+        static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandRefreshDefaultValueFactory =
+            model =>
+            {
+                var resource = "CommandRefresh";           // Command resource  
+                var commandId = "CommandRefresh";
+                var vm = CastToCurrentType(model);
+                var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+
+                cmd.DoExecuteUIBusyTask(
+                        vm,
+                        async e =>
+                        {
+                            vm.Init();
+                            //Todo: Add Refresh logic here, or
+                            await MVVMSidekick.Utilities.TaskExHelper.Yield();
+                        })
+                    .DoNotifyDefaultEventRouter(vm, commandId)
+                    .Subscribe()
+                    .DisposeWith(vm);
+
+                var cmdmdl = cmd.CreateCommandModel(resource);
+
+                cmdmdl.ListenToIsUIBusy(
+                    model: vm,
+                    canExecuteWhenBusy: false);
+                return cmdmdl;
+            };
+
+        #endregion
 
 
 

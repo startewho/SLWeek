@@ -18,12 +18,27 @@
         <vm:ChannelPage_Model x:Key="DesignVM"/>
     </mvvm:MVVMPage.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="{StaticResource DesignVM}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <ListView x:Name="Listview" ItemsSource="{Binding SoureList}" ItemTemplate="{StaticResource PostDetailItemDataTemplate}"/>
-         
+        <TextBlock Text="{Binding Postkind}"/>
+        <Button Content="Refresh" Grid.Row="0" HorizontalAlignment="Right" >
+            <Interactivity:Interaction.Behaviors>
+                <Core:EventTriggerBehavior EventName="Tapped">
+                    <!-- ReSharper disable once Xaml.InvalidType -->
+                    <Core:InvokeCommandAction Command="{Binding CommandRefresh}" />
+                </Core:EventTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
+        </Button>
+        <Pivot Grid.Row="1" ItemsSource="{Binding PostKindList}" ItemTemplate="{StaticResource PostKindItemDataTemplate}"/>
+  
+        <ListView x:Name="Listview" Grid.Row="1" ItemsSource="{Binding SoureList}"  ItemTemplate="{StaticResource PostDetailItemDataTemplate}" Margin="0,3,0,0" Visibility="Collapsed" />
+
     </Grid>
 </mvvm:MVVMPage>

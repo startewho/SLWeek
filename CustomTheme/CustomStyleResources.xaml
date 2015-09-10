@@ -134,16 +134,14 @@
     </Style>
     
     <DataTemplate x:Key="PostDetailItemDataTemplate">
-        <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Vertical" Height="200">
             <interactivity:Interaction.Behaviors>
-            <core:EventTriggerBehavior EventName="Tapped">
-                    <behaviors:SendToEventRouterAction EventRoutingName="NavToDetailByEventRouter"  IsEventFiringToAllBaseClassesChannels="True"  EventData="{Binding}"/>
-            </core:EventTriggerBehavior>
-        </interactivity:Interaction.Behaviors>
-            <StackPanel Orientation="Vertical" Height="200">
-                <Image Source="{Binding Icon}" Height="180"></Image>
+                <core:EventTriggerBehavior EventName="Tapped">
+                    <behaviors:SendToEventRouterAction EventRoutingName="NavToDetailByEventRouter"   IsEventFiringToAllBaseClassesChannels="True"  EventData="{Binding}"/>
+                </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+            <Image Source="{Binding Icon}" Height="180"></Image>
                 <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
-        </StackPanel>
         </StackPanel>
     </DataTemplate>
     <!--#region PersonalControl Style-->
@@ -607,7 +605,10 @@
     <!--#region Converter-->
     
     <converter:ObjectToMenuItemConverter x:Key="ObjectToMenuItemConverter"/>
-    
+    <DataTemplate x:Key="PostKindItemDataTemplate">
+        <TextBlock Text="{Binding}"/>
+    </DataTemplate>
+
     <!--#endregion-->
 
 </ResourceDictionary>

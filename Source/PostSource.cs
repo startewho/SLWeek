@@ -3,28 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SLWeek.Models;
 using SLWeek.ViewModels;
 using SLWeek.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace SLWeek.Source
 {
-    public class PostSource : IIncrementalSource<PostDetailPage_Model>
+    public class PostSource : IIncrementalSource<PostDetail>
     {
-        private List<PostDetailPage_Model> posts;
+        private List<PostDetail> posts;
 
         public PostSource()
         {
-            posts = new List<PostDetailPage_Model>();
+            posts = new List<PostDetail>();
 
             for (int i = 0; i < 1024; i++)
             {
-                var p = new PostDetailPage_Model() { Title = "PostModel " + i ,Icon=new Uri("http://baidu.com/logo.jpg")};
+                var p = new PostDetail() { Title = "PostModel " + i ,Icon=new Uri("http://baidu.com/logo.jpg")};
                 posts.Add(p);
             }
         }
 
-        public async Task<IEnumerable<PostDetailPage_Model>> GetPagedItems(string query,int pageIndex, int pageSize)
+        public async Task<IEnumerable<PostDetail>> GetPagedItems(string query,int pageIndex, int pageSize)
         {
             //if (pageIndex < 1)
             //    throw new ArgumentOutOfRangeException("pageIndex");
@@ -48,7 +49,7 @@ namespace SLWeek.Source
                 JObject postlist = JObject.Parse(jsontext);
                 var list = from item in postlist.SelectToken("list")
                            select
-                      new PostDetailPage_Model()
+                      new PostDetail()
                       {
                           Title = (string)item["title"],
                           Des = (string)item["des"],

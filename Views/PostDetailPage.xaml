@@ -25,14 +25,14 @@
         </Grid.ChildrenTransitions>
         <Button x:Name="button" Height="30" Content="Back" Width="60" VerticalAlignment="Top" Background="#33D31E1E">
             <Interactivity:Interaction.Behaviors>
-                <Core:EventTriggerBehavior EventName="Click">
+                <Core:EventTriggerBehavior EventName="Tapped">
                     <!-- ReSharper disable once Xaml.InvalidType -->
                     <Core:InvokeCommandAction Command="{Binding CommandBack}" />
                 </Core:EventTriggerBehavior>
             </Interactivity:Interaction.Behaviors>
         </Button>
-        <TextBlock Text="{Binding Title}" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right"/>
+        <TextBlock Text="{Binding VM.Title}" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right"/>
         <!-- ReSharper disable once InconsistentNaming -->
-        <WebView x:Name="webView"  utils:WebViewExtensions.UriSource="{Binding PostUrl}"  Margin="0,30,0,0" UnsupportedUriSchemeIdentified="WebView_OnUnsupportedUriSchemeIdentified" NavigationStarting="WebView_OnNavigationStarting"/>
+        <WebView x:Name="webView"  utils:WebViewExtensions.UriSource="{Binding VM.PostUrl}"  Margin="0,30,0,0" UnsupportedUriSchemeIdentified="WebView_OnUnsupportedUriSchemeIdentified" NavigationStarting="WebView_OnNavigationStarting"/>
     </Grid>
 </mvvm:MVVMPage>
