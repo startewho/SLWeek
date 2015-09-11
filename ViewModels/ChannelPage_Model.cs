@@ -28,10 +28,7 @@ namespace SLWeek.ViewModels
 
             if (IsInDesignMode)
             {
-                Title = "InDesginMode";
-                SoureList=new IncrementalLoadingCollection<PostSource, PostDetail>("",20);
-               
-                PostKindList=new List<string>() {"shehui","keji","yixue"};
+
             }
 
             Init();
@@ -73,140 +70,24 @@ namespace SLWeek.ViewModels
         ///// This will be
         private void Init()
         {
-            SoureList = new IncrementalLoadingCollection<PostSource, PostDetail>("shehui",20);
-            PostKindList = new List<string>() { "shehui", "keji", "yixue" };
+         ListChannels=new List<Channel>();
+         ListChannels.Add(new Channel("shehui",20));
+         ListChannels.Add(new Channel("wenhua", 20));
         }
-        public String Title
+
+
+
+        public List<Channel> ListChannels
         {
-            get { return _TitleLocator(this).Value; }
-            set { _TitleLocator(this).SetValueAndTryNotify(value); }
+            get { return _ListChannelsLocator(this).Value; }
+            set { _ListChannelsLocator(this).SetValueAndTryNotify(value); }
         }
-        #region Property String Title Setup
-        protected Property<String> _Title = new Property<String> { LocatorFunc = _TitleLocator };
-        static Func<BindableBase, ValueContainer<String>> _TitleLocator = RegisterContainerLocator<String>("Title", model => model.Initialize("Title", ref model._Title, ref _TitleLocator, _TitleDefaultValueFactory));
-        static Func<BindableBase, String> _TitleDefaultValueFactory = m => m.GetType().Name;
+        #region Property List<Channel> ListChannels Setup        
+        protected Property<List<Channel>> _ListChannels = new Property<List<Channel>> { LocatorFunc = _ListChannelsLocator };
+        static Func<BindableBase, ValueContainer<List<Channel>>> _ListChannelsLocator = RegisterContainerLocator<List<Channel>>("ListChannels", model => model.Initialize("ListChannels", ref model._ListChannels, ref _ListChannelsLocator, _ListChannelsDefaultValueFactory));
+        static Func<List<Channel>> _ListChannelsDefaultValueFactory = () => default(List<Channel>);
         #endregion
 
-
-
-
-        public List<string> PostKindList
-        {
-            get { return _PostKindListLocator(this).Value; }
-            set { _PostKindListLocator(this).SetValueAndTryNotify(value); }
-        }
-        #region Property List<string> PostKindList Setup        
-        protected Property<List<string>> _PostKindList = new Property<List<string>> { LocatorFunc = _PostKindListLocator };
-        static Func<BindableBase, ValueContainer<List<string>>> _PostKindListLocator = RegisterContainerLocator<List<string>>("PostKindList", model => model.Initialize("PostKindList", ref model._PostKindList, ref _PostKindListLocator, _PostKindListDefaultValueFactory));
-        static Func<List<string>> _PostKindListDefaultValueFactory = () => default(List<string>);
-        #endregion
-
-
-
-
-
-
-        public IncrementalLoadingCollection<PostSource, PostDetail> SoureList
-        {
-            get { return _SoureListLocator(this).Value; }
-            set { _SoureListLocator(this).SetValueAndTryNotify(value); }
-        }
-        #region Property IncrementalLoadingCollection<PostSource,PostDetailPage_Model> SoureList Setup        
-        protected Property<IncrementalLoadingCollection<PostSource, PostDetail>> _SoureList = new Property<IncrementalLoadingCollection<PostSource, PostDetail>> { LocatorFunc = _SoureListLocator };
-        static Func<BindableBase, ValueContainer<IncrementalLoadingCollection<PostSource, PostDetail>>> _SoureListLocator = RegisterContainerLocator<IncrementalLoadingCollection<PostSource, PostDetail>>("SoureList", model => model.Initialize("SoureList", ref model._SoureList, ref _SoureListLocator, _SoureListDefaultValueFactory));
-        static Func<IncrementalLoadingCollection<PostSource, PostDetail>> _SoureListDefaultValueFactory = () => default(IncrementalLoadingCollection<PostSource, PostDetail>);
-        #endregion
-
-
-
-        public CommandModel<ReactiveCommand, String> CommandGotoPost
-        {
-            get { return _CommandGotoPostLocator(this).Value; }
-            set { _CommandGotoPostLocator(this).SetValueAndTryNotify(value); }
-        }
-        #region Property CommandModel<ReactiveCommand, String> CommandGotoPost Setup        
-
-        protected Property<CommandModel<ReactiveCommand, String>> _CommandGotoPost = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandGotoPostLocator };
-        static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandGotoPostLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>("CommandGotoPost", model => model.Initialize("CommandGotoPost", ref model._CommandGotoPost, ref _CommandGotoPostLocator, _CommandGotoPostDefaultValueFactory));
-        static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandGotoPostDefaultValueFactory =
-            model =>
-            {
-                var resource = "CommandGotoPost";           // Command resource  
-                var commandId = "CommandGotoPost";
-                var vm = CastToCurrentType(model);
-                var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
-
-                cmd.DoExecuteUIBusyTask(
-                        vm,
-                        async e =>
-                        {
-                            var item = e.EventArgs.Parameter as PostDetail;
-                            if (item != null)
-                            {
-                                
-                                await vm.StageManager.DefaultStage.Show(new PostDetailPage_Model(item));
-
-                            }
-
-                            //Todo: Add GotoPost logic here, or
-                            await MVVMSidekick.Utilities.TaskExHelper.Yield();
-
-
-                        })
-                    .DoNotifyDefaultEventRouter(vm, commandId)
-                    .Subscribe()
-                    .DisposeWith(vm);
-                   
-
-                var cmdmdl = cmd.CreateCommandModel(resource);
-
-                cmdmdl.ListenToIsUIBusy(
-                    model: vm,
-                    canExecuteWhenBusy: false);
-                return cmdmdl;
-            };
-
-        #endregion
-
-
-        public CommandModel<ReactiveCommand, String> CommandRefresh
-        {
-            get { return _CommandRefreshLocator(this).Value; }
-            set { _CommandRefreshLocator(this).SetValueAndTryNotify(value); }
-        }
-        #region Property CommandModel<ReactiveCommand, String> CommandRefresh Setup        
-
-        protected Property<CommandModel<ReactiveCommand, String>> _CommandRefresh = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandRefreshLocator };
-        static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandRefreshLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>("CommandRefresh", model => model.Initialize("CommandRefresh", ref model._CommandRefresh, ref _CommandRefreshLocator, _CommandRefreshDefaultValueFactory));
-        static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandRefreshDefaultValueFactory =
-            model =>
-            {
-                var resource = "CommandRefresh";           // Command resource  
-                var commandId = "CommandRefresh";
-                var vm = CastToCurrentType(model);
-                var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
-
-                cmd.DoExecuteUIBusyTask(
-                        vm,
-                        async e =>
-                        {
-                            vm.Init();
-                            //Todo: Add Refresh logic here, or
-                            await MVVMSidekick.Utilities.TaskExHelper.Yield();
-                        })
-                    .DoNotifyDefaultEventRouter(vm, commandId)
-                    .Subscribe()
-                    .DisposeWith(vm);
-
-                var cmdmdl = cmd.CreateCommandModel(resource);
-
-                cmdmdl.ListenToIsUIBusy(
-                    model: vm,
-                    canExecuteWhenBusy: false);
-                return cmdmdl;
-            };
-
-        #endregion
 
 
 
