@@ -35,16 +35,10 @@ namespace SLWeek.ViewModels
                 
             }
             this.VM = model;
-            
-            SubscribeCommand();
+  
         }
 
-
-        private void SubscribeCommand()
-        {
-
-        }
-
+      
         public PostDetail VM { get; set; }
 
     public CommandModel<ReactiveCommand, String> CommandBack
@@ -70,9 +64,9 @@ namespace SLWeek.ViewModels
                         {
                             await MVVMSidekick.Utilities.TaskExHelper.Yield();
                            //vm.StageManager.DefaultStage.Frame.GoBack();
-                            vm.StageManager.DefaultStage.Frame.Navigate(typeof(ChannelPage));
-
-                            //  await vm.StageManager.DefaultStage.Show(new ChannelPage_Model());
+                           vm.StageManager.DefaultStage.Frame.Navigate(typeof(ChannelPage));
+                          //vm.StageManager.DefaultStage.Frame.GoBack();
+                          //await vm.StageManager.DefaultStage.Show(new ChannelPage_Model());
                             vm.CloseViewAndDispose();
                         })
                     .DoNotifyDefaultEventRouter(vm, commandId)

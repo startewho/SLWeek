@@ -94,18 +94,5 @@ namespace SLWeek.Models
         #endregion
 
 
-
-        public Uri PostUri
-        {
-            get { return _PostUriLocator(this).Value; }
-            set { _PostUriLocator(this).SetValueAndTryNotify(value); }
-        }
-        #region Property Uri PostUri Setup        
-        protected Property<Uri> _PostUri = new Property<Uri> { LocatorFunc = _PostUriLocator };
-        static Func<BindableBase, ValueContainer<Uri>> _PostUriLocator = RegisterContainerLocator<Uri>("PostUri", model => model.Initialize("PostUri", ref model._PostUri, ref _PostUriLocator, _PostUriDefaultValueFactory));
-        static Func<Uri> _PostUriDefaultValueFactory = () => default(Uri);
-        #endregion
-
-
     }
 }

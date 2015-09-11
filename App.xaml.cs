@@ -15,8 +15,10 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using SLWeek.Control;
+using SLWeek.Views;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=402347&clcid=0x409
 
@@ -59,39 +61,47 @@ namespace SLWeek
             //Init MVVM-Sidekick Navigations:
             InitNavigationConfigurationInThisAssembly();
 
-            var mainPage = Window.Current.Content as MainPage;
+            Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (mainPage == null)
+            if (rootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                mainPage = new MainPage();
+                rootFrame = new Frame();
 
-                mainPage.RootFrame.NavigationFailed += OnNavigationFailed;
+                // TODO: change this value to a cache size that is appropriate for your application
+                rootFrame.CacheSize = 1;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    //TODO: Load state from previously suspended application
+                    // TODO: Load state from previously suspended application
                 }
 
                 // Place the frame in the current Window
-                Window.Current.Content = mainPage;
+                Window.Current.Content = rootFrame;
             }
 
-            if (mainPage.Content == null)
+            if (rootFrame.Content == null)
             {
+                // Removes the turnstile navigation for startup.
+
+                rootFrame.Name = "MainFrame";
+                rootFrame.ContentTransitions = null;
+                rootFrame.Navigated += this.RootFrame_FirstNavigated;
+
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                mainPage.RootFrame.Navigate(typeof(MainPage), e.Arguments);
+                if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+                {
+                    throw new Exception("Failed to create initial page");
+                }
             }
-            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
 
-            if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
-            {
-                HardwareButtons.BackPressed += OnBackPressed;
-            }
+            // Ensure the current window is active
+
+          
             // Ensure the current window is active
             Window.Current.Activate();
         }
@@ -140,6 +150,12 @@ namespace SLWeek
                 e.Handled = true;
                 mainWindow.RootFrame.GoBack();
             }
+        }
+
+        private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
+        {
+            var rootFrame = sender as Frame;
+            rootFrame.Navigated -= this.RootFrame_FirstNavigated;
         }
 
     }

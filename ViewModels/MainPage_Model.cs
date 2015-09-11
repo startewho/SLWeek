@@ -26,11 +26,51 @@ namespace SLWeek.ViewModels
         public MainPage_Model()
         {
             this.IsSplitViewPaneOpen = !this.IsSplitViewPaneOpen;
-           
+            this.isLoaded = false;
+
+            MenuItems.Add(new MenuItem { Icon = "", Title = "主页", PageType = typeof(HomePage) });
             MenuItems.Add(new MenuItem { Icon = "", Title = "频道", PageType = typeof(ChannelPage) });
             MenuItems.Add(new MenuItem { Icon = "", Title = "专栏", PageType = typeof(AuthorPage) });
+            MenuItems.Add(new MenuItem { Icon = "", Title = "设置", PageType = typeof(SettingPage) });
             SelectedMenuItem = MenuItems.First();
         }
+
+
+
+        private bool isLoaded;
+
+
+        protected override Task OnBindedViewLoad(MVVMSidekick.Views.IView view)
+        {
+
+            if (!isLoaded)
+            {
+                this.SubscribeCommand();
+                this.isLoaded = true;
+            }
+            return base.OnBindedViewLoad(view);
+        }
+
+        private void SubscribeCommand()
+        {
+            MVVMSidekick.EventRouting.EventRouter.Instance.GetEventChannel<Object>()
+                .Where(x => x.EventName == "NavToDetailByEventRouter")
+                .Subscribe(
+                    async e =>
+                    {
+                        await MVVMSidekick.Utilities.TaskExHelper.Yield();
+                        var item = e.EventData as PostDetail;
+                        if (item != null)
+                        {
+                            await StageManager.DefaultStage.Show(new PostDetailPage_Model(item));
+                         //StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
+                        }
+
+                    }
+                ).DisposeWith(this);
+        }
+
+
 
         private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
 

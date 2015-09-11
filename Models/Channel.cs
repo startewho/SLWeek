@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SLWeek.Source;
 using SLWeek.Models;
 using MVVMSidekick.ViewModels;
+using SLWeek.Utils;
 
 namespace SLWeek.Models
 {
@@ -16,7 +17,7 @@ namespace SLWeek.Models
         {
             //shehui
             SoureList = new IncrementalLoadingCollection<PostSource, PostDetail>(postkind, 20);
-            PostKind = postkind;
+            PostKind = new PostType() {Name = postkind, CNName = Strings.PostTypeDic[postkind]};
         }
 
         public IncrementalLoadingCollection<PostSource, PostDetail> SoureList
@@ -31,19 +32,20 @@ namespace SLWeek.Models
         #endregion
 
 
+    
 
-        public string PostKind
+
+
+        public PostType PostKind
         {
             get { return _PostKindLocator(this).Value; }
             set { _PostKindLocator(this).SetValueAndTryNotify(value); }
         }
-        #region Property string PostKind Setup        
-        protected Property<string> _PostKind = new Property<string> { LocatorFunc = _PostKindLocator };
-        static Func<BindableBase, ValueContainer<string>> _PostKindLocator = RegisterContainerLocator<string>("PostKind", model => model.Initialize("PostKind", ref model._PostKind, ref _PostKindLocator, _PostKindDefaultValueFactory));
-        static Func<string> _PostKindDefaultValueFactory = () => default(string);
+        #region Property PostType PostKind Setup        
+        protected Property<PostType> _PostKind = new Property<PostType> { LocatorFunc = _PostKindLocator };
+        static Func<BindableBase, ValueContainer<PostType>> _PostKindLocator = RegisterContainerLocator<PostType>("PostKind", model => model.Initialize("PostKind", ref model._PostKind, ref _PostKindLocator, _PostKindDefaultValueFactory));
+        static Func<PostType> _PostKindDefaultValueFactory = () => default(PostType);
         #endregion
-
-
 
 
 

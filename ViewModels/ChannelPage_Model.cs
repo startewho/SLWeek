@@ -26,45 +26,9 @@ namespace SLWeek.ViewModels
         public ChannelPage_Model()
         {
 
-            if (IsInDesignMode)
-            {
-
-            }
-
             Init();
         }
-        private bool isLoaded;
 
-       
-        protected override Task OnBindedViewLoad(MVVMSidekick.Views.IView view)
-        {
-
-            if (!isLoaded)
-            {
-                this.SubscribeCommand();
-                this.isLoaded = true;
-            }
-
-            return base.OnBindedViewLoad(view);
-        }
-        private void SubscribeCommand()
-        {
-            MVVMSidekick.EventRouting.EventRouter.Instance.GetEventChannel<Object>()
-                .Where(x => x.EventName == "NavToDetailByEventRouter")
-                .Subscribe(
-                    async e =>
-                    {
-                        await MVVMSidekick.Utilities.TaskExHelper.Yield();
-                        var item = e.EventData as PostDetail;
-                        if (item != null)
-                        {
-                             await StageManager.DefaultStage.Show(new PostDetailPage_Model(item));
-                           //  StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
-                        }
-
-                    }
-                ).DisposeWith(this);
-        }
 
         ///// <summary>
         ///// This will be
@@ -74,7 +38,6 @@ namespace SLWeek.ViewModels
          ListChannels.Add(new Channel("shehui",20));
          ListChannels.Add(new Channel("wenhua", 20));
         }
-
 
 
         public List<Channel> ListChannels

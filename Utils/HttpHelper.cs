@@ -9,7 +9,7 @@ using Windows.Web.Http.Headers;
 using SLWeek.Utils;
 namespace SLWeek.Utils
 {
-    class HttpHelper
+   public class HttpHelper
     {
         public static void CreateHttpClient(ref HttpClient httpClient)
         {

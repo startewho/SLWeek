@@ -23,7 +23,7 @@ using SLWeek.Converters;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace SLWeek
+namespace SLWeek.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -33,7 +33,6 @@ namespace SLWeek
         public MainPage()
         {
             this.InitializeComponent();
- 
             // add entry animations
             var transitions = new TransitionCollection { };
             var transition = new NavigationThemeTransition { };

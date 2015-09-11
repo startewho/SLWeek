@@ -10,11 +10,11 @@ using Newtonsoft.Json.Linq;
 
 namespace SLWeek.Source
 {
-    public class PostSource : IIncrementalSource<PostDetail>
+    public class TopPostSource : IIncrementalSource<PostDetail>
     {
         private List<PostDetail> posts;
 
-        public PostSource()
+        public TopPostSource()
         {
             posts = new List<PostDetail>();
 
@@ -32,12 +32,10 @@ namespace SLWeek.Source
             //if (pageSize < 1)
             //    throw new ArgumentOutOfRangeException("pageSize");
 
-            var jsontext = await HttpHelper.GetTextByPost(Strings.PostListUri, query,
+            var jsontext = await HttpHelper.GetTextByPost(Strings.TopPostListUri, query,
                 new List<KeyValuePair<string, string>>
                 {
-                    new KeyValuePair<string, string>("sa", query),
-                    new KeyValuePair<string, string>("offset", (pageIndex*pageSize).ToString()),
-                    new KeyValuePair<string, string>("count", pageSize.ToString()),
+                    new KeyValuePair<string, string>("height", query),
                     new KeyValuePair<string, string>("uid", "13916551"),
                     new KeyValuePair<string, string>("platform", "a"),
                     new KeyValuePair<string, string>("mobile", "Emnu"),
@@ -57,7 +55,7 @@ namespace SLWeek.Source
                           HtmlText ="",
                           Icon = new Uri(Strings.HostUri + (string)item["icon"]),
                           Id = Convert.ToInt32((string)item["id"]),
-                          PostUrl = string.Format("http://lifeweeker3.cms.palmtrends.com/api_v2.php?action=article&id={0}&fontsize=m&mode=day&uid=13916551&platform=a&pid=10022&mobile=MEmu&picMode=show", Convert.ToInt32((string)item["id"])),
+                          PostUrl = string.Format("http://lifeweeker3.cms.palmtrends.com/api_v2.php?action=article&id={0}&fontsize=m&mode=day&uid=13916551&platform=a&pid=10022&mobile=MEmu&picMode=show", Convert.ToInt32((string)item["id"]))
                       };
                 return list;
             }
