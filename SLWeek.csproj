@@ -93,7 +93,15 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Views\AuthorListPage.xaml.cs">
+      <DependentUpon>AuthorListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Author.cs" />
+    <Compile Include="Source\AuthorSource.cs" />
+    <Compile Include="Source\AuthorPostSource.cs" />
     <Compile Include="Source\TopPostSource.cs" />
+    <Compile Include="Startups\AuthorListPage.cs" />
+    <Compile Include="ViewModels\AuthorListPage_Model.cs" />
     <Compile Include="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -163,6 +171,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\AuthorListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

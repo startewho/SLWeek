@@ -99,9 +99,18 @@ namespace SLWeek
                 }
             }
 
+            // listen for back button clicks (both soft- and hardware)
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+
+            if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
+            {
+                HardwareButtons.BackPressed += OnBackPressed;
+            }
+
+
             // Ensure the current window is active
 
-          
+
             // Ensure the current window is active
             Window.Current.Activate();
         }
@@ -133,22 +142,23 @@ namespace SLWeek
 
         void OnBackPressed(object sender, BackPressedEventArgs e)
         {
-            var mainWindow = (MainPage)Window.Current.Content;
-            if (mainWindow.RootFrame.CanGoBack)
+            var mainFrame = (Frame)Window.Current.Content;
+
+            if (mainFrame.CanGoBack)
             {
                 e.Handled = true;
-                mainWindow.RootFrame.GoBack();
+                mainFrame.GoBack();
             }
         }
 
         // handle software back button press
         void OnBackRequested(object sender, BackRequestedEventArgs e)
         {
-            var mainWindow = (MainPage)Window.Current.Content;
-            if (mainWindow.RootFrame.CanGoBack)
+            var mainFrame = (Frame)Window.Current.Content;
+            if (mainFrame.CanGoBack)
             {
                 e.Handled = true;
-                mainWindow.RootFrame.GoBack();
+                mainFrame.GoBack();
             }
         }
 

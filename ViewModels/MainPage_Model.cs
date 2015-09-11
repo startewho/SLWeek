@@ -30,7 +30,7 @@ namespace SLWeek.ViewModels
 
             MenuItems.Add(new MenuItem { Icon = "", Title = "主页", PageType = typeof(HomePage) });
             MenuItems.Add(new MenuItem { Icon = "", Title = "频道", PageType = typeof(ChannelPage) });
-            MenuItems.Add(new MenuItem { Icon = "", Title = "专栏", PageType = typeof(AuthorPage) });
+            MenuItems.Add(new MenuItem { Icon = "", Title = "专栏", PageType = typeof(AuthorListPage) });
             MenuItems.Add(new MenuItem { Icon = "", Title = "设置", PageType = typeof(SettingPage) });
             SelectedMenuItem = MenuItems.First();
         }
@@ -63,7 +63,25 @@ namespace SLWeek.ViewModels
                         if (item != null)
                         {
                             await StageManager.DefaultStage.Show(new PostDetailPage_Model(item));
+                           
                          //StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
+                        }
+
+                    }
+                ).DisposeWith(this);
+
+            MVVMSidekick.EventRouting.EventRouter.Instance.GetEventChannel<Object>()
+                .Where(x => x.EventName == "NavToAuthorDetailByEventRouter")
+                .Subscribe(
+                    async e =>
+                    {
+                        await MVVMSidekick.Utilities.TaskExHelper.Yield();
+                        var item = e.EventData as Author;
+                        if (item != null)
+                        {
+                            await StageManager.DefaultStage.Show(new AuthorPage_Model(item));
+
+                            //StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
                         }
 
                     }

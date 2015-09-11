@@ -132,9 +132,21 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    
-    
+
+
+    <DataTemplate x:Key="AuthorItemDataTemplate">
+        <StackPanel Orientation="Vertical" Height="200">
+            <interactivity:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="Tapped">
+                    <behaviors:SendToEventRouterAction EventRoutingName="NavToAuthorDetailByEventRouter"   IsEventFiringToAllBaseClassesChannels="True"  EventData="{Binding}"/>
+                </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+            <Image Source="{Binding Icon}" Height="180"/>
+            <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
+        </StackPanel>
+    </DataTemplate>
+
+
     <DataTemplate x:Key="PostDetailItemDataTemplate">
         <StackPanel Orientation="Vertical" Height="200">
             <interactivity:Interaction.Behaviors>
@@ -142,7 +154,7 @@
                     <behaviors:SendToEventRouterAction EventRoutingName="NavToDetailByEventRouter"   IsEventFiringToAllBaseClassesChannels="True"  EventData="{Binding}"/>
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
-            <Image Source="{Binding Icon}" Height="180"></Image>
+            <Image Source="{Binding Icon}" Height="180"/>
                 <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
         </StackPanel>
     </DataTemplate>

@@ -62,12 +62,13 @@ namespace SLWeek.ViewModels
                         vm,
                         async e =>
                         {
+                            vm.StageManager.DefaultStage.Frame.GoBack();
                             await MVVMSidekick.Utilities.TaskExHelper.Yield();
-                           //vm.StageManager.DefaultStage.Frame.GoBack();
-                           vm.StageManager.DefaultStage.Frame.Navigate(typeof(ChannelPage));
+                        
+                           //vm.StageManager.DefaultStage.Frame.Navigate(typeof(ChannelPage));
                           //vm.StageManager.DefaultStage.Frame.GoBack();
                           //await vm.StageManager.DefaultStage.Show(new ChannelPage_Model());
-                            vm.CloseViewAndDispose();
+                          //  vm.CloseViewAndDispose();
                         })
                     .DoNotifyDefaultEventRouter(vm, commandId)
                     .Subscribe()

@@ -17,12 +17,12 @@
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <vm:ChannelPage_Model x:Key="DesignVM"/>
     </mvvm:MVVMPage.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="{StaticResource DesignVM}">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <Pivot Margin="0,0,0,56" ItemsSource="{Binding ListChannels}" ItemTemplate="{StaticResource ChannelPivotItemDateTemplate}" HeaderTemplate="{StaticResource ChannelPivotItemHeaderDateTemplate}"/>
+        <Pivot  ItemsSource="{Binding ListChannels}" ItemTemplate="{StaticResource ChannelPivotItemDateTemplate}" HeaderTemplate="{StaticResource ChannelPivotItemHeaderDateTemplate}"/>
     </Grid>
 </mvvm:MVVMPage>

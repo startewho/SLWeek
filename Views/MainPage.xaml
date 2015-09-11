@@ -6,7 +6,8 @@
     xmlns:c="using:SLWeek.Control" 
     xmlns:mvvm="using:MVVMSidekick.Views"
     xmlns:vm="using:SLWeek.ViewModels"
-    xmlns:m="using:SLWeek.Models"    
+    xmlns:m="using:SLWeek.Models" 
+    NavigationCacheMode="Required"
    >
     <Page.Resources>
         <vm:MainPage_Model x:Key="DesignVM"/>
