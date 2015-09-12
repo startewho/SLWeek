@@ -34,11 +34,15 @@
         </Button>
         <TextBlock Text="{Binding VM.Title}" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right"/>
         <!-- ReSharper disable once InconsistentNaming -->
-        <WebView x:Name="webView"  utils:WebViewExtensions.UriSource="{Binding VM.PostUrl}"  Margin="0,30,0,0">
+        <WebView x:Name="webView"  utils:WebViewExtensions.UriSource="{Binding VM.PostUrl}"  Margin="0,30,0,0" DOMContentLoaded="webView_DOMContentLoaded">
             <Interactivity:Interaction.Behaviors>
                 <Core:EventTriggerBehavior EventName="UnsupportedUriSchemeIdentified">
                     <!-- ReSharper disable once Xaml.InvalidType -->
                     <Core:InvokeCommandAction Command="{Binding CommandGoToNewPostPage}" />
+                </Core:EventTriggerBehavior>
+                <Core:EventTriggerBehavior EventName="ScriptNotify">
+                    <!-- ReSharper disable once Xaml.InvalidType -->
+                    <Core:InvokeCommandAction Command="{Binding CommandViewPicturePage}"/>
                 </Core:EventTriggerBehavior>
             </Interactivity:Interaction.Behaviors>
         </WebView>

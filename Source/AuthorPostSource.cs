@@ -12,19 +12,7 @@ namespace SLWeek.Source
 {
     public class AuthorPostSource : IIncrementalSource<PostDetail>
     {
-        private List<PostDetail> posts;
-
-        public AuthorPostSource()
-        {
-            posts = new List<PostDetail>();
-
-            for (int i = 0; i < 1024; i++)
-            {
-                var p = new PostDetail() { Title = "PostModel " + i ,Icon=new Uri("http://baidu.com/logo.jpg")};
-                posts.Add(p);
-            }
-        }
-
+   
         public async Task<IEnumerable<PostDetail>> GetPagedItems(string query,int pageIndex, int pageSize)
         {
             //if (pageIndex < 1)
@@ -47,25 +35,25 @@ namespace SLWeek.Source
             if (jsontext!=null)
             {
                 JObject postlist = JObject.Parse(jsontext);
-                var list = from item in postlist.SelectToken("list")
-                           select
-                      new PostDetail()
-                      {
-                          Title = (string)item["title"],
-                          Des = (string)item["des"],
-                          Creattime = (string)item["adddate"],
-                          HtmlText ="",
-                          Icon = new Uri(Strings.HostUri + (string)item["icon"]),
-                          Id = Convert.ToInt32((string)item["id"]),
-                          PostUrl = string.Format("http://lifeweeker3.cms.palmtrends.com/api_v2.php?action=article&id={0}&fontsize=m&mode=day&uid=13916551&platform=a&pid=10022&mobile=MEmu&picMode=show", Convert.ToInt32((string)item["id"]))
-                      };
+                var list = postlist.SelectToken("list").Select(item => new PostDetail()
+                {
+                    Title = (string) item["title"],
+                    Des = (string) item["des"],
+                    Creattime = (string) item["adddate"],
+                    Icon = new Uri(Strings.HostUri + (string) item["icon"]),
+                    Id = Convert.ToInt32((string) item["id"]),
+                    PostUrl =string.Format(
+                            "http://lifeweeker3.cms.palmtrends.com/api_v2.php?action=article&id={0}&fontsize=m&mode=day&uid=13916551&platform=a&pid=10022&mobile=MEmu&picMode=show",
+                            Convert.ToInt32((string) item["id"]))
+                });
                 return list;
             }
 
 
-            return posts;
+            return null;
             
         }
+
     }
 
 

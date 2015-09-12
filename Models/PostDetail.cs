@@ -11,7 +11,7 @@ namespace SLWeek.Models
     {
         public PostDetail()
         {
-            
+           
         }
         public PostDetail(int id)
         {
@@ -27,21 +27,7 @@ namespace SLWeek.Models
 
         public string Title { get; set; }
 
-
-        public string HtmlText
-        {
-            get { return _HtmlTextLocator(this).Value; }
-            set { _HtmlTextLocator(this).SetValueAndTryNotify(value); }
-        }
-        #region Property string HtmlText Setup        
-        protected Property<string> _HtmlText = new Property<string> { LocatorFunc = _HtmlTextLocator };
-        static Func<BindableBase, ValueContainer<string>> _HtmlTextLocator = RegisterContainerLocator<string>("HtmlText", model => model.Initialize("HtmlText", ref model._HtmlText, ref _HtmlTextLocator, _HtmlTextDefaultValueFactory));
-        static Func<string> _HtmlTextDefaultValueFactory = () => default(string);
-        #endregion
-
-
-
-
+        
         public Uri Icon
         {
             get { return _IconLocator(this).Value; }
@@ -53,8 +39,7 @@ namespace SLWeek.Models
         static Func<Uri> _IconDefaultValueFactory = () => default(Uri);
         #endregion
 
-
-
+     
 
         public string PostUrl
         {

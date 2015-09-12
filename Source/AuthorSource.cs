@@ -12,18 +12,7 @@ namespace SLWeek.Source
 {
     public class AuthorSource : IIncrementalSource<Author>
     {
-        private List<Author> posts;
 
-        public AuthorSource()
-        {
-            posts = new List<Author>();
-
-            for (int i = 0; i < 1024; i++)
-            {
-                var p = new Author() { Title = "PostModel " + i ,Icon="http://baidu.com/logo.jpg"};
-                posts.Add(p);
-            }
-        }
 
         public async Task<IEnumerable<Author>> GetPagedItems(string query,int pageIndex, int pageSize)
         {
@@ -61,7 +50,7 @@ namespace SLWeek.Source
             }
 
 
-            return posts;
+            return null;
             
         }
     }

@@ -84,5 +84,17 @@ namespace SLWeek
         }
 
 
+        private async void webView_DOMContentLoaded(WebView sender, WebViewDOMContentLoadedEventArgs args)
+        {
+            List<string> arguments = new List<string> { @"
+                    for (var i = 0; i < document.links.length; i++) { 
+                        document.links[i].onclick = function() {
+                            window.external.notify('appnews://' + this.href);
+                            return false;
+                        } 
+                    }" };
+
+            await webView.InvokeScriptAsync("eval", arguments);
+        }
     }
 }
