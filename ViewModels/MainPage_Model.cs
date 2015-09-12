@@ -71,7 +71,9 @@ namespace SLWeek.ViewModels
                     }
                 ).DisposeWith(this);
 
-            MVVMSidekick.EventRouting.EventRouter.Instance.GetEventChannel<Object>()
+       
+
+          MVVMSidekick.EventRouting.EventRouter.Instance.GetEventChannel<Object>()
                 .Where(x => x.EventName == "NavToAuthorDetailByEventRouter")
                 .Subscribe(
                     async e =>
@@ -89,24 +91,7 @@ namespace SLWeek.ViewModels
                     }
                 ).DisposeWith(this);
             
-            //WebViewToPostDetailPage
-            MVVMSidekick.EventRouting.EventRouter.Instance.GetEventChannel<Object>()
-             .Where(x => x.EventName == "WebViewNavToPostDetailPage")
-             .Subscribe(
-                 async e =>
-                 {
-                     await MVVMSidekick.Utilities.TaskExHelper.Yield();
-                     var item = e.EventData as Author;
-                     if (item != null)
-                     {
-                         item.AuthorPostList = new IncrementalLoadingCollection<AuthorPostSource, PostDetail>(item.Id.ToString(), 20);
-                         await StageManager.DefaultStage.Show(new AuthorPage_Model(item));
-
-                            //StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
-                        }
-
-                 }
-             ).DisposeWith(this);
+      
         }
 
 

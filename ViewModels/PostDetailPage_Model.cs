@@ -13,9 +13,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
+using Windows.UI.Xaml.Controls;
 using SLWeek.Models;
 using SLWeek.ViewModels;
 using SLWeek.Views;
+
 // ReSharper disable InconsistentNaming
 namespace SLWeek.ViewModels
 {
@@ -41,6 +43,9 @@ namespace SLWeek.ViewModels
       
         public PostDetail VM { get; set; }
 
+        /// <summary>
+        /// 返回导航前的页面
+        /// </summary>
     public CommandModel<ReactiveCommand, String> CommandBack
         {
             get { return _CommandBackLocator(this).Value; }
@@ -69,6 +74,50 @@ namespace SLWeek.ViewModels
                           //vm.StageManager.DefaultStage.Frame.GoBack();
                           //await vm.StageManager.DefaultStage.Show(new ChannelPage_Model());
                           //  vm.CloseViewAndDispose();
+                        })
+                    .DoNotifyDefaultEventRouter(vm, commandId)
+                    .Subscribe()
+                    .DisposeWith(vm);
+
+                var cmdmdl = cmd.CreateCommandModel(resource);
+
+                cmdmdl.ListenToIsUIBusy(
+                    model: vm,
+                    canExecuteWhenBusy: false);
+                return cmdmdl;
+            };
+
+        #endregion
+
+
+
+        public CommandModel<ReactiveCommand, String> CommandGoToNewPostPage
+        {
+            get { return _CommandGoToNewPostPageLocator(this).Value; }
+            set { _CommandGoToNewPostPageLocator(this).SetValueAndTryNotify(value); }
+        }
+        #region Property CommandModel<ReactiveCommand, String> CommandGoToNewPostPage Setup        
+
+        protected Property<CommandModel<ReactiveCommand, String>> _CommandGoToNewPostPage = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandGoToNewPostPageLocator };
+        static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandGoToNewPostPageLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>("CommandGoToNewPostPage", model => model.Initialize("CommandGoToNewPostPage", ref model._CommandGoToNewPostPage, ref _CommandGoToNewPostPageLocator, _CommandGoToNewPostPageDefaultValueFactory));
+        static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandGoToNewPostPageDefaultValueFactory =
+            model =>
+            {
+                var resource = "CommandGoToNewPostPage";           // Command resource  
+                var commandId = "CommandGoToNewPostPage";
+                var vm = CastToCurrentType(model);
+                var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+
+                cmd.DoExecuteUIBusyTask(
+                        vm,
+                        async e =>
+                        {
+                            var args = e.EventArgs.Parameter as WebViewUnsupportedUriSchemeIdentifiedEventArgs;
+                            var item=new PostDetail(Convert.ToInt32(args.Uri.Host));
+                           // item.Id = Convert.ToInt32(args.Uri.Host);
+                            args.Handled = true;
+                            await vm.StageManager.DefaultStage.Show(new PostDetailPage_Model(item));
+                            await MVVMSidekick.Utilities.TaskExHelper.Yield();
                         })
                     .DoNotifyDefaultEventRouter(vm, commandId)
                     .Subscribe()

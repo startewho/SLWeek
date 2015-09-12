@@ -84,9 +84,5 @@ namespace SLWeek
         }
 
 
-        private void WebView_OnUnsupportedUriSchemeIdentified(WebView sender, WebViewUnsupportedUriSchemeIdentifiedEventArgs args)
-        {
-            args.Handled = true;
-        }
     }
 }
