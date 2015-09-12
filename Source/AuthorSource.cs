@@ -50,6 +50,8 @@ namespace SLWeek.Source
                            select
                       new Author()
                       {
+                          Name = (string)item["author"],
+                          Intro = (string)item["intro"],
                           Title = (string)item["title"],
                           Des = (string)item["des"],
                           Icon = Strings.HostUri + (string)item["icon"],

@@ -11,6 +11,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:SLWeek.ViewModels"
+    xmlns:behaviors="using:MVVMSidekick.Behaviors"
     mc:Ignorable="d"
    >
     <mvvm:MVVMPage.Resources>
@@ -33,6 +34,12 @@
         </Button>
         <TextBlock Text="{Binding VM.Title}" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right"/>
         <!-- ReSharper disable once InconsistentNaming -->
-        <WebView x:Name="webView"  utils:WebViewExtensions.UriSource="{Binding VM.PostUrl}"  Margin="0,30,0,0" UnsupportedUriSchemeIdentified="WebView_OnUnsupportedUriSchemeIdentified" NavigationStarting="WebView_OnNavigationStarting"/>
+        <WebView x:Name="webView"  utils:WebViewExtensions.UriSource="{Binding VM.PostUrl}"  Margin="0,30,0,0">
+            <Interactivity:Interaction.Behaviors>
+                <Core:EventTriggerBehavior EventName="UnsupportedUriSchemeIdentified">
+                    <behaviors:SendToEventRouterAction EventRoutingName="WebViewNavToPostDetailPage"   IsEventFiringToAllBaseClassesChannels="True"  EventData="{Binding ElementName=webView,Path=Name}" />
+                </Core:EventTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
+        </WebView>
     </Grid>
 </mvvm:MVVMPage>

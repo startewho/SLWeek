@@ -135,33 +135,57 @@
 
 
     <DataTemplate x:Key="AuthorItemDataTemplate">
-        <StackPanel Orientation="Vertical" Height="200">
+        <Grid Height="100" Margin="0,5,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             <interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="Tapped">
                     <behaviors:SendToEventRouterAction EventRoutingName="NavToAuthorDetailByEventRouter"   IsEventFiringToAllBaseClassesChannels="True"  EventData="{Binding}"/>
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
-            <Image Source="{Binding Icon}" Height="180"/>
-            <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
-        </StackPanel>
+            <Image Source="{Binding Icon}" Grid.Column="0"/>
+            <StackPanel Orientation="Vertical" Grid.Column="1">
+                <TextBlock Text="{Binding Intro, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
+                <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
+                <TextBlock Text="{Binding Des, Mode=OneWay}" TextTrimming="None" Style="{StaticResource MenuTitleTextBlockStyle}" />
+            </StackPanel>
+
+        </Grid>
     </DataTemplate>
 
-
-    <DataTemplate x:Key="PostDetailItemDataTemplate">
-        <StackPanel Orientation="Vertical" Height="200">
+    <DataTemplate x:Key="AuthorPostDetailItemDataTemplate">
+        <StackPanel Orientation="Vertical" Height="100">
             <interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="Tapped">
-                    <behaviors:SendToEventRouterAction EventRoutingName="NavToDetailByEventRouter"   IsEventFiringToAllBaseClassesChannels="True"  EventData="{Binding}"/>
+                    <behaviors:SendToEventRouterAction EventRoutingName="NavToPostDetailByEventRouter"   IsEventFiringToAllBaseClassesChannels="True"  EventData="{Binding}"/>
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
-            <Image Source="{Binding Icon}" Height="180"/>
-                <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
+            <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
+            <TextBlock Text="{Binding Des, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
         </StackPanel>
     </DataTemplate>
 
- 
-   <!--#region PersonalControl Style-->
-    
+    <DataTemplate x:Key="PostDetailItemDataTemplate">
+        <Grid  Margin="0,5,0,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="180*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <interactivity:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="Tapped">
+                    <behaviors:SendToEventRouterAction EventRoutingName="NavToPostDetailByEventRouter"   IsEventFiringToAllBaseClassesChannels="True"  EventData="{Binding}"/>
+                </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+            <Image Source="{Binding Icon}" Grid.Row="0" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" Grid.Row="1"/>
+        </Grid>
+    </DataTemplate>
+
+
+    <!--#region PersonalControl Style-->
+
     <!--#region Pivot Style-->
     <DataTemplate x:Key="ChannelPivotItemHeaderDateTemplate">
         <TextBlock Text="{Binding PostKind.CNName}"/>
@@ -209,9 +233,6 @@
                                 </Setter>
                             </Style>
                             <Style x:Key="TitleContentControlStyle" TargetType="ContentControl" BasedOn="{StaticResource BaseContentControlStyle}">
-                                <Setter Property="FontFamily" Value="{ThemeResource PivotTitleFontFamily}" />
-                                <Setter Property="FontWeight" Value="{ThemeResource PivotTitleThemeFontWeight}" />
-                                <Setter Property="FontSize" Value="{ThemeResource PivotTitleFontSize}" />
                             </Style>
                         </Grid.Resources>
                         <VisualStateManager.VisualStateGroups>
@@ -498,9 +519,6 @@
                                 <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings"/>
                             </Style>
                             <Style x:Key="BodyContentPresenterStyle" TargetType="ContentPresenter" BasedOn="{StaticResource BaseContentPresenterStyle}">
-                                <Setter Property="FontFamily" Value="{ThemeResource PivotHeaderItemFontFamily}" />
-                                <Setter Property="FontWeight" Value="{ThemeResource PivotHeaderItemThemeFontWeight}"/>
-                                <Setter Property="FontSize" Value="{ThemeResource PivotHeaderItemFontSize}"/>
                             </Style>
                         </Grid.Resources>
                         <VisualStateManager.VisualStateGroups>
@@ -1088,11 +1106,11 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-   <!--#endregion-->
-    
+
+    <!--#endregion-->
+
     <!--#region Converter-->
-    
+
     <converter:ObjectToMenuItemConverter x:Key="ObjectToMenuItemConverter"/>
 
     <!--#endregion-->

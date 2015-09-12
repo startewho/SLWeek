@@ -7,35 +7,24 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:SLWeek.ViewModels"
+    NavigationCacheMode="Required"
     mc:Ignorable="d">
 
     <Page.Resources>
-        <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">My Application</x:String>
         <vm:AuthorPage_Model x:Key="DesignVM"/>
     </Page.Resources>
-    <!--Begin App Bar Binding Patch. If you don't need Binding Top/Bottom Appbar please ignore these code -->
-    <!--
-    <Page.DataContext>
-        <Binding  RelativeSource="{RelativeSource Mode=Self}" Path="ViewModel"/>
-    </Page.DataContext>
-    <mvvm:MVVMPage.ViewModel>
-        <Binding Source="{StaticResource DesignVM}" />
-    </mvvm:MVVMPage.ViewModel>
-	<mvvm:MVVMPage.BottomAppBar>
-		<AppBar d:DataContext="{StaticResource DesignVM}"><TextBlock TextWrapping="Wrap" Text="{Binding BindableInstanceId, Mode=OneWay}"/></AppBar>
-	</mvvm:MVVMPage.BottomAppBar>    
-    -->
-    <!--End App Bar Binding Patch. If you don't need Binding  Top/Bottom Appbar please ignore these code -->
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-
-            <TextBlock x:Name="pageTitle" Text="{Binding Title}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
-                        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"/>
-  
+        <TextBlock  Text="{Binding VM.Name}"  Grid.Row="0" FontWeight="Bold"/>
+        <ListView ItemsSource="{Binding VM.AuthorPostList}" ItemTemplate="{StaticResource AuthorPostDetailItemDataTemplate}" Grid.Row="1"/>
     </Grid>
 </mvvm:MVVMPage>

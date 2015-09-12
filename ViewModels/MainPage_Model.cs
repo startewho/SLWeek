@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using SLWeek.Models;
+using SLWeek.Source;
 using SLWeek.Views;
 namespace SLWeek.ViewModels
 {
@@ -54,7 +55,7 @@ namespace SLWeek.ViewModels
         private void SubscribeCommand()
         {
             MVVMSidekick.EventRouting.EventRouter.Instance.GetEventChannel<Object>()
-                .Where(x => x.EventName == "NavToDetailByEventRouter")
+                .Where(x => x.EventName == "NavToPostDetailByEventRouter")
                 .Subscribe(
                     async e =>
                     {
@@ -79,6 +80,7 @@ namespace SLWeek.ViewModels
                         var item = e.EventData as Author;
                         if (item != null)
                         {
+                            item.AuthorPostList=new IncrementalLoadingCollection<AuthorPostSource, PostDetail>(item.Id.ToString(),20);
                             await StageManager.DefaultStage.Show(new AuthorPage_Model(item));
 
                             //StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
@@ -86,6 +88,25 @@ namespace SLWeek.ViewModels
 
                     }
                 ).DisposeWith(this);
+            
+            //WebViewToPostDetailPage
+            MVVMSidekick.EventRouting.EventRouter.Instance.GetEventChannel<Object>()
+             .Where(x => x.EventName == "WebViewNavToPostDetailPage")
+             .Subscribe(
+                 async e =>
+                 {
+                     await MVVMSidekick.Utilities.TaskExHelper.Yield();
+                     var item = e.EventData as Author;
+                     if (item != null)
+                     {
+                         item.AuthorPostList = new IncrementalLoadingCollection<AuthorPostSource, PostDetail>(item.Id.ToString(), 20);
+                         await StageManager.DefaultStage.Show(new AuthorPage_Model(item));
+
+                            //StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
+                        }
+
+                 }
+             ).DisposeWith(this);
         }
 
 

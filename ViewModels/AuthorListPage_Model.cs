@@ -28,6 +28,7 @@ namespace SLWeek.ViewModels
         public AuthorListPage_Model()
         {
                 AuthorListAuthor=new IncrementalLoadingCollection<AuthorSource, Author>("",20);
+                Title = "zhuanlan";
         }
         public String Title
         {

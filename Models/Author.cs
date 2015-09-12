@@ -13,6 +13,18 @@ namespace SLWeek.Models
     public class Author:BindableBase<Author>
     {
 
+
+        public IncrementalLoadingCollection<AuthorPostSource, PostDetail> AuthorPostList
+        {
+            get { return _AuthorPostListLocator(this).Value; }
+            set { _AuthorPostListLocator(this).SetValueAndTryNotify(value); }
+        }
+        #region Property IncrementalLoadingCollection<AuthorPostSource, PostDetail> AuthorPostList Setup        
+        protected Property<IncrementalLoadingCollection<AuthorPostSource, PostDetail>> _AuthorPostList = new Property<IncrementalLoadingCollection<AuthorPostSource, PostDetail>> { LocatorFunc = _AuthorPostListLocator };
+        static Func<BindableBase, ValueContainer<IncrementalLoadingCollection<AuthorPostSource, PostDetail>>> _AuthorPostListLocator = RegisterContainerLocator<IncrementalLoadingCollection<AuthorPostSource, PostDetail>>("AuthorPostList", model => model.Initialize("AuthorPostList", ref model._AuthorPostList, ref _AuthorPostListLocator, _AuthorPostListDefaultValueFactory));
+        static Func<IncrementalLoadingCollection<AuthorPostSource, PostDetail>> _AuthorPostListDefaultValueFactory = () => default(IncrementalLoadingCollection<AuthorPostSource, PostDetail>);
+        #endregion
+
         public string AddTime
         {
             get { return _AddTimeLocator(this).Value; }
