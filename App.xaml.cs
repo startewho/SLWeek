@@ -88,8 +88,8 @@ namespace SLWeek
 
                 rootFrame.Name = "MainFrame";
                 rootFrame.ContentTransitions = null;
-                rootFrame.Navigated += this.RootFrame_FirstNavigated;
-
+            
+                rootFrame.Navigated += this.OnNavigated;
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
@@ -115,6 +115,10 @@ namespace SLWeek
             Window.Current.Activate();
         }
 
+        void OnNavigated(object sender, NavigationEventArgs e)
+        {
+            UpdateBackButtonVisibility();
+        }
         /// <summary>
         /// Invoked when Navigation to a certain page fails
         /// </summary>
@@ -162,11 +166,19 @@ namespace SLWeek
             }
         }
 
-        private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
+        private void UpdateBackButtonVisibility()
         {
-            var rootFrame = sender as Frame;
-            rootFrame.Navigated -= this.RootFrame_FirstNavigated;
+            var rootframe = (Frame)Window.Current.Content;
+
+            var visibility = AppViewBackButtonVisibility.Collapsed;
+            if (rootframe.CanGoBack)
+            {
+                visibility = AppViewBackButtonVisibility.Visible;
+            }
+
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = visibility;
         }
+    
 
     }
 }

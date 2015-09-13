@@ -43,10 +43,51 @@ namespace SLWeek.ViewModels
       
         public PostDetail VM { get; set; }
 
+
+
+        public CommandModel<ReactiveCommand, String> CommandAddScript
+        {
+            get { return _CommandAddScriptLocator(this).Value; }
+            set { _CommandAddScriptLocator(this).SetValueAndTryNotify(value); }
+        }
+        #region Property CommandModel<ReactiveCommand, String> CommandAddScript Setup        
+
+        protected Property<CommandModel<ReactiveCommand, String>> _CommandAddScript = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandAddScriptLocator };
+        static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandAddScriptLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>("CommandAddScript", model => model.Initialize("CommandAddScript", ref model._CommandAddScript, ref _CommandAddScriptLocator, _CommandAddScriptDefaultValueFactory));
+        static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandAddScriptDefaultValueFactory =
+            model =>
+            {
+                var resource = "CommandAddScript";           // Command resource  
+                var commandId = "CommandAddScript";
+                var vm = CastToCurrentType(model);
+                var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+
+                cmd.DoExecuteUIBusyTask(
+                        vm,
+                        async e =>
+                        {
+                            //Todo: Add AddScript logic here, or
+                            await MVVMSidekick.Utilities.TaskExHelper.Yield();
+                        })
+                    .DoNotifyDefaultEventRouter(vm, commandId)
+                    .Subscribe()
+                    .DisposeWith(vm);
+
+                var cmdmdl = cmd.CreateCommandModel(resource);
+
+                cmdmdl.ListenToIsUIBusy(
+                    model: vm,
+                    canExecuteWhenBusy: false);
+                return cmdmdl;
+            };
+
+        #endregion
+
+
         /// <summary>
         /// 返回导航前的页面
         /// </summary>
-    public CommandModel<ReactiveCommand, String> CommandBack
+        public CommandModel<ReactiveCommand, String> CommandBack
         {
             get { return _CommandBackLocator(this).Value; }
             set { _CommandBackLocator(this).SetValueAndTryNotify(value); }

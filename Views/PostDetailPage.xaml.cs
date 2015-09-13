@@ -76,23 +76,17 @@ namespace SLWeek
 
         }
 
-   
-
-        private void WebView_OnNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
-        {
-        
-        }
-
 
         private async void webView_DOMContentLoaded(WebView sender, WebViewDOMContentLoadedEventArgs args)
         {
-            List<string> arguments = new List<string> { @"
-                    for (var i = 0; i < document.links.length; i++) { 
-                        document.links[i].onclick = function() {
-                            window.external.notify('appnews://' + this.href);
-                            return false;
-                        } 
-                    }" };
+            //List<string> arguments = new List<string> { @"
+            //        for (var i = 0; i < document.links.length; i++) { 
+            //            document.links[i].onclick = function() {
+            //                window.external.notify('appnews://' + this.href);
+            //                return false;
+            //            } 
+            //        }" };
+            List<string> arguments = new List<string> {"$(document).ready(function(){$(\'[href$=\".jpg\"]\').click (function() {window.external.notify(\'appnews://\' + this.href); return false;});});" };
 
             await webView.InvokeScriptAsync("eval", arguments);
         }
