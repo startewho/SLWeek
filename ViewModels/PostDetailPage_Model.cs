@@ -34,7 +34,8 @@ namespace SLWeek.ViewModels
         {
             if (IsInDesignMode)
             {
-                
+                VM.Title = "文章标题";
+               
             }
             this.VM = model;
   
@@ -196,6 +197,8 @@ namespace SLWeek.ViewModels
                         vm,
                         async e =>
                         {
+                            var strfromweb = e.EventArgs.Parameter as string;
+
                             //Todo: Add ViewPicturePage logic here, or
                             await MVVMSidekick.Utilities.TaskExHelper.Yield();
                         })

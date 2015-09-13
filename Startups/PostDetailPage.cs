@@ -10,6 +10,7 @@ using SLWeek.ViewModels;
 using System;
 using System.Net;
 using System.Windows;
+using PostDetailPage = SLWeek.Views.PostDetailPage;
 
 
 namespace MVVMSidekick.Startups

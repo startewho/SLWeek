@@ -40,6 +40,7 @@ namespace SLWeek
             Offset = 0;
         }
         public double Offset;
+
         public static void InitNavigationConfigurationInThisAssembly()
         {
             MVVMSidekick.Startups.StartupFunctions.RunAllConfig();
@@ -61,17 +62,17 @@ namespace SLWeek
             //Init MVVM-Sidekick Navigations:
             InitNavigationConfigurationInThisAssembly();
 
-            Frame rootFrame = Window.Current.Content as Frame;
+            Frame mainFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (rootFrame == null)
+            if (mainFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
+                mainFrame = new Frame();
 
                 // TODO: change this value to a cache size that is appropriate for your application
-                rootFrame.CacheSize = 1;
+                mainFrame.CacheSize = 1;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -79,37 +80,33 @@ namespace SLWeek
                 }
 
                 // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
+                Window.Current.Content = mainFrame;
             }
 
-            if (rootFrame.Content == null)
+            if (mainFrame.Content == null)
             {
                 // Removes the turnstile navigation for startup.
 
-                rootFrame.Name = "MainFrame";
-                rootFrame.ContentTransitions = null;
-            
-                rootFrame.Navigated += this.OnNavigated;
+                mainFrame.Name = "MainFrame";
+                mainFrame.Navigated += this.OnNavigated;
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+
+                if (!mainFrame.Navigate(typeof(MainPage), e.Arguments))
                 {
                     throw new Exception("Failed to create initial page");
                 }
             }
 
             // listen for back button clicks (both soft- and hardware)
+
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
 
             if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
             {
                 HardwareButtons.BackPressed += OnBackPressed;
             }
-
-
-            // Ensure the current window is active
-
 
             // Ensure the current window is active
             Window.Current.Activate();
@@ -143,8 +140,7 @@ namespace SLWeek
             deferral.Complete();
         }
 
-
-        void OnBackPressed(object sender, BackPressedEventArgs e)
+       void OnBackPressed(object sender, BackPressedEventArgs e)
         {
             var mainFrame = (Frame)Window.Current.Content;
 
@@ -168,10 +164,10 @@ namespace SLWeek
 
         private void UpdateBackButtonVisibility()
         {
-            var rootframe = (Frame)Window.Current.Content;
+            var mainFrame = (Frame)Window.Current.Content;
 
             var visibility = AppViewBackButtonVisibility.Collapsed;
-            if (rootframe.CanGoBack)
+            if (mainFrame.CanGoBack)
             {
                 visibility = AppViewBackButtonVisibility.Visible;
             }
