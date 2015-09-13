@@ -34,9 +34,11 @@ namespace SLWeek.ViewModels
         ///// This will be
         private void Init()
         {
-         ListChannels=new List<Channel>();
-         ListChannels.Add(new Channel("shehui",20));
-         ListChannels.Add(new Channel("wenhua", 20));
+            ListChannels = new List<Channel>
+            {
+                new Channel("shehui", 20),
+                new Channel("wenhua", 20)
+            };
         }
 
 

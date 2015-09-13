@@ -1,22 +1,9 @@
-﻿using System.Reactive;
-using System.Reactive.Linq;
-using MVVMSidekick.ViewModels;
-using MVVMSidekick.Views;
+﻿using MVVMSidekick.ViewModels;
 using MVVMSidekick.Reactive;
-using MVVMSidekick.Services;
-using MVVMSidekick.Commands;
-using MVVMSidekick.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Windows.UI.Xaml.Controls;
 using SLWeek.Models;
-using SLWeek.ViewModels;
-using SLWeek.Views;
 
 // ReSharper disable InconsistentNaming
 namespace SLWeek.ViewModels
@@ -38,7 +25,7 @@ namespace SLWeek.ViewModels
                
             }
             this.VM = model;
-  
+            
         }
 
       

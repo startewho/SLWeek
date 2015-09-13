@@ -2,6 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converter="using:SLWeek.Converters" 
+    xmlns:q42Control="using:Q42.WinRT.Controls"
     xmlns:c="using:SLWeek.Control" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
@@ -145,7 +146,7 @@
                     <behaviors:SendToEventRouterAction EventRoutingName="NavToAuthorDetailByEventRouter"   IsEventFiringToAllBaseClassesChannels="True"  EventData="{Binding}"/>
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
-            <Image Source="{Binding Icon}" Grid.Column="0"/>
+            <Image q42Control:ImageExtensions.CacheUri="{Binding Icon}" Grid.Column="0"/>
             <StackPanel Orientation="Vertical" Grid.Column="1">
                 <TextBlock Text="{Binding Intro, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
                 <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
@@ -178,7 +179,7 @@
                     <behaviors:SendToEventRouterAction EventRoutingName="NavToPostDetailByEventRouter"   IsEventFiringToAllBaseClassesChannels="True"  EventData="{Binding}"/>
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
-            <Image Source="{Binding Icon}" Grid.Row="0" VerticalAlignment="Center"/>
+            <Image  q42Control:ImageExtensions.CacheUri="{Binding Icon}" Grid.Row="0" VerticalAlignment="Center"/>
             <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" Grid.Row="1"/>
         </Grid>
     </DataTemplate>

@@ -15,6 +15,13 @@ namespace SLWeek.Source
 {
     public interface IIncrementalSource<T>
     {
+        /// <summary>
+        /// 数据源接口
+        /// </summary>
+        /// <param name="query">查询语句</param>
+        /// <param name="pageIndex">页面索引</param>
+        /// <param name="pageSize">分页大小</param>
+        /// <returns></returns>
         Task<IEnumerable<T>> GetPagedItems(string query,int pageIndex, int pageSize);
     }
 
