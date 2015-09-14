@@ -185,6 +185,18 @@
     </DataTemplate>
 
 
+    <DataTemplate x:Key="PictureItemDataTemplate">
+        <Grid  Margin="0,5,0,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="180*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image  q42Control:ImageExtensions.CacheUri="{Binding PictureUrl}" Grid.Row="0" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding Des, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" Grid.Row="1"/>
+        </Grid>
+    </DataTemplate>
+
+
     <!--#region PersonalControl Style-->
 
     <!--#region Pivot Style-->

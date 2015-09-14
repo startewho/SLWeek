@@ -95,6 +95,12 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Picture.cs" />
+    <Compile Include="Views\PictureViewerPage.xaml.cs">
+      <DependentUpon>PictureViewerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Startups\PictureViewerPage.cs" />
+    <Compile Include="ViewModels\PictureViewerPage_Model.cs" />
     <Compile Include="Views\AuthorListPage.xaml.cs">
       <DependentUpon>AuthorListPage.xaml</DependentUpon>
     </Compile>
@@ -173,9 +179,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Themes\Generic.xaml">
+    <None Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </None>
+    <Page Include="Views\PictureViewerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AuthorListPage.xaml">
       <SubType>Designer</SubType>

@@ -1,6 +1,7 @@
 ﻿using MVVMSidekick.ViewModels;
 using MVVMSidekick.Reactive;
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Windows.UI.Xaml.Controls;
 using SLWeek.Models;
@@ -30,7 +31,7 @@ namespace SLWeek.ViewModels
 
       
         public PostDetail VM { get; set; }
-
+        public string Pictures { get;  set; }
 
 
         public CommandModel<ReactiveCommand, String> CommandAddScript
@@ -163,6 +164,9 @@ namespace SLWeek.ViewModels
         #endregion
 
 
+        /// <summary>
+        /// 导航到图片查看页
+        /// </summary>
         public CommandModel<ReactiveCommand, String> CommandViewPicturePage
         {
             get { return _CommandViewPicturePageLocator(this).Value; }
@@ -184,8 +188,31 @@ namespace SLWeek.ViewModels
                         vm,
                         async e =>
                         {
-                            var strfromweb = e.EventArgs.Parameter as string;
-
+                            var notifyEventArgs = e.EventArgs.Parameter as NotifyEventArgs;
+                            if (notifyEventArgs != null)
+                            {
+                                var strfromweb = notifyEventArgs.Value as string;
+                                if (strfromweb.Contains("picturelist"))
+                                {
+                                    vm.Pictures = strfromweb.Replace("picturelist", "");
+                        
+                                }
+                                else
+                                {
+                                    var picviewrvm = new PictureViewerPage_Model();
+                                    picviewrvm.ListPictures=new List<Picture>();
+                                    var listpicurl = vm.Pictures.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                                    for (int i = 0; i < listpicurl.Length; i++)
+                                    {
+                                        if (listpicurl[i] == strfromweb)
+                                        {
+                                            picviewrvm.SelectIndex = i;
+                                        }
+                                        picviewrvm.ListPictures.Add(new Picture() {PictureUrl = listpicurl[i]});
+                                    }
+                                    await   vm.StageManager.DefaultStage.Show(picviewrvm);
+                                }
+                            }
                             //Todo: Add ViewPicturePage logic here, or
                             await MVVMSidekick.Utilities.TaskExHelper.Yield();
                         })

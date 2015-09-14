@@ -9,10 +9,10 @@
     "Newtonsoft.Json": "7.0.1",
     "Q42.WinRT": "1.4.2.42",
     "Rx-Core": "2.3.0-beta2",
-    "Rx-Interfaces": "2.2.5",
-    "Rx-Linq": "2.2.5",
-    "Rx-Main": "2.2.5",
-    "Rx-PlatformServices": "2.2.5",
+    "Rx-Interfaces": "2.3.0-beta2",
+    "Rx-Linq": "2.3.0-beta2",
+    "Rx-Main": "2.3.0-beta2",
+    "Rx-PlatformServices": "2.3.0-beta2",
     "Unity": "3.5.1404"
   },
   "frameworks": {

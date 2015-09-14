@@ -59,11 +59,23 @@ namespace SLWeek.Views
 
             //的DOM完成后,先获得图片列表,然后对带图片链接,加入事件处理,以便于接受页面数据
             List<string> arguments = new List<string>
+           {
+                "$(document).ready(function(){var urlstr='picturelist'; $(\'[href$=\".jpg\"]\').each(function() {urlstr+=this.href+'\t';}); window.external.notify(urlstr); return true;});"
+           };
+            await webView.InvokeScriptAsync("eval", arguments);
+
+
+        }
+
+        private async void webView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            List<string> arguments = new List<string>
             {
-                "$(document).ready(function(){var urlstr='picturelist'; $(\'[href$=\".jpg\"]\').each(function() {urlstr+=this.href+'\t';}); window.external.notify(urlstr); return false;});",
-                "$(document).ready(function(){$(\'[href$=\".jpg\"]\').click (function() {window.external.notify(\'appnews://\' + this.href); return false;});});"
+                "$(document).ready(function(){$(\'[href$=\".jpg\"]\').click (function() {window.external.notify(this.href); return false;});});"
             };
             await webView.InvokeScriptAsync("eval", arguments);
+
         }
+
     }
 }
