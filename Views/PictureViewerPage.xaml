@@ -11,22 +11,9 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-  
-        <vm:PictureViewerPage_Model x:Key="DesignVM"/>
+    <vm:PictureViewerPage_Model x:Key="DesignVM"/>
     </Page.Resources>
-    <!--Begin App Bar Binding Patch. If you don't need Binding Top/Bottom Appbar please ignore these code -->
-    <!--
-    <Page.DataContext>
-        <Binding  RelativeSource="{RelativeSource Mode=Self}" Path="ViewModel"/>
-    </Page.DataContext>
-    <mvvm:MVVMPage.ViewModel>
-        <Binding Source="{StaticResource DesignVM}" />
-    </mvvm:MVVMPage.ViewModel>
-	<mvvm:MVVMPage.BottomAppBar>
-		<AppBar d:DataContext="{StaticResource DesignVM}"><TextBlock TextWrapping="Wrap" Text="{Binding BindableInstanceId, Mode=OneWay}"/></AppBar>
-	</mvvm:MVVMPage.BottomAppBar>    
-    -->
-    <!--End App Bar Binding Patch. If you don't need Binding  Top/Bottom Appbar please ignore these code -->
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
@@ -34,7 +21,13 @@
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-       <ListView ItemsSource="{Binding ListPictures}" ItemTemplate="{StaticResource PictureItemDataTemplate}" SelectedIndex="{Binding SelectIndex}"/>
+        <ListView ItemsSource="{Binding ListPictures}" ItemTemplate="{StaticResource PictureItemDataTemplate}" SelectedIndex="{Binding SelectIndex}" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.VerticalScrollMode="Disabled" >
+           <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel  VerticalAlignment="Top" Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+       </ListView>
   
     </Grid>
 </mvvm:MVVMPage>

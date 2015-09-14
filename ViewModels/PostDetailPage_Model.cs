@@ -55,7 +55,7 @@ namespace SLWeek.ViewModels
                         vm,
                         async e =>
                         {
-                            //Todo: Add AddScript logic here, or
+                       
                             await MVVMSidekick.Utilities.TaskExHelper.Yield();
                         })
                     .DoNotifyDefaultEventRouter(vm, commandId)
@@ -206,7 +206,7 @@ namespace SLWeek.ViewModels
                                     {
                                         if (listpicurl[i] == strfromweb)
                                         {
-                                            picviewrvm.SelectIndex = i;
+                                            picviewrvm.SelectIndex = i+1;
                                         }
                                         picviewrvm.ListPictures.Add(new Picture() {PictureUrl = listpicurl[i]});
                                     }

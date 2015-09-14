@@ -12,7 +12,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:SLWeek.ViewModels"
     xmlns:behaviors="using:MVVMSidekick.Behaviors"
-    NavigationCacheMode="Required"
     mc:Ignorable="d"
    >
     <mvvm:MVVMPage.Resources>

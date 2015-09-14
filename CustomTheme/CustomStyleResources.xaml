@@ -186,9 +186,9 @@
 
 
     <DataTemplate x:Key="PictureItemDataTemplate">
-        <Grid  Margin="0,5,0,5">
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="180*"/>
+                <RowDefinition Height="800*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Image  q42Control:ImageExtensions.CacheUri="{Binding PictureUrl}" Grid.Row="0" VerticalAlignment="Center"/>
