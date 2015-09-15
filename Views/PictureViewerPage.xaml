@@ -20,14 +20,6 @@
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-
-        <ListView ItemsSource="{Binding ListPictures}" ItemTemplate="{StaticResource PictureItemDataTemplate}" SelectedIndex="{Binding SelectIndex}" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.VerticalScrollMode="Disabled" >
-           <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel  VerticalAlignment="Top" Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-       </ListView>
-  
+        <FlipView ItemsSource="{Binding ListPictures}" ItemTemplate="{StaticResource PictureItemDataTemplate}" SelectedIndex="{Binding SelectIndex,Mode=TwoWay}"/>
     </Grid>
 </mvvm:MVVMPage>

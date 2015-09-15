@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using SLWeek.Models;
-
+using SLWeek.Utils;
 namespace SLWeek.ViewModels
 {
 
@@ -25,8 +25,9 @@ namespace SLWeek.ViewModels
 
         public SettingPage_Model()
         {
-            Title = "Title";
-
+            Title = "设置";
+            IsImageMode = CommonAppSettings.Instance.IsEnableImageMode;
+            ListPostTypes = CommonAppSettings.Instance.SelectChannelTypes;
         }
         public String Title
         {
@@ -39,79 +40,43 @@ namespace SLWeek.ViewModels
         static Func<BindableBase, String> _TitleDefaultValueFactory = m => m.GetType().Name;
         #endregion
 
-
-
-        public List<PostType> ListSelectedPostTypes
+        private void PropScribe()
         {
-            get { return _ListSelectedPostTypesLocator(this).Value; }
-            set { _ListSelectedPostTypesLocator(this).SetValueAndTryNotify(value); }
+            GetValueContainer<bool>(vm =>vm.IsImageMode).GetEventObservable().Subscribe(e =>
+            {
+                var isimagemode = e.EventArgs.NewValue;
+                CommonAppSettings.Instance.IsEnableImageMode = isimagemode;
+            }).DisposeWith(this);
         }
-        #region Property List<PostType> ListSelectedPostTypes Setup        
-        protected Property<List<PostType>> _ListSelectedPostTypes = new Property<List<PostType>> { LocatorFunc = _ListSelectedPostTypesLocator };
-        static Func<BindableBase, ValueContainer<List<PostType>>> _ListSelectedPostTypesLocator = RegisterContainerLocator<List<PostType>>("ListSelectedPostTypes", model => model.Initialize("ListSelectedPostTypes", ref model._ListSelectedPostTypes, ref _ListSelectedPostTypesLocator, _ListSelectedPostTypesDefaultValueFactory));
-        static Func<List<PostType>> _ListSelectedPostTypesDefaultValueFactory = () => default(List<PostType>);
+
+
+        public List<PostType> ListPostTypes
+        {
+            get { return _ListPostTypesLocator(this).Value; }
+            set { _ListPostTypesLocator(this).SetValueAndTryNotify(value); }
+        }
+        #region Property List<PostType> ListPostTypes Setup        
+        protected Property<List<PostType>> _ListPostTypes = new Property<List<PostType>> { LocatorFunc = _ListPostTypesLocator };
+        static Func<BindableBase, ValueContainer<List<PostType>>> _ListPostTypesLocator = RegisterContainerLocator<List<PostType>>("ListPostTypes", model => model.Initialize("ListPostTypes", ref model._ListPostTypes, ref _ListPostTypesLocator, _ListPostTypesDefaultValueFactory));
+        static Func<List<PostType>> _ListPostTypesDefaultValueFactory = () => default(List<PostType>);
         #endregion
 
+        
 
-        #region Life Time Event Handling
-
-        ///// <summary>
-        ///// This will be invoked by view when this viewmodel instance is set to view's ViewModel property. 
-        ///// </summary>
-        ///// <param name="view">Set target</param>
-        ///// <param name="oldValue">Value before set.</param>
-        ///// <returns>Task awaiter</returns>
-        //protected override Task OnBindedToView(MVVMSidekick.Views.IView view, IViewModel oldValue)
-        //{
-        //    return base.OnBindedToView(view, oldValue);
-        //}
-
-        ///// <summary>
-        ///// This will be invoked by view when this instance of viewmodel in ViewModel property is overwritten.
-        ///// </summary>
-        ///// <param name="view">Overwrite target view.</param>
-        ///// <param name="newValue">The value replacing </param>
-        ///// <returns>Task awaiter</returns>
-        //protected override Task OnUnbindedFromView(MVVMSidekick.Views.IView view, IViewModel newValue)
-        //{
-        //    return base.OnUnbindedFromView(view, newValue);
-        //}
-
-        ///// <summary>
-        ///// This will be invoked by view when the view fires Load event and this viewmodel instance is already in view's ViewModel property
-        ///// </summary>
-        ///// <param name="view">View that firing Load event</param>
-        ///// <returns>Task awaiter</returns>
-        //protected override Task OnBindedViewLoad(MVVMSidekick.Views.IView view)
-        //{
-        //    return base.OnBindedViewLoad(view);
-        //}
-
-        ///// <summary>
-        ///// This will be invoked by view when the view fires Unload event and this viewmodel instance is still in view's  ViewModel property
-        ///// </summary>
-        ///// <param name="view">View that firing Unload event</param>
-        ///// <returns>Task awaiter</returns>
-        //protected override Task OnBindedViewUnload(MVVMSidekick.Views.IView view)
-        //{
-        //    return base.OnBindedViewUnload(view);
-        //}
-
-        ///// <summary>
-        ///// <para>If dispose actions got exceptions, will handled here. </para>
-        ///// </summary>
-        ///// <param name="exceptions">
-        ///// <para>The exception and dispose infomation</para>
-        ///// </param>
-        //protected override async void OnDisposeExceptions(IList<DisposeInfo> exceptions)
-        //{
-        //    base.OnDisposeExceptions(exceptions);
-        //    await TaskExHelper.Yield();
-        //}
-
+        public bool IsImageMode
+        {
+            get { return _IsImageModeLocator(this).Value; }
+            set
+            {
+                _IsImageModeLocator(this).SetValueAndTryNotify(value);
+            
+            }
+        }
+        #region Property bool IsImageMode Setup        
+        protected Property<bool> _IsImageMode = new Property<bool> { LocatorFunc = _IsImageModeLocator };
+        static Func<BindableBase, ValueContainer<bool>> _IsImageModeLocator = RegisterContainerLocator<bool>("IsImageMode", model => model.Initialize("IsImageMode", ref model._IsImageMode, ref _IsImageModeLocator, _IsImageModeDefaultValueFactory));
+        static Func<bool> _IsImageModeDefaultValueFactory = () => default(bool);
         #endregion
-
-
 
 
     }

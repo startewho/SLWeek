@@ -28,14 +28,21 @@
     -->
     <!--End App Bar Binding Patch. If you don't need Binding  Top/Bottom Appbar please ignore these code -->
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-            <TextBlock x:Name="pageTitle" Text="{Binding Title}" Style="{StaticResource HeaderTextBlockStyle}"
-                        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"/>
-  
+        <TextBlock x:Name="pageTitle" Text="{Binding Title}" Style="{StaticResource HeaderTextBlockStyle}"
+                        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Center" Grid.Row="0" HorizontalAlignment="Right"/>
+         <StackPanel Grid.Row="1">
+             <CheckBox Content="有图" IsChecked="{Binding IsImageMode,Mode=TwoWay}"/>
+             <ListView ItemsSource="{Binding ListPostTypes,Mode=TwoWay}" ItemTemplate="{StaticResource SelectChannelTypeDataTemplate}"></ListView>
+         </StackPanel>
     </Grid>
 </mvvm:MVVMPage>

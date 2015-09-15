@@ -195,20 +195,19 @@ namespace SLWeek.ViewModels
                                 if (strfromweb.Contains("picturelist"))
                                 {
                                     vm.Pictures = strfromweb.Replace("picturelist", "");
-                        
                                 }
                                 else
                                 {
                                     var picviewrvm = new PictureViewerPage_Model();
                                     picviewrvm.ListPictures=new List<Picture>();
                                     var listpicurl = vm.Pictures.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                                    for (int i = 0; i < listpicurl.Length; i++)
+                                    for (var i = 0; i < listpicurl.Length; i++)
                                     {
                                         if (listpicurl[i] == strfromweb)
                                         {
-                                            picviewrvm.SelectIndex = i+1;
+                                            picviewrvm.SelectIndex = i;
                                         }
-                                        picviewrvm.ListPictures.Add(new Picture() {PictureUrl = listpicurl[i]});
+                                        picviewrvm.ListPictures.Add(new Picture() {PictureUrl = listpicurl[i],Index = i+1});
                                     }
                                     await   vm.StageManager.DefaultStage.Show(picviewrvm);
                                 }

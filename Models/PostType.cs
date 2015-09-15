@@ -33,5 +33,17 @@ namespace SLWeek.Models
         static Func<string> _CNNameDefaultValueFactory = () => default(string);
         #endregion
 
+
+        public bool IsSelected
+        {
+            get { return _IsSelectedLocator(this).Value; }
+            set { _IsSelectedLocator(this).SetValueAndTryNotify(value); }
+        }
+        #region Property bool IsSelected Setup        
+        protected Property<bool> _IsSelected = new Property<bool> { LocatorFunc = _IsSelectedLocator };
+        static Func<BindableBase, ValueContainer<bool>> _IsSelectedLocator = RegisterContainerLocator<bool>("IsSelected", model => model.Initialize("IsSelected", ref model._IsSelected, ref _IsSelectedLocator, _IsSelectedDefaultValueFactory));
+        static Func<bool> _IsSelectedDefaultValueFactory = () => default(bool);
+        #endregion
+
     }
 }

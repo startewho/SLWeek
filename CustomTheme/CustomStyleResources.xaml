@@ -188,14 +188,22 @@
     <DataTemplate x:Key="PictureItemDataTemplate">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="800*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
-            <Image  q42Control:ImageExtensions.CacheUri="{Binding PictureUrl}" Grid.Row="0" VerticalAlignment="Center"/>
-            <TextBlock Text="{Binding Des, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" Grid.Row="1"/>
+            <ScrollViewer  ZoomMode="Enabled"  HorizontalScrollMode="Disabled" VerticalScrollMode="Disabled"  Grid.Row="0">
+                <Image  q42Control:ImageExtensions.CacheUri="{Binding PictureUrl}"   CacheMode="BitmapCache"/>
+            </ScrollViewer>
+            <TextBlock Text="{Binding Index, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" Grid.Row="1"  VerticalAlignment="Center"/>
         </Grid>
     </DataTemplate>
 
+
+    <DataTemplate x:Key="SelectChannelTypeDataTemplate">
+        <Grid>
+            <CheckBox Content="{Binding CNName}" IsChecked="{Binding IsSelected ,Mode=TwoWay}"/>
+        </Grid>
+    </DataTemplate>
 
     <!--#region PersonalControl Style-->
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Xaml;
+using SLWeek.Models;
 
 
 namespace SLWeek.Utils
@@ -53,6 +54,33 @@ namespace SLWeek.Utils
             
         }
 
+
+        #region 主题
+        const string SelectChannelTypesKeyName = "CurrentTheme";
+
+        private static readonly List<PostType> SelectChannelTypesDefault = new List<PostType>()
+        {
+            new PostType() {Name = "shehui", CNName = "社会", IsSelected = true},
+            new PostType() {Name = "wenhua", CNName = "文化", IsSelected = true},
+            new PostType() {Name = "keji", CNName = "科技", IsSelected = true}
+        };
+
+        /// <summary>
+        /// 主题
+        /// </summary>
+        public List<PostType> SelectChannelTypes
+        {
+            get
+            {
+
+                return GetValue<List<PostType>>(SelectChannelTypesKeyName, SelectChannelTypesDefault);
+            }
+            set
+            {
+                SetValue<List<PostType>>(SelectChannelTypesKeyName, value);
+            }
+        }
+        #endregion
 
         #region 主题
         const string CurrentThemeKeyName = "CurrentTheme";
@@ -190,6 +218,27 @@ namespace SLWeek.Utils
             }
         }
         #endregion
+
+        #region 是否关闭广告
+        const string IsEnableImageModeName = "IsEnableImageMode";
+        const bool IsEnableImageModeDefault = true;
+        /// <summary>
+        /// 是否启用广告 如果否则不显示广告
+        /// </summary>
+        public bool IsEnableImageMode
+        {
+            get
+            {
+                return GetValue<bool>(IsEnableImageModeName, IsEnableImageModeDefault);
+            }
+            set
+            {
+                SetValue<bool>(IsEnableImageModeName, value);
+            }
+        }
+        #endregion
+
+
 
         #region 评价时间
         const string ReviewDateTimeKeyName = "ReviewDateTime";
