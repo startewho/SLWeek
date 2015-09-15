@@ -120,7 +120,7 @@
     </Compile>
     <Compile Include="Startups\HomePage.cs" />
     <Compile Include="Startups\SettingPage.cs" />
-    <Compile Include="Utils\CommonAppSettings.cs" />
+    <Compile Include="Utils\AppSettings.cs" />
     <Compile Include="Utils\SerializerHelper.cs" />
     <Compile Include="Utils\WebViewExtension.cs" />
     <Compile Include="ViewModels\HomePage_Model.cs" />

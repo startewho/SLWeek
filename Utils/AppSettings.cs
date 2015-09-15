@@ -10,7 +10,7 @@ namespace SLWeek.Utils
     /// <summary>
     /// 设置帮助类 注意ApplicationDataContainer只能保存字符串类型，因此内部必须进行json序列化后再存储
     /// </summary>
-    public class CommonAppSettings
+    public class AppSettings
     {
         private readonly ApplicationDataContainer _settings = ApplicationData.Current.LocalSettings;
 
@@ -19,7 +19,7 @@ namespace SLWeek.Utils
         {
             try
             {
-                _settings.Values[key] = SerializerHelper.ToJson(value);
+                _settings.Values[key] = SerializerHelper.JsonSerializer(value);
             }
             catch (Exception ex)
             {
@@ -41,7 +41,7 @@ namespace SLWeek.Utils
             T value;
             if (_settings.Values.ContainsKey(key))
             {
-                value = SerializerHelper.FromJson<T>(_settings.Values[key].ToString());
+                value = SerializerHelper.JsonDeserialize<T>(_settings.Values[key].ToString());
             }
             else
             {
@@ -64,7 +64,7 @@ namespace SLWeek.Utils
             new PostType {Name = "shishang", CNName = "时尚", IsSelected = false},
             new PostType {Name = "renwu", CNName = "人物", IsSelected = true},
             new PostType {Name = "jingji", CNName = "经济", IsSelected = true},
-            new PostType {Name = "shangcang", CNName = "收藏", IsSelected = true},
+            new PostType {Name = "shoucang", CNName = "收藏", IsSelected = true},
             new PostType {Name = "zhuanfang", CNName = "专访", IsSelected = false},
             new PostType {Name = "lvyou", CNName = "旅游", IsSelected = true},
             new PostType {Name = "yuanzhuo", CNName = "圆桌", IsSelected = false}
@@ -263,11 +263,11 @@ namespace SLWeek.Utils
             }
         }
         #endregion
-        private static volatile CommonAppSettings _instance;
+        private static volatile AppSettings _instance;
         private static object _locker = new object();
 
-        private CommonAppSettings() { }
-        public static CommonAppSettings Instance
+        private AppSettings() { }
+        public static AppSettings Instance
         {
             get
             {
@@ -277,7 +277,7 @@ namespace SLWeek.Utils
                     {
                         if (_instance == null)
                         {
-                            _instance = new CommonAppSettings();
+                            _instance = new AppSettings();
                         }
                     }
                 }

@@ -26,21 +26,28 @@ namespace SLWeek.ViewModels
         public ChannelPage_Model()
         {
 
-            Init();
+         
         }
 
 
         ///// <summary>
         ///// This will be
-        private void Init()
-        {
-            ListChannels = new List<Channel>
-            {
-                new Channel("shehui", 20),
-                new Channel("wenhua", 20)
-            };
-        }
+    
 
+        protected override Task OnBindedViewLoad(MVVMSidekick.Views.IView view)
+        {
+            ObservableChannels=new ObservableCollection<Channel>();
+            foreach (var channeltype in AppSettings.Instance.SelectChannelTypes)
+            {
+                if (channeltype.IsSelected==true)
+                {
+                    ObservableChannels.Add(new Channel(channeltype.Name,20));
+                }
+               
+            }
+
+            return base.OnBindedViewLoad(view);
+        }
 
         public List<Channel> ListChannels
         {
@@ -54,6 +61,17 @@ namespace SLWeek.ViewModels
         #endregion
 
 
+
+        public ObservableCollection<Channel> ObservableChannels
+        {
+            get { return _ObservableChannelsLocator(this).Value; }
+            set { _ObservableChannelsLocator(this).SetValueAndTryNotify(value); }
+        }
+        #region Property ObservableCollection<Channel> ObservableChannels Setup        
+        protected Property<ObservableCollection<Channel>> _ObservableChannels = new Property<ObservableCollection<Channel>> { LocatorFunc = _ObservableChannelsLocator };
+        static Func<BindableBase, ValueContainer<ObservableCollection<Channel>>> _ObservableChannelsLocator = RegisterContainerLocator<ObservableCollection<Channel>>("ObservableChannels", model => model.Initialize("ObservableChannels", ref model._ObservableChannels, ref _ObservableChannelsLocator, _ObservableChannelsDefaultValueFactory));
+        static Func<ObservableCollection<Channel>> _ObservableChannelsDefaultValueFactory = () => default(ObservableCollection<Channel>);
+        #endregion
 
 
     }

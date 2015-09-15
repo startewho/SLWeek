@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using MVVMSidekick.ViewModels;
 
 namespace SLWeek.Models
 {
+  
     public class PostType:BindableBase<PostType>
     {
+
 
         public string Name
         {
@@ -20,6 +23,7 @@ namespace SLWeek.Models
         static Func<BindableBase, ValueContainer<string>> _NameLocator = RegisterContainerLocator<string>("Name", model => model.Initialize("Name", ref model._Name, ref _NameLocator, _NameDefaultValueFactory));
         static Func<string> _NameDefaultValueFactory = () => default(string);
         #endregion
+
 
 
         public string CNName

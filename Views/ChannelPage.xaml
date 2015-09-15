@@ -23,6 +23,6 @@
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <Pivot  ItemsSource="{Binding ListChannels}" ItemTemplate="{StaticResource ChannelPivotItemDateTemplate}" HeaderTemplate="{StaticResource ChannelPivotItemHeaderDateTemplate}"/>
+        <Pivot  ItemsSource="{Binding ObservableChannels}" ItemTemplate="{StaticResource ChannelPivotItemDateTemplate}" HeaderTemplate="{StaticResource ChannelPivotItemHeaderDateTemplate}"/>
     </Grid>
 </mvvm:MVVMPage>

@@ -14,9 +14,9 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using SLWeek.Models;
 using SLWeek.Utils;
+
 namespace SLWeek.ViewModels
 {
-
     [DataContract]
     public class SettingPage_Model : ViewModelBase<SettingPage_Model>
     {
@@ -25,75 +25,99 @@ namespace SLWeek.ViewModels
 
         public SettingPage_Model()
         {
-            Title = "设置";
-            IsImageMode = CommonAppSettings.Instance.IsEnableImageMode;
-            ListPostTypes = CommonAppSettings.Instance.SelectChannelTypes;
+            InitModel();
             PropScribe();
         }
+
+        private void InitModel()
+        {
+            Title = "设置";
+            IsImageMode = AppSettings.Instance.IsEnableImageMode;
+            ListPostTypes = AppSettings.Instance.SelectChannelTypes;
+        }
+
+        private void PropScribe()
+        {
+            GetValueContainer<bool>(vm => vm.IsImageMode).GetEventObservable().Subscribe(e =>
+            {
+                var isimagemode = e.EventArgs.NewValue;
+                AppSettings.Instance.IsEnableImageMode = isimagemode;
+            }).DisposeWith(this);
+
+            GetValueContainer<List<PostType>>(vm => vm.ListPostTypes).GetEventObservable().Subscribe(e =>
+            {
+                var changeValue = e.EventArgs.NewValue;
+                AppSettings.Instance.SelectChannelTypes = changeValue;
+            }).DisposeWith(this);
+        }
+
         public String Title
         {
             get { return _TitleLocator(this).Value; }
             set { _TitleLocator(this).SetValueAndTryNotify(value); }
         }
+
         #region Property String Title Setup
-        protected Property<String> _Title = new Property<String> { LocatorFunc = _TitleLocator };
-        static Func<BindableBase, ValueContainer<String>> _TitleLocator = RegisterContainerLocator<String>("Title", model => model.Initialize("Title", ref model._Title, ref _TitleLocator, _TitleDefaultValueFactory));
-        static Func<BindableBase, String> _TitleDefaultValueFactory = m => m.GetType().Name;
+
+        protected Property<String> _Title = new Property<String> {LocatorFunc = _TitleLocator};
+
+        private static Func<BindableBase, ValueContainer<String>> _TitleLocator =
+            RegisterContainerLocator<String>("Title",
+                model => model.Initialize("Title", ref model._Title, ref _TitleLocator, _TitleDefaultValueFactory));
+
+        private static Func<BindableBase, String> _TitleDefaultValueFactory = m => m.GetType().Name;
+
         #endregion
-
-        private void PropScribe()
-        {
-            GetValueContainer<bool>(vm =>vm.IsImageMode).GetEventObservable().Subscribe(e =>
-            {
-                var isimagemode = e.EventArgs.NewValue;
-                CommonAppSettings.Instance.IsEnableImageMode = isimagemode;
-            }).DisposeWith(this);
-
-            GetValueContainer<List<PostType>>(vm => vm.ListPostTypes).GetEventObservable().Subscribe(e =>
-            {
-                var changeValue =e.EventArgs.NewValue;
-                CommonAppSettings.Instance.SelectChannelTypes = changeValue;
-            }).DisposeWith(this);
-        }
-
 
         protected override Task OnBindedViewUnload(MVVMSidekick.Views.IView view)
         {
-
-        CommonAppSettings.Instance.SelectChannelTypes = ListPostTypes;
+            AppSettings.Instance.SelectChannelTypes = ListPostTypes;
             return base.OnBindedViewUnload(view);
         }
+
 
         public List<PostType> ListPostTypes
         {
             get { return _ListPostTypesLocator(this).Value; }
             set { _ListPostTypesLocator(this).SetValueAndTryNotify(value); }
         }
-        #region Property List<PostType> ListPostTypes Setup        
-        protected Property<List<PostType>> _ListPostTypes = new Property<List<PostType>> { LocatorFunc = _ListPostTypesLocator };
-        static Func<BindableBase, ValueContainer<List<PostType>>> _ListPostTypesLocator = RegisterContainerLocator<List<PostType>>("ListPostTypes", model => model.Initialize("ListPostTypes", ref model._ListPostTypes, ref _ListPostTypesLocator, _ListPostTypesDefaultValueFactory));
-        static Func<List<PostType>> _ListPostTypesDefaultValueFactory = () => default(List<PostType>);
-        #endregion
 
-        
+        #region Property List<PostType> ListPostTypes Setup        
+
+        protected Property<List<PostType>> _ListPostTypes = new Property<List<PostType>>
+        {
+            LocatorFunc = _ListPostTypesLocator
+        };
+
+        private static Func<BindableBase, ValueContainer<List<PostType>>> _ListPostTypesLocator =
+            RegisterContainerLocator<List<PostType>>("ListPostTypes",
+                model =>
+                    model.Initialize("ListPostTypes", ref model._ListPostTypes, ref _ListPostTypesLocator,
+                        _ListPostTypesDefaultValueFactory));
+
+        private static Func<List<PostType>> _ListPostTypesDefaultValueFactory = () => default(List<PostType>);
+
+        #endregion
 
         public bool IsImageMode
         {
             get { return _IsImageModeLocator(this).Value; }
-            set
-            {
-                _IsImageModeLocator(this).SetValueAndTryNotify(value);
-            
-            }
+            set { _IsImageModeLocator(this).SetValueAndTryNotify(value); }
         }
+
         #region Property bool IsImageMode Setup        
-        protected Property<bool> _IsImageMode = new Property<bool> { LocatorFunc = _IsImageModeLocator };
-        static Func<BindableBase, ValueContainer<bool>> _IsImageModeLocator = RegisterContainerLocator<bool>("IsImageMode", model => model.Initialize("IsImageMode", ref model._IsImageMode, ref _IsImageModeLocator, _IsImageModeDefaultValueFactory));
-        static Func<bool> _IsImageModeDefaultValueFactory = () => default(bool);
+
+        protected Property<bool> _IsImageMode = new Property<bool> {LocatorFunc = _IsImageModeLocator};
+
+        private static Func<BindableBase, ValueContainer<bool>> _IsImageModeLocator =
+            RegisterContainerLocator<bool>("IsImageMode",
+                model =>
+                    model.Initialize("IsImageMode", ref model._IsImageMode, ref _IsImageModeLocator,
+                        _IsImageModeDefaultValueFactory));
+
+        private static Func<bool> _IsImageModeDefaultValueFactory = () => default(bool);
+
         #endregion
-
-
     }
-
 }
 
