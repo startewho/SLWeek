@@ -1,8 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.Web.Http;
-using SLWeek.Utils;
+
 namespace SLWeek.Utils
 {
     public static class WebViewExtensions

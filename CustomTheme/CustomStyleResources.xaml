@@ -194,14 +194,14 @@
             <ScrollViewer  ZoomMode="Enabled"  HorizontalScrollMode="Disabled" VerticalScrollMode="Disabled"  Grid.Row="0">
                 <Image  q42Control:ImageExtensions.CacheUri="{Binding PictureUrl}"   CacheMode="BitmapCache"/>
             </ScrollViewer>
-            <TextBlock Text="{Binding Index, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" Grid.Row="1"  VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding Index, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" Grid.Row="1" />
         </Grid>
     </DataTemplate>
 
 
     <DataTemplate x:Key="SelectChannelTypeDataTemplate">
         <Grid>
-            <CheckBox Content="{Binding CNName}" IsChecked="{Binding IsSelected ,Mode=TwoWay}"/>
+        <CheckBox Content="{Binding CNName}"  IsChecked="{Binding IsSelected ,Mode=TwoWay}"/>
         </Grid>
     </DataTemplate>
 

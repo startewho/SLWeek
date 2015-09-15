@@ -28,6 +28,7 @@ namespace SLWeek.ViewModels
             Title = "设置";
             IsImageMode = CommonAppSettings.Instance.IsEnableImageMode;
             ListPostTypes = CommonAppSettings.Instance.SelectChannelTypes;
+            PropScribe();
         }
         public String Title
         {
@@ -47,8 +48,21 @@ namespace SLWeek.ViewModels
                 var isimagemode = e.EventArgs.NewValue;
                 CommonAppSettings.Instance.IsEnableImageMode = isimagemode;
             }).DisposeWith(this);
+
+            GetValueContainer<List<PostType>>(vm => vm.ListPostTypes).GetEventObservable().Subscribe(e =>
+            {
+                var changeValue =e.EventArgs.NewValue;
+                CommonAppSettings.Instance.SelectChannelTypes = changeValue;
+            }).DisposeWith(this);
         }
 
+
+        protected override Task OnBindedViewUnload(MVVMSidekick.Views.IView view)
+        {
+
+        CommonAppSettings.Instance.SelectChannelTypes = ListPostTypes;
+            return base.OnBindedViewUnload(view);
+        }
 
         public List<PostType> ListPostTypes
         {

@@ -8,6 +8,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:SLWeek.ViewModels"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -38,11 +40,10 @@
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-        <TextBlock x:Name="pageTitle" Text="{Binding Title}" Style="{StaticResource HeaderTextBlockStyle}"
-                        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Center" Grid.Row="0" HorizontalAlignment="Right"/>
+        <TextBlock Text="{Binding Title}" Style="{StaticResource MenuTitleTextBlockStyle}" Grid.Row="0" HorizontalAlignment="Right"/>
          <StackPanel Grid.Row="1">
              <CheckBox Content="有图" IsChecked="{Binding IsImageMode,Mode=TwoWay}"/>
-             <ListView ItemsSource="{Binding ListPostTypes,Mode=TwoWay}" ItemTemplate="{StaticResource SelectChannelTypeDataTemplate}"></ListView>
+             <ListView ItemsSource="{Binding ListPostTypes,Mode=TwoWay}" ItemTemplate="{StaticResource SelectChannelTypeDataTemplate}"/>
          </StackPanel>
     </Grid>
 </mvvm:MVVMPage>

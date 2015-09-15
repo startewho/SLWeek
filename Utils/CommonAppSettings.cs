@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using SLWeek.Models;
-
 
 namespace SLWeek.Utils
 {
@@ -15,18 +12,18 @@ namespace SLWeek.Utils
     /// </summary>
     public class CommonAppSettings
     {
-        private readonly ApplicationDataContainer _settings = Windows.Storage.ApplicationData.Current.LocalSettings;
+        private readonly ApplicationDataContainer _settings = ApplicationData.Current.LocalSettings;
 
         
         public void SetValue<T>(string key, T value)
         {
             try
             {
-                _settings.Values[key] = SerializerHelper.ToJson<T>(value);
+                _settings.Values[key] = SerializerHelper.ToJson(value);
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
+                Debug.WriteLine(ex.Message);
             }
             
         }
@@ -56,13 +53,21 @@ namespace SLWeek.Utils
 
 
         #region 主题
-        const string SelectChannelTypesKeyName = "CurrentTheme";
+        const string SelectChannelTypesKeyName = "SelectChannelTypes";
 
-        private static readonly List<PostType> SelectChannelTypesDefault = new List<PostType>()
+        private static readonly List<PostType> SelectChannelTypesDefault = new List<PostType>
         {
-            new PostType() {Name = "shehui", CNName = "社会", IsSelected = true},
-            new PostType() {Name = "wenhua", CNName = "文化", IsSelected = true},
-            new PostType() {Name = "keji", CNName = "科技", IsSelected = true}
+            new PostType {Name = "shehui", CNName = "社会", IsSelected = false},
+            new PostType {Name = "wenhua", CNName = "文化", IsSelected = false},
+            new PostType {Name = "keji", CNName = "科技", IsSelected = true},
+            new PostType {Name = "guoji", CNName = "国际", IsSelected = true},
+            new PostType {Name = "shishang", CNName = "时尚", IsSelected = false},
+            new PostType {Name = "renwu", CNName = "人物", IsSelected = true},
+            new PostType {Name = "jingji", CNName = "经济", IsSelected = true},
+            new PostType {Name = "shangcang", CNName = "收藏", IsSelected = true},
+            new PostType {Name = "zhuanfang", CNName = "专访", IsSelected = false},
+            new PostType {Name = "lvyou", CNName = "旅游", IsSelected = true},
+            new PostType {Name = "yuanzhuo", CNName = "圆桌", IsSelected = false}
         };
 
         /// <summary>
@@ -73,11 +78,11 @@ namespace SLWeek.Utils
             get
             {
 
-                return GetValue<List<PostType>>(SelectChannelTypesKeyName, SelectChannelTypesDefault);
+                return GetValue(SelectChannelTypesKeyName, SelectChannelTypesDefault);
             }
             set
             {
-                SetValue<List<PostType>>(SelectChannelTypesKeyName, value);
+                SetValue(SelectChannelTypesKeyName, value);
             }
         }
         #endregion
@@ -93,11 +98,11 @@ namespace SLWeek.Utils
             get
             {
 
-                return GetValue<ElementTheme>(CurrentThemeKeyName, CurrentThemeDefault);
+                return GetValue(CurrentThemeKeyName, CurrentThemeDefault);
             }
             set
             {
-                SetValue<ElementTheme>(CurrentThemeKeyName, value);
+                SetValue(CurrentThemeKeyName, value);
             }
         }
         #endregion
@@ -113,11 +118,11 @@ namespace SLWeek.Utils
         {
             get
             {
-                return GetValue<bool>(IsEnableDoubleBackKeyPressToExitKeyName, IsEnableDoubleBackKeyPressToExitDefault);
+                return GetValue(IsEnableDoubleBackKeyPressToExitKeyName, IsEnableDoubleBackKeyPressToExitDefault);
             }
             set
             {
-                SetValue<bool>(IsEnableDoubleBackKeyPressToExitKeyName, value);
+                SetValue(IsEnableDoubleBackKeyPressToExitKeyName, value);
             }
         }
         #endregion
@@ -132,11 +137,11 @@ namespace SLWeek.Utils
         {
             get
             {
-                return GetValue<bool>(IsCompletelyExitKeyName, IsCompletelyExitDefault);
+                return GetValue(IsCompletelyExitKeyName, IsCompletelyExitDefault);
             }
             set
             {
-                SetValue<bool>(IsCompletelyExitKeyName, value);
+                SetValue(IsCompletelyExitKeyName, value);
             }
         }
         #endregion
@@ -151,11 +156,11 @@ namespace SLWeek.Utils
         {
             get
             {
-                return GetValue<bool>(IsShowStatusBarKeyName, IsShowStatusBarDefault);
+                return GetValue(IsShowStatusBarKeyName, IsShowStatusBarDefault);
             }
             set
             {
-                SetValue<bool>(IsShowStatusBarKeyName, value);
+                SetValue(IsShowStatusBarKeyName, value);
             }
         }
         #endregion
@@ -172,11 +177,11 @@ namespace SLWeek.Utils
         {
             get
             {
-                return GetValue<bool>(IsEnableSaveTrafficModeKeyName, IsEnableSaveTrafficModeDefault);
+                return GetValue(IsEnableSaveTrafficModeKeyName, IsEnableSaveTrafficModeDefault);
             }
             set
             {
-                SetValue<bool>(IsEnableSaveTrafficModeKeyName, value);
+                SetValue(IsEnableSaveTrafficModeKeyName, value);
             }
         }
         #endregion
@@ -191,11 +196,11 @@ namespace SLWeek.Utils
         {
             get
             {
-                return GetValue<DateTime>(AdClickDateTimeKeyName, new DateTime(2014, 5, 1));
+                return GetValue(AdClickDateTimeKeyName, new DateTime(2014, 5, 1));
             }
             set
             {
-                SetValue<DateTime>(AdClickDateTimeKeyName, value);
+                SetValue(AdClickDateTimeKeyName, value);
             }
         }
         #endregion
@@ -210,11 +215,11 @@ namespace SLWeek.Utils
         {
             get
             {
-                return GetValue<bool>(IsEnableAdKeyName, IsEnableAdDefault);
+                return GetValue(IsEnableAdKeyName, IsEnableAdDefault);
             }
             set
             {
-                SetValue<bool>(IsEnableAdKeyName, value);
+                SetValue(IsEnableAdKeyName, value);
             }
         }
         #endregion
@@ -229,11 +234,11 @@ namespace SLWeek.Utils
         {
             get
             {
-                return GetValue<bool>(IsEnableImageModeName, IsEnableImageModeDefault);
+                return GetValue(IsEnableImageModeName, IsEnableImageModeDefault);
             }
             set
             {
-                SetValue<bool>(IsEnableImageModeName, value);
+                SetValue(IsEnableImageModeName, value);
             }
         }
         #endregion
@@ -250,11 +255,11 @@ namespace SLWeek.Utils
         {
             get
             {
-                return GetValue<DateTime>(ReviewDateTimeKeyName, new DateTime(2014, 5, 1));
+                return GetValue(ReviewDateTimeKeyName, new DateTime(2014, 5, 1));
             }
             set
             {
-                SetValue<DateTime>(ReviewDateTimeKeyName, value);
+                SetValue(ReviewDateTimeKeyName, value);
             }
         }
         #endregion
