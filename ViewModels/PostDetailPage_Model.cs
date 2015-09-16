@@ -144,7 +144,7 @@ namespace SLWeek.ViewModels
                         {
                             var args = e.EventArgs.Parameter as WebViewUnsupportedUriSchemeIdentifiedEventArgs;
                             var item=new PostDetail(Convert.ToInt32(args.Uri.Host));
-                           // item.Id = Convert.ToInt32(args.Uri.Host);
+                           // +Title的处理
                             args.Handled = true;
                             await vm.StageManager.DefaultStage.Show(new PostDetailPage_Model(item));
                             await MVVMSidekick.Utilities.TaskExHelper.Yield();

@@ -25,9 +25,20 @@ namespace SLWeek.Models
 
         public string Des { get; set; }
 
-        public string Title { get; set; }
 
-        
+        public string Title
+        {
+            get { return _TitleLocator(this).Value; }
+            set { _TitleLocator(this).SetValueAndTryNotify(value); }
+        }
+        #region Property string Title Setup        
+        protected Property<string> _Title = new Property<string> { LocatorFunc = _TitleLocator };
+        static Func<BindableBase, ValueContainer<string>> _TitleLocator = RegisterContainerLocator<string>("Title", model => model.Initialize("Title", ref model._Title, ref _TitleLocator, _TitleDefaultValueFactory));
+        static Func<string> _TitleDefaultValueFactory = () => default(string);
+        #endregion
+
+
+
         public Uri Icon
         {
             get { return _IconLocator(this).Value; }
