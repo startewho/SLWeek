@@ -9,7 +9,7 @@
     xmlns:vm="using:SLWeek.ViewModels"
     NavigationCacheMode="Required"
     mc:Ignorable="d">
-
+    
     <Page.Resources>
         <vm:AuthorPage_Model x:Key="DesignVM"/>
     </Page.Resources>

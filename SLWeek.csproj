@@ -95,6 +95,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\BoolToVisibilityConverter .cs" />
     <Compile Include="Models\Picture.cs" />
     <Compile Include="Views\PictureViewerPage.xaml.cs">
       <DependentUpon>PictureViewerPage.xaml</DependentUpon>

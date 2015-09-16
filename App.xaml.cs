@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using SLWeek.Control;
 using SLWeek.Views;
-
+using MVVMSidekick.ViewModels;
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=402347&clcid=0x409
 
 namespace SLWeek
@@ -143,7 +143,7 @@ namespace SLWeek
        void OnBackPressed(object sender, BackPressedEventArgs e)
         {
             var mainFrame = (Frame)Window.Current.Content;
-
+            
             if (mainFrame.CanGoBack)
             {
                 e.Handled = true;
@@ -155,6 +155,7 @@ namespace SLWeek
         void OnBackRequested(object sender, BackRequestedEventArgs e)
         {
             var mainFrame = (Frame)Window.Current.Content;
+            
             if (mainFrame.CanGoBack)
             {
                 e.Handled = true;

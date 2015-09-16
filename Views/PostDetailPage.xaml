@@ -26,7 +26,7 @@
         </Grid.ChildrenTransitions>
         <TextBlock Text="{Binding VM.Title}" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right"/>
         <!-- ReSharper disable once InconsistentNaming -->
-        <WebView x:Name="webView"  utils:WebViewExtensions.UriSource="{Binding VM.PostUrl}"  Margin="0,30,0,0" DOMContentLoaded="webView_DOMContentLoaded" NavigationCompleted="webView_NavigationCompleted">
+        <WebView x:Name="webView"   Source="{Binding VM.PostUrl}"  Margin="0,30,0,0" DOMContentLoaded="webView_DOMContentLoaded" NavigationCompleted="webView_NavigationCompleted">
             <Interactivity:Interaction.Behaviors>
                 <Core:EventTriggerBehavior EventName="UnsupportedUriSchemeIdentified">
                     <!-- ReSharper disable once Xaml.InvalidType -->

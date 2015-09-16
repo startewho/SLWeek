@@ -201,19 +201,28 @@
 
     <DataTemplate x:Key="SelectChannelTypeDataTemplate">
         <Grid>
-        <CheckBox Content="{Binding CNName}"  IsChecked="{Binding IsSelected ,Mode=TwoWay}"/>
+            <interactivity:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="Tapped">
+                    <behaviors:SendToEventRouterAction EventRoutingName="NotyCheckedByEventRouter"   IsEventFiringToAllBaseClassesChannels="True"  EventData="{Binding}"/>
+                </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+            <CheckBox Content="{Binding CNName}"  IsChecked="{Binding IsSelected ,Mode=TwoWay}" />
         </Grid>
     </DataTemplate>
 
     <!--#region PersonalControl Style-->
 
     <!--#region Pivot Style-->
+    <!--#region Pivot DataTemplate-->
     <DataTemplate x:Key="ChannelPivotItemHeaderDateTemplate">
         <TextBlock Text="{Binding PostKind.CNName}"/>
     </DataTemplate>
     <DataTemplate x:Key="ChannelPivotItemDateTemplate">
-        <ListView ItemsSource="{Binding SoureList}" ItemTemplate="{StaticResource PostDetailItemDataTemplate}"/>
+        <ListView ItemsSource="{Binding SoureList}" ItemTemplate="{StaticResource PostDetailItemDataTemplate}" Visibility="{Binding IsSelected,Converter={StaticResource BoolToVisibilityConverter}}"/>
     </DataTemplate>
+    <!--#endregion-->
+    
+    
     <Style TargetType="Pivot">
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="0" />
@@ -1133,7 +1142,7 @@
     <!--#region Converter-->
 
     <converter:ObjectToMenuItemConverter x:Key="ObjectToMenuItemConverter"/>
-
+    <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     <!--#endregion-->
 
 </ResourceDictionary>

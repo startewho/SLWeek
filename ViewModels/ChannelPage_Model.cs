@@ -1,20 +1,13 @@
-﻿using System.Reactive;
-using System.Reactive.Linq;
-using MVVMSidekick.ViewModels;
+﻿using MVVMSidekick.ViewModels;
 using MVVMSidekick.Views;
-using MVVMSidekick.Reactive;
-using MVVMSidekick.Services;
-using MVVMSidekick.Commands;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
-using SLWeek.Source;
 using SLWeek.Models;
 using SLWeek.Utils;
+
 namespace SLWeek.ViewModels
 {
 
@@ -25,41 +18,67 @@ namespace SLWeek.ViewModels
         // 如果您已经安装了 MVVMSidekick 代码片段，请用 propvm +tab +tab 输入属性
         public ChannelPage_Model()
         {
-
-         
+            IsFistLoad = false;
         }
 
+        /// <summary>
+        /// 第一次载入VM
+        /// </summary>
+        private bool IsFistLoad;
 
-        ///// <summary>
-        ///// This will be
-    
-
-        protected override Task OnBindedViewLoad(MVVMSidekick.Views.IView view)
+        protected override Task OnBindedViewLoad(IView view)
         {
-            ObservableChannels=new ObservableCollection<Channel>();
-            foreach (var channeltype in AppSettings.Instance.SelectChannelTypes)
-            {
-                if (channeltype.IsSelected==true)
-                {
-                    ObservableChannels.Add(new Channel(channeltype.Name,20));
-                }
-               
-            }
+         
+             ObservableChannels = new ObservableCollection<Channel>();
+             IsFistLoad = true;
 
+            foreach (var channeltype in AppSettings.Instance.SelectChannelTypes.Where(item => item.IsSelected == true).ToList())
+            {
+                ObservableChannels.Add(new Channel(channeltype.Name, 20, false));
+            }
+            SelectPivotItemIndex = 0;
             return base.OnBindedViewLoad(view);
         }
 
-        public List<Channel> ListChannels
-        {
-            get { return _ListChannelsLocator(this).Value; }
-            set { _ListChannelsLocator(this).SetValueAndTryNotify(value); }
-        }
-        #region Property List<Channel> ListChannels Setup        
-        protected Property<List<Channel>> _ListChannels = new Property<List<Channel>> { LocatorFunc = _ListChannelsLocator };
-        static Func<BindableBase, ValueContainer<List<Channel>>> _ListChannelsLocator = RegisterContainerLocator<List<Channel>>("ListChannels", model => model.Initialize("ListChannels", ref model._ListChannels, ref _ListChannelsLocator, _ListChannelsDefaultValueFactory));
-        static Func<List<Channel>> _ListChannelsDefaultValueFactory = () => default(List<Channel>);
-        #endregion
+        //protected override Task OnBindedViewUnload(IView view)
+        //{
+        //    foreach (var channel in ObservableChannels)
+        //    {
+        //        channel.IsSelected = false;
+        //    }
 
+        //    return base.OnBindedViewUnload(view);
+        //}
+
+        /// <summary>
+        /// 选中的PivotItem进行显示,其它的PivotItem折叠
+        /// </summary>
+        public int SelectPivotItemIndex
+        {
+            get { return _SelectPivotItemIndexLocator(this).Value; }
+            set
+            {
+                _SelectPivotItemIndexLocator(this).SetValueAndTryNotify(value);
+
+                for (var i = 0; i < ObservableChannels.Count; i++)
+                {
+                    if (i != value)
+                    {
+                        ObservableChannels[i].IsSelected = false;
+                    }
+                    else
+                    {
+                      ObservableChannels[value].IsSelected = true;
+                    }
+                }
+       
+            }
+        }
+        #region Property int SelectPivotItemIndex Setup        
+        protected Property<int> _SelectPivotItemIndex = new Property<int> { LocatorFunc = _SelectPivotItemIndexLocator };
+        static Func<BindableBase, ValueContainer<int>> _SelectPivotItemIndexLocator = RegisterContainerLocator<int>("SelectPivotItemIndex", model => model.Initialize("SelectPivotItemIndex", ref model._SelectPivotItemIndex, ref _SelectPivotItemIndexLocator, _SelectPivotItemIndexDefaultValueFactory));
+        static Func<int> _SelectPivotItemIndexDefaultValueFactory = () => default(int);
+        #endregion
 
 
         public ObservableCollection<Channel> ObservableChannels

@@ -44,11 +44,25 @@ namespace SLWeek.ViewModels
                 AppSettings.Instance.IsEnableImageMode = isimagemode;
             }).DisposeWith(this);
 
-            GetValueContainer<List<PostType>>(vm => vm.ListPostTypes).GetEventObservable().Subscribe(e =>
-            {
-                var changeValue = e.EventArgs.NewValue;
-                AppSettings.Instance.SelectChannelTypes = changeValue;
-            }).DisposeWith(this);
+
+            //CheckBox点击之后,马上更改设置,以实现实时更新
+            MVVMSidekick.EventRouting.EventRouter.Instance.GetEventChannel<Object>()
+                .Where(x => x.EventName == "NotyCheckedByEventRouter")
+                .Subscribe(
+                    async e =>
+                    {
+                        await MVVMSidekick.Utilities.TaskExHelper.Yield();
+                        var item = e.EventData as PostType;
+                        if (item != null)
+                        {
+                            AppSettings.Instance.SelectChannelTypes = ListPostTypes;
+                            //StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
+                        }
+
+                    }
+                ).DisposeWith(this);
+
+
         }
 
         public String Title
@@ -69,12 +83,7 @@ namespace SLWeek.ViewModels
 
         #endregion
 
-        protected override Task OnBindedViewUnload(MVVMSidekick.Views.IView view)
-        {
-            AppSettings.Instance.SelectChannelTypes = ListPostTypes;
-            return base.OnBindedViewUnload(view);
-        }
-
+    
 
         public List<PostType> ListPostTypes
         {
@@ -98,6 +107,9 @@ namespace SLWeek.ViewModels
         private static Func<List<PostType>> _ListPostTypesDefaultValueFactory = () => default(List<PostType>);
 
         #endregion
+
+
+
 
         public bool IsImageMode
         {
