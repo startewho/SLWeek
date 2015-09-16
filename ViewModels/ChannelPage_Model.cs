@@ -18,24 +18,19 @@ namespace SLWeek.ViewModels
         // 如果您已经安装了 MVVMSidekick 代码片段，请用 propvm +tab +tab 输入属性
         public ChannelPage_Model()
         {
-            IsFistLoad = false;
+     
         }
 
-        /// <summary>
-        /// 第一次载入VM
-        /// </summary>
-        private bool IsFistLoad;
+     
 
         protected override Task OnBindedViewLoad(IView view)
         {
-         
-             ObservableChannels = new ObservableCollection<Channel>();
-             IsFistLoad = true;
-
+            ObservableChannels = new ObservableCollection<Channel>();
             foreach (var channeltype in AppSettings.Instance.SelectChannelTypes.Where(item => item.IsSelected == true).ToList())
             {
                 ObservableChannels.Add(new Channel(channeltype.Name, 20, false));
             }
+
             SelectPivotItemIndex = 0;
             return base.OnBindedViewLoad(view);
         }
