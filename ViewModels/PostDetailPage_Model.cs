@@ -34,43 +34,6 @@ namespace SLWeek.ViewModels
         public string Pictures { get;  set; }
 
 
-        public CommandModel<ReactiveCommand, String> CommandAddScript
-        {
-            get { return _CommandAddScriptLocator(this).Value; }
-            set { _CommandAddScriptLocator(this).SetValueAndTryNotify(value); }
-        }
-        #region Property CommandModel<ReactiveCommand, String> CommandAddScript Setup        
-
-        protected Property<CommandModel<ReactiveCommand, String>> _CommandAddScript = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandAddScriptLocator };
-        static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandAddScriptLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>("CommandAddScript", model => model.Initialize("CommandAddScript", ref model._CommandAddScript, ref _CommandAddScriptLocator, _CommandAddScriptDefaultValueFactory));
-        static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandAddScriptDefaultValueFactory =
-            model =>
-            {
-                var resource = "CommandAddScript";           // Command resource  
-                var commandId = "CommandAddScript";
-                var vm = CastToCurrentType(model);
-                var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
-
-                cmd.DoExecuteUIBusyTask(
-                        vm,
-                        async e =>
-                        {
-                       
-                            await MVVMSidekick.Utilities.TaskExHelper.Yield();
-                        })
-                    .DoNotifyDefaultEventRouter(vm, commandId)
-                    .Subscribe()
-                    .DisposeWith(vm);
-
-                var cmdmdl = cmd.CreateCommandModel(resource);
-
-                cmdmdl.ListenToIsUIBusy(
-                    model: vm,
-                    canExecuteWhenBusy: false);
-                return cmdmdl;
-            };
-
-        #endregion
 
 
         /// <summary>
@@ -119,51 +82,6 @@ namespace SLWeek.ViewModels
 
         #endregion
 
-
-
-        public CommandModel<ReactiveCommand, String> CommandGoToNewPostPage
-        {
-            get { return _CommandGoToNewPostPageLocator(this).Value; }
-            set { _CommandGoToNewPostPageLocator(this).SetValueAndTryNotify(value); }
-        }
-        #region Property CommandModel<ReactiveCommand, String> CommandGoToNewPostPage Setup        
-
-        protected Property<CommandModel<ReactiveCommand, String>> _CommandGoToNewPostPage = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandGoToNewPostPageLocator };
-        static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandGoToNewPostPageLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>("CommandGoToNewPostPage", model => model.Initialize("CommandGoToNewPostPage", ref model._CommandGoToNewPostPage, ref _CommandGoToNewPostPageLocator, _CommandGoToNewPostPageDefaultValueFactory));
-        static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandGoToNewPostPageDefaultValueFactory =
-            model =>
-            {
-                var resource = "CommandGoToNewPostPage";           // Command resource  
-                var commandId = "CommandGoToNewPostPage";
-                var vm = CastToCurrentType(model);
-                var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
-
-                cmd.DoExecuteUIBusyTask(
-                        vm,
-                        async e =>
-                        {
-                            var args = e.EventArgs.Parameter as WebViewUnsupportedUriSchemeIdentifiedEventArgs;
-                            var item=new PostDetail(Convert.ToInt32(args.Uri.Host));
-                           // +Title的处理
-                            args.Handled = true;
-                            await vm.StageManager.DefaultStage.Show(new PostDetailPage_Model(item));
-                            await MVVMSidekick.Utilities.TaskExHelper.Yield();
-                        })
-                    .DoNotifyDefaultEventRouter(vm, commandId)
-                    .Subscribe()
-                    .DisposeWith(vm);
-
-                var cmdmdl = cmd.CreateCommandModel(resource);
-
-                cmdmdl.ListenToIsUIBusy(
-                    model: vm,
-                    canExecuteWhenBusy: false);
-                return cmdmdl;
-            };
-
-        #endregion
-
-
         /// <summary>
         /// 导航到图片查看页
         /// </summary>
@@ -192,24 +110,45 @@ namespace SLWeek.ViewModels
                             if (notifyEventArgs != null)
                             {
                                 var strfromweb = notifyEventArgs.Value as string;
-                                if (strfromweb.Contains("picturelist"))
+
+
+                                if (!strfromweb.Contains("picturelist"))
                                 {
-                                    vm.Pictures = strfromweb.Replace("picturelist", "");
+                                    if (strfromweb.Contains(".jpg"))
+                                    {
+                                        var picviewrvm = new PictureViewerPage_Model();
+                                        picviewrvm.ListPictures = new List<Picture>();
+                                        var listpicurl = vm.Pictures.Split(new char[] {'\t'},
+                                            StringSplitOptions.RemoveEmptyEntries);
+                                        for (var i = 0; i < listpicurl.Length; i++)
+                                        {
+                                            if (listpicurl[i] == strfromweb)
+                                            {
+                                                picviewrvm.SelectIndex = i;
+                                            }
+                                            picviewrvm.ListPictures.Add(new Picture()
+                                            {
+                                                PictureUrl = listpicurl[i],
+                                                Index = i + 1
+                                            });
+                                        }
+                                        await vm.StageManager.DefaultStage.Show(picviewrvm);
+                                    }
+                                    else
+                                    {
+                                        var listpost = strfromweb.Split(new char[] {'|'},
+                                            StringSplitOptions.RemoveEmptyEntries);
+
+                                        listpost[0] = listpost[0].Remove(0, 7).Replace('/', ' ');
+
+                                        var item = new PostDetail(Convert.ToInt32(listpost[0]), listpost[1]);
+                                        await vm.StageManager.DefaultStage.Show(new PostDetailPage_Model(item));
+                                        await MVVMSidekick.Utilities.TaskExHelper.Yield();
+                                    }
                                 }
                                 else
                                 {
-                                    var picviewrvm = new PictureViewerPage_Model();
-                                    picviewrvm.ListPictures=new List<Picture>();
-                                    var listpicurl = vm.Pictures.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                                    for (var i = 0; i < listpicurl.Length; i++)
-                                    {
-                                        if (listpicurl[i] == strfromweb)
-                                        {
-                                            picviewrvm.SelectIndex = i;
-                                        }
-                                        picviewrvm.ListPictures.Add(new Picture() {PictureUrl = listpicurl[i],Index = i+1});
-                                    }
-                                    await   vm.StageManager.DefaultStage.Show(picviewrvm);
+                                    vm.Pictures = strfromweb.Replace("picturelist", "");
                                 }
                             }
                             //Todo: Add ViewPicturePage logic here, or

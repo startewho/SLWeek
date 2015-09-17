@@ -5,9 +5,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Shapes;
-using System.Linq;
 using Windows.UI.Xaml.Controls.Primitives;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

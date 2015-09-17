@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SLWeek.Source;
-using SLWeek.Models;
 using MVVMSidekick.ViewModels;
-using SLWeek.Utils;
 
 namespace SLWeek.Models
 {

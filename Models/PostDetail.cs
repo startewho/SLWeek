@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MVVMSidekick.ViewModels;
 using SLWeek.Utils;
 namespace SLWeek.Models
@@ -13,10 +9,11 @@ namespace SLWeek.Models
         {
            
         }
-        public PostDetail(int id)
+        public PostDetail(int id,string title)
         {
             Id = id;
             PostUrl = string.Format(Strings.PostUri, id);
+            Title = title;
         }
 
         public int Id { get; set; }

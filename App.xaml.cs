@@ -1,25 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation.Metadata;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-using SLWeek.Control;
 using SLWeek.Views;
-using MVVMSidekick.ViewModels;
+
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=402347&clcid=0x409
 
 namespace SLWeek
