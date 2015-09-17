@@ -60,7 +60,7 @@ namespace SLWeek.Views
             //的DOM完成后,先获得图片列表,然后对带图片链接,加入事件处理,以便于接受页面数据
             var arguments = new List<string>
             {
-                "$(document).ready(function(){var urlstr='picturelist'; $(\'[href$=\".jpg\"]\').each(function() {urlstr+=this.href+'\t';}); window.external.notify(urlstr); return true;});"
+                "$(document).ready(function(){var urlstr='picturelist'; $(\'[href$=\".jpg\"]\').each(function() { urlstr=urlstr+this.href+'\t';}); window.external.notify(urlstr); return true;});"
             };
             await webView.InvokeScriptAsync("eval", arguments);
         }
@@ -70,8 +70,17 @@ namespace SLWeek.Views
             var arguments = new List<string>
             {
                 "$(document).ready(function(){$(\'[href$=\".jpg\"]\').click (function() {window.external.notify(this.href); return false;});});"
+             
             };
             await webView.InvokeScriptAsync("eval", arguments);
+
+            var arguments1 = new List<string>
+            {
+               
+                 "$(document).ready(function(){$('a').click (function() {window.external.notify(this.href+'|'+$(this).html()); return false;});});"
+            };
+            await webView.InvokeScriptAsync("eval", arguments1);
         }
+
     }
 }
