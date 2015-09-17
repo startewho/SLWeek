@@ -109,47 +109,51 @@ namespace SLWeek.ViewModels
                             var notifyEventArgs = e.EventArgs.Parameter as NotifyEventArgs;
                             if (notifyEventArgs != null)
                             {
-                                var strfromweb = notifyEventArgs.Value as string;
 
+                                var link = notifyEventArgs.Value as string;
 
-                                if (!strfromweb.Contains("picturelist"))
+                                switch (link.Substring(0, Math.Min(4, link.Length)))
                                 {
-                                    if (strfromweb.Contains(".jpg"))
-                                    {
+                                    case "pict":
+                                        vm.Pictures = link.Replace("picturelist", "");
+                                        break;
+
+                                    case "http":
                                         var picviewrvm = new PictureViewerPage_Model();
                                         picviewrvm.ListPictures = new List<Picture>();
                                         var listpicurl = vm.Pictures.Split(new char[] {'\t'},
                                             StringSplitOptions.RemoveEmptyEntries);
                                         for (var i = 0; i < listpicurl.Length; i++)
                                         {
-                                            if (listpicurl[i] == strfromweb)
+                                            if (listpicurl[i] == link)
                                             {
                                                 picviewrvm.SelectIndex = i;
                                             }
-                                            picviewrvm.ListPictures.Add(new Picture()
+                                            picviewrvm.ListPictures.Add(
+                                                new Picture()
                                             {
                                                 PictureUrl = listpicurl[i],
                                                 Index = i + 1
                                             });
                                         }
                                         await vm.StageManager.DefaultStage.Show(picviewrvm);
-                                    }
-                                    else
-                                    {
-                                        var listpost = strfromweb.Split(new char[] {'|'},
+                                        break;
+
+                                    case "link":
+                                        var listpost = link.Split(new char[] {'|'},
                                             StringSplitOptions.RemoveEmptyEntries);
 
                                         listpost[0] = listpost[0].Remove(0, 7).Replace('/', ' ');
 
                                         var item = new PostDetail(Convert.ToInt32(listpost[0]), listpost[1]);
                                         await vm.StageManager.DefaultStage.Show(new PostDetailPage_Model(item));
+                                        break;
+
+                                    default:
                                         await MVVMSidekick.Utilities.TaskExHelper.Yield();
-                                    }
+                                        break;
                                 }
-                                else
-                                {
-                                    vm.Pictures = strfromweb.Replace("picturelist", "");
-                                }
+
                             }
                             //Todo: Add ViewPicturePage logic here, or
                             await MVVMSidekick.Utilities.TaskExHelper.Yield();
