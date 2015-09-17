@@ -17,11 +17,8 @@
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="SLWeek.App">
       <uap:VisualElements DisplayName="三联UWA" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="SLWeek" BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\Square71x71Logo.png">
-          <uap:ShowNameOnTiles>
-            <uap:ShowOn Tile="square150x150Logo" />
-          </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="blue" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="black" />
       </uap:VisualElements>
       <uap:ApplicationContentUriRules>
         <uap:Rule Match="http://lifeweeker3.cms.palmtrends.com" Type="include" WindowsRuntimeAccess="all" />

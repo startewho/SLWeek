@@ -58,6 +58,7 @@ namespace SLWeek.ViewModels
                     }
                 }
             }
+        
          
         }
 
@@ -83,8 +84,6 @@ namespace SLWeek.ViewModels
                             AppSettings.Instance.SelectChannelTypes = query.ToList();
                         }
                        
-               
-                   
                         await MVVMSidekick.Utilities.TaskExHelper.Yield();
                     }
                 ).DisposeWith(this);
