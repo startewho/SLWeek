@@ -18,15 +18,16 @@ namespace SLWeek.ViewModels
         // 如果您已经安装了 MVVMSidekick 代码片段，请用 propvm +tab +tab 输入属性
         public ChannelPage_Model()
         {
-     
+
         }
 
-     
 
         protected override Task OnBindedViewLoad(IView view)
         {
+         
             ObservableChannels = new ObservableCollection<Channel>();
-            foreach (var channeltype in AppSettings.Instance.SelectChannelTypes.Where(item => item.IsSelected == true).ToList())
+                      
+            foreach (var channeltype in AppSettings.Instance.SelectChannelTypes)
             {
                 ObservableChannels.Add(new Channel(channeltype.Name, 20, false));
             }

@@ -57,17 +57,9 @@ namespace SLWeek.Utils
 
         private static readonly List<PostType> SelectChannelTypesDefault = new List<PostType>
         {
-            new PostType {Name = "shehui", CNName = "社会", IsSelected = false},
-            new PostType {Name = "wenhua", CNName = "文化", IsSelected = false},
-            new PostType {Name = "keji", CNName = "科技", IsSelected = true},
-            new PostType {Name = "guoji", CNName = "国际", IsSelected = true},
-            new PostType {Name = "shishang", CNName = "时尚", IsSelected = false},
-            new PostType {Name = "renwu", CNName = "人物", IsSelected = true},
-            new PostType {Name = "jingji", CNName = "经济", IsSelected = true},
-            new PostType {Name = "shoucang", CNName = "收藏", IsSelected = true},
-            new PostType {Name = "zhuanfang", CNName = "专访", IsSelected = false},
-            new PostType {Name = "lvyou", CNName = "旅游", IsSelected = true},
-            new PostType {Name = "yuanzhuo", CNName = "圆桌", IsSelected = false}
+            new PostType {Name = "shehui", CNName = "社会", IsSelected = true},
+            new PostType {Name = "wenhua", CNName = "文化", IsSelected = true},
+            new PostType {Name = "keji", CNName = "科技", IsSelected = true}
         };
 
         /// <summary>

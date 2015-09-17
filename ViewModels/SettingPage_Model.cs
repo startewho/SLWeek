@@ -33,7 +33,32 @@ namespace SLWeek.ViewModels
         {
             Title = "设置";
             IsImageMode = AppSettings.Instance.IsEnableImageMode;
-            ListPostTypes = AppSettings.Instance.SelectChannelTypes;
+            SelectedPostTypes = AppSettings.Instance.SelectChannelTypes;
+            ListPostTypes = new List<PostType>
+        {
+            new PostType {Name = "shehui", CNName = "社会", IsSelected = false},
+            new PostType {Name = "wenhua", CNName = "文化", IsSelected = false},
+            new PostType {Name = "keji", CNName = "科技", IsSelected = false},
+            new PostType {Name = "guoji", CNName = "国际", IsSelected = false},
+            new PostType {Name = "shishang", CNName = "时尚", IsSelected = false},
+            new PostType {Name = "renwu", CNName = "人物", IsSelected = false},
+            new PostType {Name = "jingji", CNName = "经济", IsSelected = false},
+            new PostType {Name = "shoucang", CNName = "收藏", IsSelected = false},
+            new PostType {Name = "zhuanfang", CNName = "专访", IsSelected = false},
+            new PostType {Name = "lvyou", CNName = "旅游", IsSelected = false},
+            new PostType {Name = "yuanzhuo", CNName = "圆桌", IsSelected = false}
+        };
+            foreach (var listPostType in ListPostTypes)
+            {
+                foreach (var selectedPostType in SelectedPostTypes)
+                {
+                    if (listPostType.Name==selectedPostType.Name)
+                    {
+                        listPostType.IsSelected = selectedPostType.IsSelected;
+                    }
+                }
+            }
+         
         }
 
         private void PropScribe()
@@ -51,14 +76,16 @@ namespace SLWeek.ViewModels
                 .Subscribe(
                     async e =>
                     {
-                        await MVVMSidekick.Utilities.TaskExHelper.Yield();
                         var item = e.EventData as PostType;
-                        if (item != null)
+                        if (item!=null)
                         {
-                            AppSettings.Instance.SelectChannelTypes = ListPostTypes;
-                            //StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
+                            IEnumerable<PostType> query = ListPostTypes.Where(listPosttype => listPosttype.IsSelected);
+                            AppSettings.Instance.SelectChannelTypes = query.ToList();
                         }
-
+                       
+               
+                   
+                        await MVVMSidekick.Utilities.TaskExHelper.Yield();
                     }
                 ).DisposeWith(this);
 
@@ -83,7 +110,19 @@ namespace SLWeek.ViewModels
 
         #endregion
 
-    
+
+        public List<PostType> SelectedPostTypes
+        {
+            get { return _SelectedPostTypesLocator(this).Value; }
+            set { _SelectedPostTypesLocator(this).SetValueAndTryNotify(value); }
+        }
+        #region Property List<PostType> SelectedPostTypes Setup        
+        protected Property<List<PostType>> _SelectedPostTypes = new Property<List<PostType>> { LocatorFunc = _SelectedPostTypesLocator };
+        static Func<BindableBase, ValueContainer<List<PostType>>> _SelectedPostTypesLocator = RegisterContainerLocator<List<PostType>>("SelectedPostTypes", model => model.Initialize("SelectedPostTypes", ref model._SelectedPostTypes, ref _SelectedPostTypesLocator, _SelectedPostTypesDefaultValueFactory));
+        static Func<List<PostType>> _SelectedPostTypesDefaultValueFactory = () => default(List<PostType>);
+        #endregion
+
+
 
         public List<PostType> ListPostTypes
         {
