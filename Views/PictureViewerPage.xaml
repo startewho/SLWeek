@@ -11,15 +11,29 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-    <vm:PictureViewerPage_Model x:Key="DesignVM"/>
+        <vm:PictureViewerPage_Model x:Key="DesignVM"/>
     </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
+    <Grid   DataContext="{StaticResource DesignVM}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="277*"/>
+            <ColumnDefinition Width="83*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <FlipView ItemsSource="{Binding ListPictures}" ItemTemplate="{StaticResource PictureItemDataTemplate}" SelectedIndex="{Binding SelectIndex,Mode=TwoWay}"/>
+        <FlipView ItemsSource="{Binding ListPictures}" ItemTemplate="{StaticResource PictureItemDataTemplate}" SelectedItem="{Binding SelectPicture,Mode=TwoWay}" Grid.Row="0" Grid.ColumnSpan="2"/>
+        <TextBlock Text="{Binding SelectPicture.Des, Mode=OneWay}" TextTrimming="WordEllipsis"  Style="{StaticResource MenuTitleTextBlockStyle}" Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom" />
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <TextBlock Text="{Binding SelectPicture.Index, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
+            <TextBlock Text="/" Style="{StaticResource MenuTitleTextBlockStyle}" />
+            <TextBlock Text="{Binding ListPictures.Count, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
+        </StackPanel>
     </Grid>
 </mvvm:MVVMPage>

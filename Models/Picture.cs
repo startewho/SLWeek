@@ -5,7 +5,7 @@ namespace SLWeek.Models
 {
         public  class Picture:BindableBase<Picture>
     {
-
+       
 
         public string PictureUrl
         {
@@ -30,7 +30,7 @@ namespace SLWeek.Models
         static Func<string> _DesDefaultValueFactory = () => default(string);
         #endregion
 
-
+        
         public int Index
         {
             get { return _IndexLocator(this).Value; }

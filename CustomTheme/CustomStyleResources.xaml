@@ -187,15 +187,10 @@
 
     <DataTemplate x:Key="PictureItemDataTemplate">
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="20"/>
-            </Grid.RowDefinitions>
-            <ScrollViewer  ZoomMode="Enabled"  HorizontalScrollMode="Disabled" VerticalScrollMode="Disabled"  Grid.Row="0">
+                <ScrollViewer  ZoomMode="Enabled"  HorizontalScrollMode="Disabled" VerticalScrollMode="Disabled">
                 <Image  q42Control:ImageExtensions.CacheUri="{Binding PictureUrl}"   CacheMode="BitmapCache"/>
             </ScrollViewer>
-            <TextBlock Text="{Binding Index, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" Grid.Row="1" />
-        </Grid>
+       </Grid>
     </DataTemplate>
 
 

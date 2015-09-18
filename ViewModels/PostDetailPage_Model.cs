@@ -2,6 +2,7 @@
 using MVVMSidekick.Reactive;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using Windows.UI.Xaml.Controls;
 using SLWeek.Models;
@@ -26,12 +27,23 @@ namespace SLWeek.ViewModels
                
             }
             this.VM = model;
+            Pictures=new List<Picture>();
             
         }
 
       
         public PostDetail VM { get; set; }
-        public string Pictures { get;  set; }
+     
+        public List<Picture> Pictures
+        {
+            get { return _PicturesLocator(this).Value; }
+            set { _PicturesLocator(this).SetValueAndTryNotify(value); }
+        }
+        #region Property List<Picture> Pictures Setup        
+        protected Property<List<Picture>> _Pictures = new Property<List<Picture>> { LocatorFunc = _PicturesLocator };
+        static Func<BindableBase, ValueContainer<List<Picture>>> _PicturesLocator = RegisterContainerLocator<List<Picture>>("Pictures", model => model.Initialize("Pictures", ref model._Pictures, ref _PicturesLocator, _PicturesDefaultValueFactory));
+        static Func<List<Picture>> _PicturesDefaultValueFactory = () => default(List<Picture>);
+        #endregion
 
 
 
@@ -110,33 +122,36 @@ namespace SLWeek.ViewModels
                             if (notifyEventArgs != null)
                             {
 
-                                var link = notifyEventArgs.Value as string;
-
+                                var link = notifyEventArgs.Value;
+                                var links = link.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
                                 switch (link.Substring(0, Math.Min(4, link.Length)))
                                 {
                                     case "pict":
-                                        vm.Pictures = link.Replace("picturelist", "");
-                                        break;
-
-                                    case "http":
-                                        var picviewrvm = new PictureViewerPage_Model();
-                                        picviewrvm.ListPictures = new List<Picture>();
-                                        var listpicurl = vm.Pictures.Split(new char[] {'\t'},
-                                            StringSplitOptions.RemoveEmptyEntries);
-                                        for (var i = 0; i < listpicurl.Length; i++)
+                                        var picturls = link.Replace("picturelist", "").Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries); 
+                                        for (int i = 0; i < picturls.Length; i++)
                                         {
-                                            if (listpicurl[i] == link)
+                                            var pic=picturls[i].Split(new[] { '|' },StringSplitOptions.RemoveEmptyEntries);
+                                            vm.Pictures.Add(new Picture()
                                             {
-                                                picviewrvm.SelectIndex = i;
-                                            }
-                                            picviewrvm.ListPictures.Add(
-                                                new Picture()
-                                            {
-                                                PictureUrl = listpicurl[i],
+                                                PictureUrl = pic[0],
+                                                Des=pic[1],
                                                 Index = i + 1
                                             });
                                         }
+                                      
+                                        break;
+
+                                    case "http":
+                                       
+                                        var selectpic =(from picture in vm.Pictures where picture.PictureUrl == links[0] select picture).First();
+
+                                        var picviewrvm = new PictureViewerPage_Model
+                                        {
+                                            ListPictures = vm.Pictures,
+                                            SelectPicture = selectpic
+                                        };
                                         await vm.StageManager.DefaultStage.Show(picviewrvm);
+
                                         break;
 
                                     case "link":
