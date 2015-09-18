@@ -15,7 +15,7 @@ namespace SLWeek.Utils
                 httpClient.Dispose();
             }
             httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.UserAgent.Add(new HttpProductInfoHeaderValue("ie", Strings.UerAgent));
+            httpClient.DefaultRequestHeaders.UserAgent.Add(new HttpProductInfoHeaderValue("ie", AppStrings.UerAgent));
         }
 
         public static async Task<string> GetTextByPost(string posturi, string poststr, List<KeyValuePair<string, string>> body)

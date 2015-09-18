@@ -12,7 +12,7 @@ namespace SLWeek.Models
         {
             //shehui
             SoureList = new IncrementalLoadingCollection<PostSource, PostDetail>(postkind, 20);
-            PostKind = new PostType() {Name = postkind, CNName = Strings.PostTypeDic[postkind]};
+            PostKind = new PostType() {Name = postkind, CNName = AppStrings.PostTypeDic[postkind]};
             IsSelected = isselected;
         }
 

@@ -12,7 +12,7 @@ namespace SLWeek.Models
         public PostDetail(int id,string title)
         {
             Id = id;
-            PostUrl = string.Format(Strings.PostUri, id);
+            PostUrl = string.Format(AppStrings.PostUri, id,AppSettings.Instance.IsEnableImageMode?"show":"hide");
             Title = title;
         }
 

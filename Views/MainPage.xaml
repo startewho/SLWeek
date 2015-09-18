@@ -19,8 +19,8 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate >
                             <StackPanel Orientation="Horizontal" Height="48">
-                                <TextBlock Grid.RowSpan="2" Text="{Binding Icon, Mode=OneWay}" Style="{StaticResource IconTextBlockStyle}" />
-                                <TextBlock Grid.Column="1" Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
+                                <TextBlock Text="{Binding Icon, Mode=OneWay}" Style="{StaticResource IconTextBlockStyle}" />
+                                <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

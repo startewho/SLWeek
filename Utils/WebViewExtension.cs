@@ -85,8 +85,8 @@ namespace SLWeek.Utils
          public static string HrefAddHost(string originaltext)
         {
 
-            originaltext = originaltext.Replace("src=\"/upload", "src=\"" + Strings.HostUri + "/upload");
-            originaltext = originaltext.Replace("href=\"/upload", "href=\"" + Strings.HostUri + "/upload");
+            originaltext = originaltext.Replace("src=\"/upload", "src=\"" + AppStrings.HostUri + "/upload");
+            originaltext = originaltext.Replace("href=\"/upload", "href=\"" + AppStrings.HostUri + "/upload");
             originaltext = originaltext.Replace("body{ background:#fff;}", "body{ background:#fff;-ms-content-zooming:none; }");
             return originaltext;
         }

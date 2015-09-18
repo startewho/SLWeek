@@ -22,10 +22,10 @@ namespace SLWeek.ViewModels
             this.IsSplitViewPaneOpen = !this.IsSplitViewPaneOpen;
             this.isLoaded = false;
 
-            MenuItems.Add(new MenuItem { Icon = "", Title = "主页", PageType = typeof(HomePage) });
-            MenuItems.Add(new MenuItem { Icon = "", Title = "频道", PageType = typeof(ChannelPage) });
-            MenuItems.Add(new MenuItem { Icon = "", Title = "专栏", PageType = typeof(AuthorListPage) });
-            MenuItems.Add(new MenuItem { Icon = "", Title = "设置", PageType = typeof(SettingPage) });
+            MenuItems.Add(new MenuItem { Icon = "\uE10F", Title = "主页", PageType = typeof(HomePage) });
+            MenuItems.Add(new MenuItem { Icon = "\uE923", Title = "频道", PageType = typeof(ChannelPage) });
+            MenuItems.Add(new MenuItem { Icon = "\uE779", Title = "专栏", PageType = typeof(AuthorListPage) });
+            MenuItems.Add(new MenuItem { Icon = "\uE713", Title = "设置", PageType = typeof(SettingPage) });
             SelectedMenuItem = MenuItems.First();
         }
 

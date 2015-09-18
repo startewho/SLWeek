@@ -19,7 +19,7 @@ namespace SLWeek.Source
             //if (pageSize < 1)
             //    throw new ArgumentOutOfRangeException("pageSize");
 
-            var jsontext = await HttpHelper.GetTextByPost(Strings.TopPostListUri, query,
+            var jsontext = await HttpHelper.GetTextByPost(AppStrings.TopPostListUri, query,
                 new List<KeyValuePair<string, string>>
                 {
                     new KeyValuePair<string, string>("height", query),
@@ -37,7 +37,7 @@ namespace SLWeek.Source
                     Title = (string) item["title"],
                     Des = (string) item["des"],
                     Creattime = (string) item["adddate"],
-                    Icon = new Uri(Strings.HostUri + (string) item["icon"]),
+                    Icon = new Uri(AppStrings.HostUri + (string) item["icon"]),
                     Id = Convert.ToInt32((string) item["id"]),
                     PostUrl =
                         string.Format(

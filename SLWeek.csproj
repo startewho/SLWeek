@@ -18,7 +18,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>SLWeek_StoreKey.pfx</PackageCertificateKeyFile>
-    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>arm</AppxBundlePlatforms>
     <PackageCertificateThumbprint>BFA91E05C3F0311B2FEC20BDCB358FA7B1D830F3</PackageCertificateThumbprint>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
@@ -151,7 +151,7 @@
     <Compile Include="Startups\ChannelPage.cs" />
     <Compile Include="Utils\HttpHelper.cs" />
     <Compile Include="Source\IncrementalSource.cs" />
-    <Compile Include="Utils\Strings.cs" />
+    <Compile Include="Utils\AppStrings.cs" />
     <Compile Include="ViewModels\ChannelPage_Model.cs" />
     <Compile Include="ViewModels\MainPage_Model.cs" />
     <Compile Include="Startups\StartupFunctions.cs" />
@@ -171,6 +171,7 @@
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\Square44x44Logo.scale-100.png" />
     <Content Include="Assets\Square71x71Logo.scale-100.png" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\StoreLogo.scale-100.png" />
