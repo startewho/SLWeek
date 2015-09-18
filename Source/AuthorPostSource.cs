@@ -40,9 +40,7 @@ namespace SLWeek.Source
                     Creattime = (string) item["adddate"],
                     Icon = new Uri(AppStrings.HostUri + (string) item["icon"]),
                     Id = Convert.ToInt32((string) item["id"]),
-                    PostUrl =string.Format(
-                            "http://lifeweeker3.cms.palmtrends.com/api_v2.php?action=article&id={0}&fontsize=m&mode=day&uid=13916551&platform=a&pid=10022&mobile=MEmu&picMode=show",
-                            Convert.ToInt32((string) item["id"]))
+                    PostUrl = string.Format(AppStrings.PostUri, Convert.ToInt32((string)item["id"]), AppSettings.Instance.IsEnableImageMode ? "show" : "hide")
                 });
                 return list;
             }
