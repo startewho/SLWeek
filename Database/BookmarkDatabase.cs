@@ -13,20 +13,23 @@ using Windows.Storage;
 
 namespace SLWeek.Database
 {
-    public static class BookmarkDatabase 
+    public  class BookmarkDatabase 
     {
         private static readonly string DbPath = Path.Combine(ApplicationData.Current.LocalFolder.Path, AppStrings.BookmarkDbName);
 
         public static SQLiteConnection Connection;
 
-       
-        public static SQLiteConnection GetDatabse()
+        public BookmarkDatabase()
         {
-            var conn = new SQLiteConnection(new SQLitePlatformWinRT(), DbPath);
+            Connection = new SQLiteConnection(new SQLitePlatformWinRT(), DbPath);
             // 创建 Person 模型对应的表，如果已存在，则忽略该操作。
-            conn.CreateTable<PostDetail>();
-            Connection = conn;
-            return conn;
+            Connection.CreateTable<PostDetail>();
+                    
+        }
+       
+        public  SQLiteConnection GetDatabse()
+        {
+            return Connection;
         }
 
         public static PostDetail QueryPost(int id)
@@ -37,6 +40,7 @@ namespace SLWeek.Database
 
         }
 
+       
 
     }
 }

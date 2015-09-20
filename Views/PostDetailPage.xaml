@@ -40,7 +40,6 @@
         <AppBar Grid.Row="2">
             <StackPanel Orientation="Horizontal">
                 <AppBarToggleButton Icon="Bookmarks" Label="Bookmark" IsChecked="{Binding IsBookmarked,Mode=TwoWay}" />
-
                 <AppBarToggleButton Icon="Tag" Label="Tag" Command="{Binding CommandBookmark}"/>
             </StackPanel>
         </AppBar>

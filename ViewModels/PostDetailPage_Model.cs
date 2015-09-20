@@ -27,13 +27,28 @@ namespace SLWeek.ViewModels
                
             }
             this.VM = model;
-            IsBookmarked = true;
+            Init();
             Pictures=new List<Picture>();
             
         }
 
+        private void Init()
+        {
+            using (var connection =new BookmarkDatabase().GetDatabse())
+            {
+                var isbookmarked = connection.Find<PostDetail>((item) => item.Id == VM.Id);
+                if (isbookmarked!=null)
+                {
+                    IsBookmarked = true;
+                }
+
+            }
+
+        }
       
         public PostDetail VM { get; set; }
+
+
 
 
         public bool IsBookmarked
@@ -41,13 +56,20 @@ namespace SLWeek.ViewModels
             get { return _IsBookmarkedLocator(this).Value; }
             set
             {
-                if (value&&VM!=null)
+                if (VM!=null)
                 {
-                    using (var connection=BookmarkDatabase.GetDatabse())
+                    using (var connection=new BookmarkDatabase().GetDatabse())
                     {
-                        connection.Insert(VM);
+                        if (value)
+                        {
+                            connection.InsertOrReplace(VM);
+
+                        }
+                        else
+                            connection.Delete(VM);
                     }
-                   
+               
+
                 }
                 _IsBookmarkedLocator(this).SetValueAndTryNotify(value); }
         }
