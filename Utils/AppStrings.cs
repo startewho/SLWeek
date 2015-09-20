@@ -7,7 +7,7 @@ namespace SLWeek.Utils
 
 
 
-        public static readonly string BookmarkDbName = "BookmarkDb";
+        public static readonly string BookmarkDbName = "BookmarkDb.db";
         public static readonly string TagDbName = "TagDb";
         public static readonly string HostUri = "http://lifeweeker3.cms.palmtrends.com";
         public static readonly string PostListUri = "http://lifeweeker3.cms.palmtrends.com/api_v2.php?action=list";

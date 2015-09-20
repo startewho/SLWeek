@@ -103,7 +103,6 @@
     <Compile Include="Database\BookmarkDatabase.cs" />
     <Compile Include="Database\IDatabase.cs" />
     <Compile Include="Models\Picture.cs" />
-    <Compile Include="Utils\ToggleButtonExtension.cs" />
     <Compile Include="Views\PictureViewerPage.xaml.cs">
       <DependentUpon>PictureViewerPage.xaml</DependentUpon>
     </Compile>
@@ -245,8 +244,8 @@
     <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
       <Name>Behaviors SDK %28XAML%29</Name>
     </SDKReference>
-    <SDKReference Include="SQLite.WinRT, Version=3.8.11.1">
-      <Name>SQLite for Windows Runtime</Name>
+    <SDKReference Include="SQLite.UAP.2015, Version=3.8.11.1">
+      <Name>SQLite for Universal App Platform</Name>
     </SDKReference>
     <SDKReference Include="WindowsMobile, Version=10.0.10240.0">
       <Name>Windows Mobile Extensions for the UWP</Name>

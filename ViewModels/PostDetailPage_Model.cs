@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using Windows.UI.Xaml.Controls;
 using SLWeek.Models;
-
+using SLWeek.Database;
 // ReSharper disable InconsistentNaming
 namespace SLWeek.ViewModels
 {
@@ -39,7 +39,17 @@ namespace SLWeek.ViewModels
         public bool IsBookmarked
         {
             get { return _IsBookmarkedLocator(this).Value; }
-            set { _IsBookmarkedLocator(this).SetValueAndTryNotify(value); }
+            set
+            {
+                if (value&&VM!=null)
+                {
+                    using (var connection=BookmarkDatabase.GetDatabse())
+                    {
+                        connection.Insert(VM);
+                    }
+                   
+                }
+                _IsBookmarkedLocator(this).SetValueAndTryNotify(value); }
         }
         #region Property bool IsBookmarked Setup        
         protected Property<bool> _IsBookmarked = new Property<bool> { LocatorFunc = _IsBookmarkedLocator };
