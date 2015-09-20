@@ -4,6 +4,11 @@ namespace SLWeek.Utils
 {
      public static  class AppStrings
     {
+
+
+
+        public static readonly string BookmarkDbName = "BookmarkDb";
+        public static readonly string TagDbName = "TagDb";
         public static readonly string HostUri = "http://lifeweeker3.cms.palmtrends.com";
         public static readonly string PostListUri = "http://lifeweeker3.cms.palmtrends.com/api_v2.php?action=list";
         public static readonly string TopPostListUri = "http://lifeweeker3.cms.palmtrends.com/api_v2.php?action=top";

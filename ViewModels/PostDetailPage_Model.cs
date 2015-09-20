@@ -27,13 +27,27 @@ namespace SLWeek.ViewModels
                
             }
             this.VM = model;
+            IsBookmarked = true;
             Pictures=new List<Picture>();
             
         }
 
       
         public PostDetail VM { get; set; }
-     
+
+
+        public bool IsBookmarked
+        {
+            get { return _IsBookmarkedLocator(this).Value; }
+            set { _IsBookmarkedLocator(this).SetValueAndTryNotify(value); }
+        }
+        #region Property bool IsBookmarked Setup        
+        protected Property<bool> _IsBookmarked = new Property<bool> { LocatorFunc = _IsBookmarkedLocator };
+        static Func<BindableBase, ValueContainer<bool>> _IsBookmarkedLocator = RegisterContainerLocator<bool>("IsBookmarked", model => model.Initialize("IsBookmarked", ref model._IsBookmarked, ref _IsBookmarkedLocator, _IsBookmarkedDefaultValueFactory));
+        static Func<bool> _IsBookmarkedDefaultValueFactory = () => default(bool);
+        #endregion
+
+
         public List<Picture> Pictures
         {
             get { return _PicturesLocator(this).Value; }
@@ -187,6 +201,45 @@ namespace SLWeek.ViewModels
 
         #endregion
 
+
+
+        public CommandModel<ReactiveCommand, String> CommandBookmark
+        {
+            get { return _CommandBookmarkLocator(this).Value; }
+            set { _CommandBookmarkLocator(this).SetValueAndTryNotify(value); }
+        }
+        #region Property CommandModel<ReactiveCommand, String> CommandBookmark Setup        
+
+        protected Property<CommandModel<ReactiveCommand, String>> _CommandBookmark = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandBookmarkLocator };
+        static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandBookmarkLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>("CommandBookmark", model => model.Initialize("CommandBookmark", ref model._CommandBookmark, ref _CommandBookmarkLocator, _CommandBookmarkDefaultValueFactory));
+        static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandBookmarkDefaultValueFactory =
+            model =>
+            {
+                var resource = "CommandBookmark";           // Command resource  
+                var commandId = "CommandBookmark";
+                var vm = CastToCurrentType(model);
+                var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+
+                cmd.DoExecuteUIBusyTask(
+                        vm,
+                        async e =>
+                        {
+                            //Todo: Add Bookmark logic here, or
+                            await MVVMSidekick.Utilities.TaskExHelper.Yield();
+                        })
+                    .DoNotifyDefaultEventRouter(vm, commandId)
+                    .Subscribe()
+                    .DisposeWith(vm);
+
+                var cmdmdl = cmd.CreateCommandModel(resource);
+
+                cmdmdl.ListenToIsUIBusy(
+                    model: vm,
+                    canExecuteWhenBusy: false);
+                return cmdmdl;
+            };
+
+        #endregion
 
 
 

@@ -13,6 +13,7 @@
     "Rx-Linq": "2.3.0-beta2",
     "Rx-Main": "2.3.0-beta2",
     "Rx-PlatformServices": "2.3.0-beta2",
+    "Sqlite-Winrt": "3.8.7.1",
     "Unity": "3.5.1404"
   },
   "frameworks": {

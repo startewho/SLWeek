@@ -9,6 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:SLWeek.ViewModels"
+    xmlns:utils="using:SLWeek.Utils" 
     mc:Ignorable="d"
    >
     <mvvm:MVVMPage.Resources>
@@ -16,20 +17,32 @@
         <vm:PostDetailPage_Model x:Key="DesignVM"/>
     </mvvm:MVVMPage.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="{StaticResource DesignVM}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <TextBlock Text="{Binding VM.Title}" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right"/>
+        <TextBlock Text="{Binding VM.Title}" HorizontalAlignment="Right" Grid.Row="0"/>
         <!-- ReSharper disable once InconsistentNaming -->
-        <WebView x:Name="webView"   Source="{Binding VM.PostUrl}"  Margin="0,30,0,0" DOMContentLoaded="webView_DOMContentLoaded" NavigationCompleted="webView_NavigationCompleted">
+        <WebView x:Name="webView"   Source="{Binding VM.PostUrl}"  Margin="0,5.712,0,0" DOMContentLoaded="webView_DOMContentLoaded" NavigationCompleted="webView_NavigationCompleted" Grid.Row="1" Grid.RowSpan="2">
             <Interactivity:Interaction.Behaviors>
-              <Core:EventTriggerBehavior EventName="ScriptNotify">
+                <Core:EventTriggerBehavior EventName="ScriptNotify">
                     <!-- ReSharper disable once Xaml.InvalidType -->
                     <Core:InvokeCommandAction Command="{Binding CommandViewPicturePage}"/>
                 </Core:EventTriggerBehavior>
             </Interactivity:Interaction.Behaviors>
         </WebView>
-    </Grid>
+        <AppBar Grid.Row="2">
+            <StackPanel Orientation="Horizontal">
+                <AppBarToggleButton Icon="Bookmarks" Label="Bookmark" IsChecked="{Binding IsBookmarked,Mode=TwoWay}" />
+
+                <AppBarToggleButton Icon="Tag" Label="Tag" Command="{Binding CommandBookmark}"/>
+            </StackPanel>
+        </AppBar>
+       </Grid>
 </mvvm:MVVMPage>
