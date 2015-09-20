@@ -34,7 +34,7 @@ namespace SLWeek.ViewModels
 
         private void Init()
         {
-            using (var connection =new BookmarkDatabase().GetDatabse())
+            using (var connection =BookmarkDatabase.GetDatabse())
             {
                 var isbookmarked = connection.Find<PostDetail>((item) => item.Id == VM.Id);
                 if (isbookmarked!=null)
@@ -58,7 +58,7 @@ namespace SLWeek.ViewModels
             {
                 if (VM!=null)
                 {
-                    using (var connection=new BookmarkDatabase().GetDatabse())
+                    using (var connection=BookmarkDatabase.GetDatabse())
                     {
                         if (value)
                         {
