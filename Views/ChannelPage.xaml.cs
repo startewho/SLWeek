@@ -1,5 +1,4 @@
 ﻿using MVVMSidekick.Views;
-using Windows.UI.Xaml.Navigation;
 using SLWeek.ViewModels;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -25,19 +24,5 @@ namespace SLWeek.Views
             this.InitializeComponent();
          
         }
-     
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-           
-
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            base.OnNavigatedFrom(e);
-        }
-     
     }
 }

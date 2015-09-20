@@ -3,6 +3,7 @@ using MVVMSidekick.Views;
 using System;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Runtime.Serialization;
 using SLWeek.Models;
 using SLWeek.Utils;
@@ -31,7 +32,10 @@ namespace SLWeek.ViewModels
                 ObservableChannels.Add(new Channel(channeltype.Name, 20, false));
             }
 
-            SelectPivotItemIndex = 0;
+            //SelectPivotItemIndex = 0;
+            SelectedChannel = ObservableChannels[0];
+            SelectedChannel.IsSelected = true;
+
             return base.OnBindedViewLoad(view);
         }
 
@@ -59,7 +63,7 @@ namespace SLWeek.ViewModels
                 {
                     if (i != value)
                     {
-                        ObservableChannels[i].IsSelected = false;
+                     ObservableChannels[i].IsSelected = false;
                     }
                     else
                     {
@@ -73,6 +77,33 @@ namespace SLWeek.ViewModels
         protected Property<int> _SelectPivotItemIndex = new Property<int> { LocatorFunc = _SelectPivotItemIndexLocator };
         static Func<BindableBase, ValueContainer<int>> _SelectPivotItemIndexLocator = RegisterContainerLocator<int>("SelectPivotItemIndex", model => model.Initialize("SelectPivotItemIndex", ref model._SelectPivotItemIndex, ref _SelectPivotItemIndexLocator, _SelectPivotItemIndexDefaultValueFactory));
         static Func<int> _SelectPivotItemIndexDefaultValueFactory = () => default(int);
+        #endregion
+
+        /// <summary>
+        /// 选中的Channel显示,其他折叠已节省内存
+        /// </summary>
+        public Channel SelectedChannel
+        {
+            get { return _SelectedChannelLocator(this).Value; }
+            set
+            {
+                if (value!=null)
+                {
+                  
+                    foreach (Channel channel in ObservableChannels.Where(t => t != value))
+                    {
+                        channel.IsSelected = false;
+                    }
+                    value.IsSelected = true;
+                }
+                _SelectedChannelLocator(this).SetValueAndTryNotify(value);
+                
+            }
+        }
+        #region Property Channel SelectedChannel Setup        
+        protected Property<Channel> _SelectedChannel = new Property<Channel> { LocatorFunc = _SelectedChannelLocator };
+        static Func<BindableBase, ValueContainer<Channel>> _SelectedChannelLocator = RegisterContainerLocator<Channel>("SelectedChannel", model => model.Initialize("SelectedChannel", ref model._SelectedChannel, ref _SelectedChannelLocator, _SelectedChannelDefaultValueFactory));
+        static Func<Channel> _SelectedChannelDefaultValueFactory = () => default(Channel);
         #endregion
 
 

@@ -36,16 +36,6 @@ namespace SLWeek.ViewModels
         static Func<Picture> _SelectPictureDefaultValueFactory = () => default(Picture);
         #endregion
 
-        public int SelectIndex
-        {
-            get { return _SelectIndexLocator(this).Value; }
-            set { _SelectIndexLocator(this).SetValueAndTryNotify(value); }
-        }
-        #region Property int SelectIndex Setup        
-        protected Property<int> _SelectIndex = new Property<int> { LocatorFunc = _SelectIndexLocator };
-        static Func<BindableBase, ValueContainer<int>> _SelectIndexLocator = RegisterContainerLocator<int>("SelectIndex", model => model.Initialize("SelectIndex", ref model._SelectIndex, ref _SelectIndexLocator, _SelectIndexDefaultValueFactory));
-        static Func<int> _SelectIndexDefaultValueFactory = () => default(int);
-        #endregion
 
     }
 

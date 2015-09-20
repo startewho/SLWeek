@@ -99,6 +99,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Control\DelayLoadImage.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter .cs" />
     <Compile Include="Database\BookmarkDatabase.cs" />
     <Compile Include="Database\IDatabase.cs" />
@@ -129,7 +130,7 @@
     <Compile Include="Startups\SettingPage.cs" />
     <Compile Include="Utils\AppSettings.cs" />
     <Compile Include="Utils\SerializerHelper.cs" />
-    <Compile Include="Utils\WebViewExtension.cs" />
+    <Compile Include="Utils\WebViewExtensions.cs" />
     <Compile Include="ViewModels\HomePage_Model.cs" />
     <Compile Include="ViewModels\SettingPage_Model.cs" />
     <Compile Include="Views\AuthorPage.xaml.cs">
@@ -172,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BadgeLogo.scale-200.png" />
+    <Content Include="Assets\Icon\no.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\Square150x150Logo.scale-100.png" />
     <Content Include="Assets\Square310x310Logo.scale-100.png" />

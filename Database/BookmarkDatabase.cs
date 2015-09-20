@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SQLite.Net;
+﻿using SQLite.Net;
 using SLWeek.Utils;
-using JetBrains.Annotations;
 using SQLite.Net.Platform.WinRT;
 using SLWeek.Models;
 using System.IO;
@@ -15,22 +9,20 @@ namespace SLWeek.Database
 {
     public static class BookmarkDatabase 
     {
-        private static readonly string DbPath = Path.Combine(ApplicationData.Current.LocalFolder.Path, AppStrings.BookmarkDbName);
+      private static readonly string DbPath = Path.Combine(ApplicationData.Current.LocalFolder.Path, AppStrings.BookmarkDbName);
 
-        public static SQLiteConnection Connection;
-            
-       
-        public static SQLiteConnection GetDatabse()
+        private static SQLiteConnection GetDatabse()
         {
-            Connection = new SQLiteConnection(new SQLitePlatformWinRT(), DbPath);
-            // 创建 Person 模型对应的表，如果已存在，则忽略该操作。
-            Connection.CreateTable<PostDetail>();
-            return Connection;
+           var connection = new SQLiteConnection(new SQLitePlatformWinRT(), DbPath);
+           // 创建 Person 模型对应的表,如果已存在,则忽略该操作。
+           connection.CreateTable<PostDetail>();
+           return connection;
         }
 
         public static PostDetail QueryPost(int id)
         {
-            return (from t in Connection.Table<PostDetail>()
+
+            return (from t in GetDatabse().Table<PostDetail>()
                 where t.Id == id
                 select t).FirstOrDefault();
 
@@ -38,13 +30,30 @@ namespace SLWeek.Database
 
         public static void DeletPost(PostDetail post)
         {
-            Connection.Delete<PostDetail>(post);
+            using (var connect=GetDatabse())
+            {
+                connect.Delete(post);
+            }
+           
         }
 
         public static void AddPost(PostDetail post)
         {
-            Connection.InsertOrReplace(post);
+            using (var connect = GetDatabse())
+            {
+                connect.InsertOrReplace(post);
+            }
+          
         }
 
+        public static bool FindPost(PostDetail post)
+        {
+            using (var connect = GetDatabse())
+            {
+                var isbookmarked = connect.Find<PostDetail>(item => item.Id == post.Id);
+                return isbookmarked != null;
+            }
+
+        }
     }
 }

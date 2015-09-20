@@ -34,15 +34,7 @@ namespace SLWeek.ViewModels
 
         private void Init()
         {
-            using (var connection =BookmarkDatabase.GetDatabse())
-            {
-                var isbookmarked = connection.Find<PostDetail>((item) => item.Id == VM.Id);
-                if (isbookmarked!=null)
-                {
-                    IsBookmarked = true;
-                }
-
-            }
+            IsBookmarked = BookmarkDatabase.FindPost(VM);
 
         }
       
@@ -56,21 +48,17 @@ namespace SLWeek.ViewModels
             get { return _IsBookmarkedLocator(this).Value; }
             set
             {
-                if (VM!=null)
-                {
-                    using (var connection=BookmarkDatabase.GetDatabse())
+                if (VM != null)
+                    if (value)
                     {
-                        if (value)
-                        {
-                            connection.InsertOrReplace(VM);
-
-                        }
-                        else
-                            connection.Delete(VM);
+                        BookmarkDatabase.AddPost(VM);
                     }
-               
+                    else
+                    {
+                        BookmarkDatabase.DeletPost(VM);
+                    }
+          
 
-                }
                 _IsBookmarkedLocator(this).SetValueAndTryNotify(value); }
         }
         #region Property bool IsBookmarked Setup        

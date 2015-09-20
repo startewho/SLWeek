@@ -19,6 +19,6 @@
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <Pivot  ItemsSource="{Binding ObservableChannels}" ItemTemplate="{StaticResource ChannelPivotItemDateTemplate}" SelectedIndex="{Binding SelectPivotItemIndex,Mode=TwoWay}" HeaderTemplate="{StaticResource ChannelPivotItemHeaderDateTemplate}"/>
+        <Pivot  ItemsSource="{Binding ObservableChannels}" ItemTemplate="{StaticResource ChannelPivotItemDateTemplate}" SelectedItem="{Binding SelectedChannel,Mode=TwoWay}" HeaderTemplate="{StaticResource ChannelPivotItemHeaderDateTemplate}"/>
     </Grid>
 </mvvm:MVVMPage>
