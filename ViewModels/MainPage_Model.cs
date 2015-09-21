@@ -8,6 +8,9 @@ using System.Runtime.Serialization;
 using SLWeek.Models;
 using SLWeek.Source;
 using SLWeek.Views;
+using Q42.WinRT;
+using Q42.WinRT.Data;
+
 namespace SLWeek.ViewModels
 {
 
@@ -27,6 +30,7 @@ namespace SLWeek.ViewModels
             MenuItems.Add(new MenuItem { Icon = "\uE779", Title = "专栏", PageType = typeof(AuthorListPage) });
             MenuItems.Add(new MenuItem { Icon = "\uE713", Title = "设置", PageType = typeof(SettingPage) });
             SelectedMenuItem = MenuItems.First();
+           
         }
 
 
@@ -41,11 +45,12 @@ namespace SLWeek.ViewModels
             {
                 this.SubscribeCommand();
                 this.isLoaded = true;
+               
             }
             return base.OnBindedViewLoad(view);
         }
 
-        private void SubscribeCommand()
+        private  void SubscribeCommand()
         {
             MVVMSidekick.EventRouting.EventRouter.Instance.GetEventChannel<Object>()
                 .Where(x => x.EventName == "NavToPostDetailByEventRouter")
@@ -83,8 +88,9 @@ namespace SLWeek.ViewModels
 
                     }
                 ).DisposeWith(this);
-            
-      
+
+       
+
         }
 
 

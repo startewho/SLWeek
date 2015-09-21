@@ -7,7 +7,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Q42.WinRT;
 using Q42.WinRT.Data;
 
 namespace SLWeek.Control
@@ -107,16 +106,18 @@ namespace SLWeek.Control
             private async static void ActualImageSourceChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
             {
                 DelayLoadImage instance = o as DelayLoadImage;
-                if (instance != null)
-                {
-                    instance.imageLoaded = false;
-                    var newCacheUri = new Uri(e.NewValue.ToString(), UriKind.RelativeOrAbsolute);
-                    //这里引入Q42的缓存
-                    await WebDataCache.Init();
-                    var cacheUri = await WebDataCache.GetLocalUriAsync(newCacheUri);
-                  instance._image.UriSource = cacheUri;
-                    VisualStateManager.GoToState(instance, STATE_DEFAULT_NAME, false);
-                }
+
+                if (instance == null) return;
+                instance.imageLoaded = false;
+
+                var newCacheUri = e.NewValue;
+                if (newCacheUri == null) return;
+                await WebDataCache.Init();
+                var cacheUri =await WebDataCache.GetLocalUriAsync(new Uri(newCacheUri.ToString(), UriKind.RelativeOrAbsolute));
+                instance._image.UriSource = cacheUri;
+                VisualStateManager.GoToState(instance, STATE_DEFAULT_NAME, false);
+
+                //这里引入Q42的缓存
             }
 
             internal Image actualImage;
