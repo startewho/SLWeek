@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
 using Windows.Storage.Streams;
@@ -110,14 +111,10 @@ namespace SLWeek.Control
                 {
                     instance.imageLoaded = false;
                     var newCacheUri = new Uri(e.NewValue.ToString(), UriKind.RelativeOrAbsolute);
+                    //这里引入Q42的缓存
+                    await WebDataCache.Init();
                     var cacheUri = await WebDataCache.GetLocalUriAsync(newCacheUri);
-                    if (newCacheUri != cacheUri) return;
-                    //这里需要更改
-             
-                              
-
-              
-                instance._image.UriSource = new Uri(e.NewValue.ToString(), UriKind.RelativeOrAbsolute);
+                  instance._image.UriSource = cacheUri;
                     VisualStateManager.GoToState(instance, STATE_DEFAULT_NAME, false);
                 }
             }
@@ -143,8 +140,39 @@ namespace SLWeek.Control
 
                 base.OnApplyTemplate();
             }
+
+
+        private static void SetSourceOnObject(object imgControl, ImageSource imageSource, bool throwEx = true)
+        {
+
+            try
+            {
+                if (imgControl is Image)
+                {
+                    ((Image)imgControl).Source = imageSource;
+                }
+                else
+                {
+                    if (imgControl is ImageBrush)
+                    {
+                        ((ImageBrush)imgControl).ImageSource = imageSource;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+
+                if (throwEx)
+                {
+                    throw ex;
+                }
+            }
+
         }
-    
+
+    }
+
 
 
 }

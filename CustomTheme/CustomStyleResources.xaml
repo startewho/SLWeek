@@ -181,7 +181,7 @@
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
             <!--<Image  q42Control:ImageExtensions.CacheUri="{Binding Icon}" Grid.Row="0" />-->
-            <c:DelayLoadImage DefaultImageSource="../Assets/Icon/no.png"  ActualImageSource="{Binding Icon}" />
+            <c:DelayLoadImage DefaultImageSource="../Assets/Icon/no.png"  ActualImageSource="{Binding Icon}" Stretch="Fill" Grid.Row="0"/>
             <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" Grid.Row="1"/>
         </Grid>
     </DataTemplate>
@@ -191,8 +191,7 @@
         <Grid>
            <ScrollViewer  ZoomMode="Enabled"  HorizontalScrollMode="Disabled" VerticalScrollMode="Disabled">
            <Image  q42Control:ImageExtensions.CacheUri="{Binding PictureUrl}"   CacheMode="BitmapCache"/>
-               
-            </ScrollViewer>
+               </ScrollViewer>
        </Grid>
     </DataTemplate>
 
