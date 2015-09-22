@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="Control\DelayLoadImage.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter .cs" />
+    <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Database\BookmarkDatabase.cs" />
     <Compile Include="Database\IDatabase.cs" />
     <Compile Include="Models\Picture.cs" />

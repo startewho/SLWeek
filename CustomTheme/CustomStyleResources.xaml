@@ -20,6 +20,7 @@
     </Style>
 
     <Style x:Key="ParagraphTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
+        <Setter Property="FontSize" Value="24" />
         <Setter Property="Margin" Value="0,1,0,34" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
@@ -137,7 +138,7 @@
 
 
     <DataTemplate x:Key="AuthorItemDataTemplate">
-        <Grid Height="100" Margin="0,5,0,5">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="*"/>
@@ -147,8 +148,8 @@
                     <behaviors:SendToEventRouterAction EventRoutingName="NavToAuthorDetailByEventRouter"   IsEventFiringToAllBaseClassesChannels="True"  EventData="{Binding}"/>
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
-            <Image q42Control:ImageExtensions.CacheUri="{Binding Icon}" Grid.Column="0"/>
-            <StackPanel Orientation="Vertical" Grid.Column="1">
+            <Image q42Control:ImageExtensions.CacheUri="{Binding Icon}" Grid.Column="0" Margin="5,0,5,0" />
+            <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left">
                 <TextBlock Text="{Binding Intro, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
                 <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
                 <TextBlock Text="{Binding Des, Mode=OneWay}" TextTrimming="None" Style="{StaticResource MenuTitleTextBlockStyle}" />
@@ -170,37 +171,36 @@
     </DataTemplate>
 
     <DataTemplate x:Key="PostDetailItemDataTemplate">
-        <Grid  Margin="0,5,0,5">
+        <Grid  Margin="0,10,0,10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-               <ColumnDefinition Width="80"/>
-               <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="Tapped">
                     <behaviors:SendToEventRouterAction EventRoutingName="NavToPostDetailByEventRouter"   IsEventFiringToAllBaseClassesChannels="True"  EventData="{Binding}"/>
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
-            <!--<Image  q42Control:ImageExtensions.CacheUri="{Binding Icon}" Grid.Row="0" Grid.ColumnSpan="2"/>-->
-            <c:DelayLoadImage DefaultImageSource="../Assets/Icon/no.png"  ActualImageSource="{Binding Icon}" Stretch="Fill" Grid.Row="0" Grid.ColumnSpan="2"/>
-         
-            <TextBlock Text="{Binding Creattime, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" Grid.Row="1" Grid.Column="0"/>
-            <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}"  Grid.Row="1" Grid.Column="1"/>
-            <TextBlock Text="{Binding Des, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}"  Grid.Row="2" Grid.Column="1"/>
+            <Image  q42Control:ImageExtensions.CacheUri="{Binding Icon}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+            <!--<c:DelayLoadImage DefaultImageSource="../Assets/Icon/no.png"  ActualImageSource="{Binding Icon}" Stretch="Fill" Grid.Row="0" Grid.ColumnSpan="2"/>-->
+            <TextBlock Text="{Binding Creattime,Converter={StaticResource StringFormatConverter},ConverterParameter='{}{0:MMM dd}',Mode=OneWay}" FontSize="24" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Margin="0,20,0,0"/>
+            <TextBlock Text="{Binding Title, Mode=OneWay}" FontSize="22" Grid.Row="1" Grid.Column="1" Margin="0,2,0,2"/>
+            <TextBlock Text="{Binding Des, Mode=OneWay}" TextTrimming="CharacterEllipsis" Style="{StaticResource MenuTitleTextBlockStyle}"  Grid.Row="2" Grid.Column="1"  Margin="0,10" VerticalAlignment="Stretch"/>
         </Grid>
     </DataTemplate>
 
 
     <DataTemplate x:Key="PictureItemDataTemplate">
         <Grid>
-           <ScrollViewer  ZoomMode="Enabled"  HorizontalScrollMode="Disabled" VerticalScrollMode="Disabled">
-           <Image  q42Control:ImageExtensions.CacheUri="{Binding PictureUrl}"   CacheMode="BitmapCache"/>
-               </ScrollViewer>
-       </Grid>
+            <ScrollViewer  ZoomMode="Enabled"  HorizontalScrollMode="Disabled" VerticalScrollMode="Disabled">
+                <Image  q42Control:ImageExtensions.CacheUri="{Binding PictureUrl}"   CacheMode="BitmapCache"/>
+            </ScrollViewer>
+        </Grid>
     </DataTemplate>
 
 
@@ -247,7 +247,7 @@
         </Setter>
     </Style>
     <!--#endregion-->
-    
+
     <!--#region Pivot Style-->
     <!--#region Pivot DataTemplate-->
     <DataTemplate x:Key="ChannelPivotItemHeaderDateTemplate">
@@ -258,7 +258,7 @@
     </DataTemplate>
     <!--#endregion-->
 
-    
+
     <Style TargetType="Pivot">
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="0" />
@@ -1173,13 +1173,14 @@
         </Setter>
     </Style>
 
-    
+
     <!--#endregion-->
 
     <!--#region Converter-->
 
     <converter:ObjectToMenuItemConverter x:Key="ObjectToMenuItemConverter"/>
     <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    <converter:StringFormatConverter x:Key="StringFormatConverter"/>
     <!--#endregion-->
 
 </ResourceDictionary>

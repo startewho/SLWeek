@@ -58,28 +58,26 @@ namespace SLWeek.Source
                    
                     var result = await source.GetPagedItems(query,currentPage++, pageSize);
                    
-                    if (result == null || !result.Any())
-                    {
-                        hasMoreItems = false;
-                    }
-                    else
+                    if (result != null && dispatcher != null && result.Any())
                     {
                         resultCount = (uint) result.Count();
-
-                        if (dispatcher != null)
+                      
                             await dispatcher.RunAsync(
                                 CoreDispatcherPriority.High,
                                 () =>
                                 {
                                     foreach (I item in result)
                                         this.Add(item);
-                                  
+                                   
                                 });
-
                         if (resultCount < pageSize)
                         {
                             hasMoreItems = false;
                         }
+                    }
+                    else
+                    {
+                        hasMoreItems = false;
                     }
 
                     Debug.WriteLine("Already Loading count{0},Everytime loading count:{1}",this.Items.Count, count);

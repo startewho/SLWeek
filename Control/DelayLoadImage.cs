@@ -109,19 +109,12 @@ namespace SLWeek.Control
 
                 var newCacheUri = e.NewValue;
                 if (newCacheUri == null) return;
-                
-                try
-                {
-                    var cacheUri =
-                        await WebDataCache.GetLocalUriAsync(new Uri(newCacheUri.ToString(), UriKind.RelativeOrAbsolute));
-                    instance._image.UriSource = cacheUri;
-                    VisualStateManager.GoToState(instance, STATE_DEFAULT_NAME, false);
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-              
+
+                var cacheUri =
+                    await WebDataCache.GetLocalUriAsync(new Uri(newCacheUri.ToString(), UriKind.RelativeOrAbsolute));
+                instance._image.UriSource = cacheUri;
+                VisualStateManager.GoToState(instance, STATE_DEFAULT_NAME, false);
+
 
                 //这里引入Q42的缓存
             }

@@ -22,7 +22,7 @@ namespace SLWeek.Models
         [PrimaryKey]
         public int Id { get; set; }
 
-        public string Creattime { get; set; }
+        public DateTime Creattime { get; set; }
 
         public string Des { get; set; }
 
