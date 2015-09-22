@@ -173,16 +173,24 @@
         <Grid  Margin="0,5,0,5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="80"/>
+               <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             <interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior EventName="Tapped">
                     <behaviors:SendToEventRouterAction EventRoutingName="NavToPostDetailByEventRouter"   IsEventFiringToAllBaseClassesChannels="True"  EventData="{Binding}"/>
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
-            <!--<Image  q42Control:ImageExtensions.CacheUri="{Binding Icon}" Grid.Row="0" />-->
-            <c:DelayLoadImage DefaultImageSource="../Assets/Icon/no.png"  ActualImageSource="{Binding Icon}" Stretch="Fill" Grid.Row="0"/>
-            <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" Grid.Row="1"/>
+            <!--<Image  q42Control:ImageExtensions.CacheUri="{Binding Icon}" Grid.Row="0" Grid.ColumnSpan="2"/>-->
+            <c:DelayLoadImage DefaultImageSource="../Assets/Icon/no.png"  ActualImageSource="{Binding Icon}" Stretch="Fill" Grid.Row="0" Grid.ColumnSpan="2"/>
+         
+            <TextBlock Text="{Binding Creattime, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" Grid.Row="1" Grid.Column="0"/>
+            <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}"  Grid.Row="1" Grid.Column="1"/>
+            <TextBlock Text="{Binding Des, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}"  Grid.Row="2" Grid.Column="1"/>
         </Grid>
     </DataTemplate>
 

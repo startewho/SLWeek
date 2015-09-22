@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
-using System.IO.IsolatedStorage;
-using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -112,10 +109,19 @@ namespace SLWeek.Control
 
                 var newCacheUri = e.NewValue;
                 if (newCacheUri == null) return;
-                await WebDataCache.Init();
-                var cacheUri =await WebDataCache.GetLocalUriAsync(new Uri(newCacheUri.ToString(), UriKind.RelativeOrAbsolute));
-                instance._image.UriSource = cacheUri;
-                VisualStateManager.GoToState(instance, STATE_DEFAULT_NAME, false);
+                
+                try
+                {
+                    var cacheUri =
+                        await WebDataCache.GetLocalUriAsync(new Uri(newCacheUri.ToString(), UriKind.RelativeOrAbsolute));
+                    instance._image.UriSource = cacheUri;
+                    VisualStateManager.GoToState(instance, STATE_DEFAULT_NAME, false);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+              
 
                 //这里引入Q42的缓存
             }

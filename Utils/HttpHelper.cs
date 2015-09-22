@@ -22,9 +22,9 @@ namespace SLWeek.Utils
         {
             HttpClient httpClient = new HttpClient();
             CreateHttpClient(ref httpClient);
-            HttpFormUrlEncodedContent postData = new HttpFormUrlEncodedContent(body);
-            HttpResponseMessage response = await httpClient.PostAsync(new Uri(posturi), postData);
-            string responseString = await response.Content.ReadAsStringAsync();
+            var postData = new HttpFormUrlEncodedContent(body);
+            var response = await httpClient.PostAsync(new Uri(posturi), postData);
+            var responseString = await response.Content.ReadAsStringAsync();
             return responseString;
         }
 

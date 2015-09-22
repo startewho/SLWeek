@@ -8,6 +8,8 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using SLWeek.Views;
+using Q42.WinRT;
+using Q42.WinRT.Data;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=402347&clcid=0x409
 
@@ -22,17 +24,19 @@ namespace SLWeek
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
-        public App()
+        public  App()
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             Offset = 0;
+          
         }
         public double Offset;
 
-        public static void InitNavigationConfigurationInThisAssembly()
+        public static async void InitNavigationConfigurationInThisAssembly()
         {
             MVVMSidekick.Startups.StartupFunctions.RunAllConfig();
+            await WebDataCache.Init();
         }
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points

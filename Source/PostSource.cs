@@ -35,14 +35,16 @@ namespace SLWeek.Source
             if (jsontext!=null)
             {
                 JObject postlist = JObject.Parse(jsontext);
-                var list = postlist.SelectToken("list").Select(item => new PostDetail()
+                var jsonList = postlist.SelectToken("list");
+                if (jsonList == null) return null;
+                var list = jsonList.Select(item => new PostDetail()
                 {
-                    Title = (string) item["title"],
-                    Des = (string) item["des"],
-                    Creattime = (string) item["adddate"],
-                    Icon = AppStrings.HostUri + (string) item["icon"],
-                    Id = Convert.ToInt32((string) item["id"]),
-                    PostUrl =string.Format(AppStrings.PostUri , Convert.ToInt32((string) item["id"]),AppSettings.Instance.IsEnableImageMode?"show":"hide")
+                    Title = (string)item["title"],
+                    Des = (string)item["des"],
+                    Creattime = (string)item["adddate"],
+                    Icon = AppStrings.HostUri + (string)item["icon"],
+                    Id = Convert.ToInt32((string)item["id"]),
+                    PostUrl = string.Format(AppStrings.PostUri, Convert.ToInt32((string)item["id"]), AppSettings.Instance.IsEnableImageMode ? "show" : "hide")
                 });
                 return list;
             }

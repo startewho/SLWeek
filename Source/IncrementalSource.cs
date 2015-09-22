@@ -55,9 +55,9 @@ namespace SLWeek.Source
                 async () =>
                 {
                     uint resultCount = 0;
+                   
                     var result = await source.GetPagedItems(query,currentPage++, pageSize);
-
-                    
+                   
                     if (result == null || !result.Any())
                     {
                         hasMoreItems = false;

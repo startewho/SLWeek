@@ -36,7 +36,7 @@ namespace SLWeek.Source
                 {
                     Title = (string) item["title"],
                     Des = (string) item["des"],
-                    Creattime = (string) item["adddate"],
+                    Creattime = (string) item["creation_time"],
                     Icon = AppStrings.HostUri + (string) item["icon"],
                     Id = Convert.ToInt32((string) item["id"]),
                     PostUrl = string.Format(AppStrings.PostUri, Convert.ToInt32((string)item["id"]), AppSettings.Instance.IsEnableImageMode ? "show" : "hide")
