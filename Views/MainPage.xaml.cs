@@ -1,4 +1,6 @@
-﻿using MVVMSidekick.Views;
+﻿using Windows.Foundation;
+using Windows.UI.ViewManagement;
+using MVVMSidekick.Views;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 
@@ -14,12 +16,19 @@ namespace SLWeek.Views
     {
         public MainPage()
         {
+       
             this.InitializeComponent();
+            //设置窗口大小,以及最小窗口大小
+            ApplicationView.PreferredLaunchViewSize = new Size(1200, 800);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 250, Height = 400 });
             // add entry animations
+
             var transitions = new TransitionCollection { };
             var transition = new NavigationThemeTransition { };
             transitions.Add(transition);
             this.VMFrame.ContentTransitions = transitions;
+            
         }
 
 
@@ -31,5 +40,7 @@ namespace SLWeek.Views
                 return this.VMFrame;
             }
         }
+
+   
     }
 }

@@ -27,6 +27,7 @@ namespace SLWeek.Views
             : base(model)
         {
             this.InitializeComponent();
+            this.DataContext = model;
         }
 
 

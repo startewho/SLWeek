@@ -176,7 +176,7 @@
   <ItemGroup>
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\Icon\no.png" />
-    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-100.png" />
     <Content Include="Assets\Square310x310Logo.scale-100.png" />
     <Content Include="Assets\Square44x44Logo.scale-100.png" />

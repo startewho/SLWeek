@@ -12,8 +12,13 @@
     <Page.Resources>
         <vm:MainPage_Model x:Key="DesignVM"/>
     </Page.Resources>
-    <Grid DataContext="{StaticResource DesignVM}">
-        <c:SwipeableSplitView x:Name="SplitView" DisplayMode="Overlay" IsSwipeablePaneOpen="{Binding IsSplitViewPaneOpen, Mode=TwoWay}">
+    <Grid x:Name="Grid" DataContext="{StaticResource DesignVM}" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <c:SwipeableSplitView x:Name="SplitView" DisplayMode="Overlay" IsSwipeablePaneOpen="{Binding IsSplitViewPaneOpen, Mode=TwoWay}" MaxWidth="800" MinWidth="0" Grid.Column="0">
             <SplitView.Pane>
                 <ListBox ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay, Converter={StaticResource ObjectToMenuItemConverter}}" ItemContainerStyle="{StaticResource MenuListBoxItemStyle}">
                     <ListBox.ItemTemplate>
@@ -30,12 +35,12 @@
                 <Frame x:Name="VMFrame" SourcePageType="{Binding SelectedPageType, Mode=TwoWay}"/>
             </SplitView.Content>
         </c:SwipeableSplitView>
-
+        <Frame x:Name="ContentFrame" x:FieldModifier="public" Grid.Column="1" />
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WindowStates">
                 <VisualState x:Name="WideState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="500" />
+                        <AdaptiveTrigger MinWindowWidth="720" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="SplitView.DisplayMode" Value="CompactOverlay" />
@@ -49,7 +54,16 @@
                         <Setter Target="SplitView.DisplayMode" Value="Overlay" />
                     </VisualState.Setters>
                 </VisualState>
+               <VisualState x:Name="narrowViewState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="700" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ContentFrame.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+
     </Grid>
 </mvvm:MVVMPage>
