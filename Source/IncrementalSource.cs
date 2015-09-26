@@ -58,9 +58,6 @@ namespace SLWeek.Source
                    
                     var result = await source.GetPagedItems(query,currentPage++, pageSize);
                    
-
-
-                    //返回result不为空,并且有数据
                     if (result != null && dispatcher != null && result.Any())
                     {
                         resultCount = (uint) result.Count();
@@ -73,7 +70,6 @@ namespace SLWeek.Source
                                         this.Add(item);
                                    
                                 });
-                        //返回最后一页,有可能数据不够一页
                         if (resultCount < pageSize)
                         {
                             hasMoreItems = false;
@@ -84,8 +80,7 @@ namespace SLWeek.Source
                         hasMoreItems = false;
                     }
 
-                    Debug.WriteLine("Already Loading Count{0},Everytime loading Count:{1}",Items.Count, count);
-
+                    Debug.WriteLine("Already Loading count{0},Everytime loading count:{1}",this.Items.Count, count);
                     return new LoadMoreItemsResult() { Count = resultCount };
 
                 }).AsAsyncOperation<LoadMoreItemsResult>();

@@ -1,15 +1,14 @@
 ﻿using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
 using Windows.Foundation.Metadata;
 using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Core;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using SLWeek.Views;
+using Q42.WinRT;
 using Q42.WinRT.Data;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=402347&clcid=0x409
@@ -27,7 +26,6 @@ namespace SLWeek
         /// </summary>
         public  App()
         {
-           
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             Offset = 0;
@@ -92,7 +90,6 @@ namespace SLWeek
                 {
                     throw new Exception("Failed to create initial page");
                 }
-               
             }
 
             // listen for back button clicks (both soft- and hardware)
@@ -103,8 +100,7 @@ namespace SLWeek
             {
                 HardwareButtons.BackPressed += OnBackPressed;
             }
-          
-          //  ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 1200, Height = 800 });
+
             // Ensure the current window is active
             Window.Current.Activate();
         }

@@ -61,10 +61,9 @@ namespace SLWeek.ViewModels
                         var item = e.EventData as PostDetail;
                         if (item != null)
                         {
-                            ((MainPage) StageManager.CurrentBindingView).ContentFrame.Content=new PostDetailPage(new PostDetailPage_Model(item));
-                           // await StageManager.DefaultStage.Show(new PostDetailPage_Model(item));
-                            // (StageManager.CurrentBindingView as MainPage).ContentFrame.Show(new PostDetailPage_Model(item));
-                            //StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
+                            await StageManager.DefaultStage.Show(new PostDetailPage_Model(item));
+                           
+                         //StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
                         }
 
                     }
