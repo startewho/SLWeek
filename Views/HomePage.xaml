@@ -8,9 +8,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:SLWeek.ViewModels"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:behaviors="using:MVVMSidekick.Behaviors"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -25,7 +22,7 @@
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <ListView  ItemsSource="{Binding SoureList}" 
+        <ListView  ItemsSource="{Binding SoureList}" utils:ListViewExtensions.NewWidth="{Binding RelativeSource={RelativeSource Self},Path=ActualWidth}"
         Style="{StaticResource ListViewWrapItemsPanel}"  ItemTemplate="{StaticResource PostDetailItemDataTemplate}" SizeChanged="ListView_SizeChanged"/>
         </Grid>
 </mvvm:MVVMPage>

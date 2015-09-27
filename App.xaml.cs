@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Diagnostics;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation.Metadata;
 using Windows.Phone.UI.Input;
-using Windows.UI.Xaml;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using SLWeek.Views;
-using Q42.WinRT;
+using MVVMSidekick.Startups;
 using Q42.WinRT.Data;
+using SLWeek.Utils;
+using SLWeek.Views;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=402347&clcid=0x409
 
@@ -26,8 +28,10 @@ namespace SLWeek
         /// </summary>
         public  App()
         {
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
+
+            InitializeComponent();
+            InitSet();
+            Suspending += OnSuspending;
             Offset = 0;
           
         }
@@ -35,7 +39,7 @@ namespace SLWeek
 
         public static async void InitNavigationConfigurationInThisAssembly()
         {
-            MVVMSidekick.Startups.StartupFunctions.RunAllConfig();
+            StartupFunctions.RunAllConfig();
             await WebDataCache.Init();
         }
         /// <summary>
@@ -47,16 +51,18 @@ namespace SLWeek
         {
 
 #if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
+            if (Debugger.IsAttached)
             {
-                this.DebugSettings.EnableFrameRateCounter = true;
+                DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
             //Init MVVM-Sidekick Navigations:
             InitNavigationConfigurationInThisAssembly();
 
+
             Frame mainFrame = Window.Current.Content as Frame;
 
+          
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (mainFrame == null)
@@ -72,16 +78,20 @@ namespace SLWeek
                     // TODO: Load state from previously suspended application
                 }
 
+                
                 // Place the frame in the current Window
                 Window.Current.Content = mainFrame;
+              
             }
+
+         
 
             if (mainFrame.Content == null)
             {
                 // Removes the turnstile navigation for startup.
 
                 mainFrame.Name = "MainFrame";
-                mainFrame.Navigated += this.OnNavigated;
+                mainFrame.Navigated += OnNavigated;
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
@@ -91,6 +101,8 @@ namespace SLWeek
                     throw new Exception("Failed to create initial page");
                 }
             }
+
+           
 
             // listen for back button clicks (both soft- and hardware)
 
@@ -154,6 +166,19 @@ namespace SLWeek
                 e.Handled = true;
                 mainFrame.GoBack();
             }
+        }
+
+        /// <summary>
+        /// 初始化设置
+        /// </summary>
+        private void InitSet()
+        {
+            //Current.Resources.ThemeDictionaries.Clear();
+            Current.RequestedTheme = AppSettings.Instance.CurrentTheme==ElementTheme.Light ? ApplicationTheme.Light : ApplicationTheme.Dark;
+
+            // Current.Resources.MergedDictionaries.Clear();
+
+            // 
         }
 
         private void UpdateBackButtonVisibility()

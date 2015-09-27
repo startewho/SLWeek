@@ -181,7 +181,7 @@
     </Style>
 
     <DataTemplate x:Key="PostDetailItemDataTemplate">
-        <Grid  Margin="10">
+        <Grid  Margin="10" Background="{StaticResource SystemControlChromeLowBackgroundBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="30"/>

@@ -1,1 +1,1 @@
-C:\Users\cheng\Documents\GitHub\SLWeek\AppPackages\SLWeek_1.1.5.0\SLWeek_1.1.5.0_x86_x64_arm.appxbundle
+C:\Users\hoolo\Documents\GitHub\SLWeek\AppPackages\SLWeek_1.1.6.0\SLWeek_1.1.6.0_x86_x64_arm.appxbundle

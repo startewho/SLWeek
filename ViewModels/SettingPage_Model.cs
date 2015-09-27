@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using Windows.UI.Xaml;
 using SLWeek.Models;
 using SLWeek.Utils;
 
@@ -26,6 +27,7 @@ namespace SLWeek.ViewModels
         {
             Title = "设置";
             IsImageMode = AppSettings.Instance.IsEnableImageMode;
+            IsLightTheme = ElementTheme.Light == AppSettings.Instance.CurrentTheme;
             SelectedPostTypes = AppSettings.Instance.SelectChannelTypes;
             ListPostTypes = new List<PostType>
         {
@@ -61,6 +63,14 @@ namespace SLWeek.ViewModels
             {
                 var isimagemode = e.EventArgs.NewValue;
                 AppSettings.Instance.IsEnableImageMode = isimagemode;
+            }).DisposeWith(this);
+
+            GetValueContainer<bool>(vm => vm.IsLightTheme).GetEventObservable().Subscribe(e =>
+            {
+                var islighttheme = e.EventArgs.NewValue;
+                AppSettings.Instance.CurrentTheme = islighttheme ? ElementTheme.Light : ElementTheme.Dark;
+
+
             }).DisposeWith(this);
 
 
@@ -137,6 +147,22 @@ namespace SLWeek.ViewModels
 
         private static Func<List<PostType>> _ListPostTypesDefaultValueFactory = () => default(List<PostType>);
 
+        #endregion
+
+
+
+        /// <summary>
+        /// 是否采用Ligth主题
+        /// </summary>
+        public bool IsLightTheme
+        {
+            get { return _IsLightThemeLocator(this).Value; }
+            set { _IsLightThemeLocator(this).SetValueAndTryNotify(value); }
+        }
+        #region Property bool IsLightTheme Setup        
+        protected Property<bool> _IsLightTheme = new Property<bool> { LocatorFunc = _IsLightThemeLocator };
+        static Func<BindableBase, ValueContainer<bool>> _IsLightThemeLocator = RegisterContainerLocator<bool>("IsLightTheme", model => model.Initialize("IsLightTheme", ref model._IsLightTheme, ref _IsLightThemeLocator, _IsLightThemeDefaultValueFactory));
+        static Func<bool> _IsLightThemeDefaultValueFactory = () => default(bool);
         #endregion
 
 

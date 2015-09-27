@@ -16,19 +16,7 @@
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <vm:SettingPage_Model x:Key="DesignVM"/>
     </Page.Resources>
-    <!--Begin App Bar Binding Patch. If you don't need Binding Top/Bottom Appbar please ignore these code -->
-    <!--
-    <Page.DataContext>
-        <Binding  RelativeSource="{RelativeSource Mode=Self}" Path="ViewModel"/>
-    </Page.DataContext>
-    <mvvm:MVVMPage.ViewModel>
-        <Binding Source="{StaticResource DesignVM}" />
-    </mvvm:MVVMPage.ViewModel>
-	<mvvm:MVVMPage.BottomAppBar>
-		<AppBar d:DataContext="{StaticResource DesignVM}"><TextBlock TextWrapping="Wrap" Text="{Binding BindableInstanceId, Mode=OneWay}"/></AppBar>
-	</mvvm:MVVMPage.BottomAppBar>    
-    -->
-    <!--End App Bar Binding Patch. If you don't need Binding  Top/Bottom Appbar please ignore these code -->
+   
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}" >
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -44,6 +32,8 @@
          <StackPanel Grid.Row="1">
             <TextBlock Text="图片显示"/>
             <CheckBox Content="有图" IsChecked="{Binding IsImageMode,Mode=TwoWay}" Margin="12"/>
+            <TextBlock Text="主题显示"/>
+            <ToggleSwitch  IsOn="{Binding IsLightTheme,Mode=TwoWay}" Margin="12"/>
             <TextBlock Text="频道选择"/>
             <ListView ItemsSource="{Binding ListPostTypes,Mode=TwoWay}" ItemTemplate="{StaticResource SelectChannelTypeDataTemplate}"/>
          </StackPanel>
