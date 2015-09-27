@@ -89,7 +89,6 @@ namespace SLWeek.ViewModels
                     }
                 ).DisposeWith(this);
 
-       
 
         }
 

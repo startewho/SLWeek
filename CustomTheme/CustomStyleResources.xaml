@@ -170,8 +170,18 @@
         </StackPanel>
     </DataTemplate>
 
+    <Style x:Key="ListViewWrapItemsPanel" TargetType="ListView">
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid  Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <DataTemplate x:Key="PostDetailItemDataTemplate">
-        <Grid  Margin="0,10,0,10">
+        <Grid  Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="30"/>
@@ -254,7 +264,7 @@
         <TextBlock Text="{Binding PostKind.CNName}"/>
     </DataTemplate>
     <DataTemplate x:Key="ChannelPivotItemDateTemplate">
-        <ListView ItemsSource="{Binding SoureList}" ItemTemplate="{StaticResource PostDetailItemDataTemplate}" Visibility="{Binding IsSelected,Converter={StaticResource BoolToVisibilityConverter}}"/>
+        <ListView ItemsSource="{Binding SoureList}" SizeChanged="ListView_OnSizeChanged" Style="{StaticResource ListViewWrapItemsPanel}" ItemTemplate="{StaticResource PostDetailItemDataTemplate}" Visibility="{Binding IsSelected,Converter={StaticResource BoolToVisibilityConverter}}"/>
     </DataTemplate>
     <!--#endregion-->
 

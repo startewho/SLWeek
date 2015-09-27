@@ -1,4 +1,6 @@
 ﻿
+using System;
+using Windows.UI.Xaml.Controls;
 using SLWeek.ViewModels;
 using MVVMSidekick.Views;
 using Windows.UI.Xaml.Navigation;
@@ -35,5 +37,38 @@ namespace SLWeek.Views
             base.OnNavigatedFrom(e);
         }
 
+        private void ListView_SizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
+        {
+            var listview = sender as ListView;
+            if (listview == null) return;
+
+            var panel = (ItemsWrapGrid)(listview.ItemsPanelRoot);
+
+            if (panel == null) throw new ArgumentNullException(nameof(panel));
+
+            var width = e.NewSize.Width;
+
+            var count = (int)width / 480;
+
+            switch (count)
+            {
+                case 0:
+                case 1:
+                    panel.ItemWidth = width;
+                    break;
+                case 2:
+                    panel.ItemWidth = width / 2;
+                    break;
+                case 3:
+                    panel.ItemWidth = width / 3;
+                    break;
+                default:
+                    panel.ItemWidth = width / 3;
+                    break;
+
+            }
+        }
+
+      
     }
 }

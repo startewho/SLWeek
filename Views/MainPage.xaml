@@ -35,7 +35,7 @@
             <VisualStateGroup x:Name="WindowStates">
                 <VisualState x:Name="WideState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="500" />
+                        <AdaptiveTrigger MinWindowWidth="700" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="SplitView.DisplayMode" Value="CompactOverlay" />

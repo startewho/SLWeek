@@ -106,6 +106,7 @@
     <Compile Include="Database\IDatabase.cs" />
     <Compile Include="Models\Picture.cs" />
     <Compile Include="Utils\StringExtesion.cs" />
+    <Compile Include="Utils\ListViewExtensions.cs" />
     <Compile Include="Views\PictureViewerPage.xaml.cs">
       <DependentUpon>PictureViewerPage.xaml</DependentUpon>
     </Compile>

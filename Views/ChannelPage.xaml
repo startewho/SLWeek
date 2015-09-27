@@ -13,12 +13,18 @@
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <vm:ChannelPage_Model x:Key="DesignVM"/>
     </mvvm:MVVMPage.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="{StaticResource DesignVM}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="{StaticResource DesignVM}" >
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <Pivot  ItemsSource="{Binding ObservableChannels}" ItemTemplate="{StaticResource ChannelPivotItemDateTemplate}" SelectedItem="{Binding SelectedChannel,Mode=TwoWay}" HeaderTemplate="{StaticResource ChannelPivotItemHeaderDateTemplate}"/>
+        <Pivot   ItemsSource="{Binding ObservableChannels}"  SelectedItem="{Binding SelectedChannel,Mode=TwoWay}" HeaderTemplate="{StaticResource ChannelPivotItemHeaderDateTemplate}">
+            <Pivot.ItemTemplate>
+                <DataTemplate>
+             <ListView ItemsSource="{Binding SoureList}" SizeChanged="ListView_OnSizeChanged" Style="{StaticResource ListViewWrapItemsPanel}" ItemTemplate="{StaticResource PostDetailItemDataTemplate}" Visibility="{Binding IsSelected,Converter={StaticResource BoolToVisibilityConverter}}"/>
+                </DataTemplate>
+            </Pivot.ItemTemplate>
+            </Pivot>
     </Grid>
 </mvvm:MVVMPage>
