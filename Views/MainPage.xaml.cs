@@ -25,7 +25,7 @@ namespace SLWeek.Views
             var transition = new NavigationThemeTransition { };
             transitions.Add(transition);
             this.VMFrame.ContentTransitions = transitions;
-          ToggleStatusBar();
+          //ToggleStatusBar();
         }
 
         private async void ToggleStatusBar()
