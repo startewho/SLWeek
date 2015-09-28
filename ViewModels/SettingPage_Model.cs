@@ -67,12 +67,14 @@ namespace SLWeek.ViewModels
                 AppSettings.Instance.IsEnableImageMode = isimagemode;
             }).DisposeWith(this);
 
-            GetValueContainer<bool>(vm => vm.IsLightTheme).GetEventObservable().Subscribe(e => 
+            GetValueContainer<bool>(vm => vm.IsLightTheme).GetEventObservable().Subscribe(async e => 
             {
                 var islighttheme = e.EventArgs.NewValue;
                 AppSettings.Instance.CurrentTheme = islighttheme ? ElementTheme.Light : ElementTheme.Dark;
-                ((Page) this.StageManager.CurrentBindingView).RequestedTheme = AppSettings.Instance.CurrentTheme;
-               
+                StageManager.DefaultStage.Frame.RequestedTheme = AppSettings.Instance.CurrentTheme;
+               await StageManager.DefaultStage.Show(new SettingPage_Model());
+                // ((Page) this.StageManager.CurrentBindingView).RequestedTheme = AppSettings.Instance.CurrentTheme;
+
             }).DisposeWith(this);
 
 

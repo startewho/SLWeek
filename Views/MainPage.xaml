@@ -15,7 +15,7 @@
     <Grid DataContext="{StaticResource DesignVM}">
         <c:SwipeableSplitView x:Name="SplitView" DisplayMode="Overlay" IsSwipeablePaneOpen="{Binding IsSplitViewPaneOpen, Mode=TwoWay}">
             <SplitView.Pane>
-                <ListBox ItemsSource="{Binding MenuItems}" SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay, Converter={StaticResource ObjectToMenuItemConverter}}" ItemContainerStyle="{StaticResource MenuListBoxItemStyle}">
+                <ListBox ItemsSource="{Binding MenuItems}" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay, Converter={StaticResource ObjectToMenuItemConverter}}" ItemContainerStyle="{StaticResource MenuListBoxItemStyle}">
                     <ListBox.ItemTemplate>
                         <DataTemplate >
                             <StackPanel Orientation="Horizontal" Height="48">
