@@ -1,4 +1,7 @@
-﻿using MVVMSidekick.Views;
+﻿using System;
+using Windows.UI;
+using Windows.UI.ViewManagement;
+using MVVMSidekick.Views;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
@@ -22,9 +25,19 @@ namespace SLWeek.Views
             var transition = new NavigationThemeTransition { };
             transitions.Add(transition);
             this.VMFrame.ContentTransitions = transitions;
-          
+          ToggleStatusBar();
         }
 
+        private async void ToggleStatusBar()
+        {
+            var statusBar = StatusBar.GetForCurrentView();
+            statusBar.BackgroundColor = Colors.Black;
+            statusBar.BackgroundOpacity = 0.8;
+            statusBar.ForegroundColor = Colors.White;
+            statusBar.ProgressIndicator.Text = "loading";
+            await statusBar.HideAsync();
+
+        }
 
 
         public Frame RootFrame
