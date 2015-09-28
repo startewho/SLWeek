@@ -1,6 +1,8 @@
 ﻿using MVVMSidekick.Views;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Navigation;
+using SLWeek.Utils;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -20,6 +22,7 @@ namespace SLWeek.Views
             var transition = new NavigationThemeTransition { };
             transitions.Add(transition);
             this.VMFrame.ContentTransitions = transitions;
+          
         }
 
 
@@ -30,6 +33,21 @@ namespace SLWeek.Views
             {
                 return this.VMFrame;
             }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+        }
+
+        private void VMFrame_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            RequestedTheme = AppSettings.Instance.CurrentTheme;
         }
     }
 }

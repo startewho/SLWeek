@@ -32,8 +32,8 @@
          <StackPanel Grid.Row="1">
             <TextBlock Text="图片显示"/>
             <CheckBox Content="有图" IsChecked="{Binding IsImageMode,Mode=TwoWay}" Margin="12"/>
-            <TextBlock Text="主题显示"/>
-            <ToggleSwitch  IsOn="{Binding IsLightTheme,Mode=TwoWay}" Margin="12"/>
+            <TextBlock Text="浅色主题"/>
+            <ToggleSwitch  IsOn="{Binding IsLightTheme,Mode=TwoWay}" Margin="12" />
             <TextBlock Text="频道选择"/>
             <ListView ItemsSource="{Binding ListPostTypes,Mode=TwoWay}" ItemTemplate="{StaticResource SelectChannelTypeDataTemplate}"/>
          </StackPanel>

@@ -1,7 +1,12 @@
 ﻿
+using System;
+using System.Linq;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using SLWeek.ViewModels;
 using MVVMSidekick.Views;
 using Windows.UI.Xaml.Navigation;
+using SLWeek.Utils;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,6 +27,7 @@ namespace SLWeek.Views
             : base(model)
         {
             this.InitializeComponent();
+            
         }
 
 
@@ -35,5 +41,7 @@ namespace SLWeek.Views
             base.OnNavigatedFrom(e);
         }
 
+      
+       
     }
 }

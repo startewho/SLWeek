@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using SLWeek.Models;
 using SLWeek.Utils;
 
@@ -65,12 +67,12 @@ namespace SLWeek.ViewModels
                 AppSettings.Instance.IsEnableImageMode = isimagemode;
             }).DisposeWith(this);
 
-            GetValueContainer<bool>(vm => vm.IsLightTheme).GetEventObservable().Subscribe(e =>
+            GetValueContainer<bool>(vm => vm.IsLightTheme).GetEventObservable().Subscribe(e => 
             {
                 var islighttheme = e.EventArgs.NewValue;
                 AppSettings.Instance.CurrentTheme = islighttheme ? ElementTheme.Light : ElementTheme.Dark;
-
-
+                ((Page) this.StageManager.CurrentBindingView).RequestedTheme = AppSettings.Instance.CurrentTheme;
+               
             }).DisposeWith(this);
 
 

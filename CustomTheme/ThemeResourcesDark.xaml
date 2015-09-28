@@ -48,6 +48,6 @@
     <Color x:Key="ChromeLowColor">#FFA0A000</Color>
     <Color x:Key="ChromeMediumMidColor">#FFA0A000</Color>
     <Color x:Key="ChromeMidColor">#FFA0A000</Color>
-    <SolidColorBrush x:Key="SystemControlChromeLowBackgroundBrush" Color="{StaticResource ChromeLowColor}" />
-    <SolidColorBrush x:Key="SystemControlChromePanelBackgroundBrush" Color="{StaticResource ChromeLowColor}"/>
+    <SolidColorBrush x:Key="SystemControlChromeLowBackgroundBrush" Color="{ThemeResource ChromeLowColor}" />
+    <SolidColorBrush x:Key="SystemControlChromePanelBackgroundBrush" Color="{ThemeResource ChromeLowColor}"/>
 </ResourceDictionary>

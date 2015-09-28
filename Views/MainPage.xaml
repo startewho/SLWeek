@@ -27,7 +27,7 @@
                 </ListBox>
             </SplitView.Pane>
             <SplitView.Content>
-                <Frame x:Name="VMFrame" SourcePageType="{Binding SelectedPageType, Mode=TwoWay}"/>
+                <Frame x:Name="VMFrame" SourcePageType="{Binding SelectedPageType, Mode=TwoWay}" Navigating="VMFrame_Navigating"/>
             </SplitView.Content>
         </c:SwipeableSplitView>
 

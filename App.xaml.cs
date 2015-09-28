@@ -30,7 +30,7 @@ namespace SLWeek
         {
 
             InitializeComponent();
-            InitSet();
+           // InitSet();
             Suspending += OnSuspending;
             Offset = 0;
           
@@ -91,6 +91,7 @@ namespace SLWeek
                 // Removes the turnstile navigation for startup.
 
                 mainFrame.Name = "MainFrame";
+                mainFrame.Navigating += OnNavigating;
                 mainFrame.Navigated += OnNavigated;
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
@@ -116,6 +117,13 @@ namespace SLWeek
             // Ensure the current window is active
             Window.Current.Activate();
         }
+
+        private void OnNavigating(object sender, NavigatingCancelEventArgs e)
+        {
+            var frame = sender as Frame;
+            if (frame != null) frame.RequestedTheme = AppSettings.Instance.CurrentTheme;
+        }
+
 
         void OnNavigated(object sender, NavigationEventArgs e)
         {
@@ -174,7 +182,7 @@ namespace SLWeek
         private void InitSet()
         {
             //Current.Resources.ThemeDictionaries.Clear();
-            Current.RequestedTheme = AppSettings.Instance.CurrentTheme==ElementTheme.Light ? ApplicationTheme.Light : ApplicationTheme.Dark;
+            Current.RequestedTheme = AppSettings.Instance.CurrentTheme== ElementTheme.Light ? ApplicationTheme.Light : ApplicationTheme.Dark;
 
             // Current.Resources.MergedDictionaries.Clear();
 
