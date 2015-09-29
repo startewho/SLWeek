@@ -8,7 +8,7 @@
 
 
     <!--修改系统标题栏前景色-->
-    <SolidColorBrush x:Key="SystemBarAccentBrush" Color="{StaticResource BelizeHoleColor }" />
+    <SolidColorBrush x:Key="SystemBarAccentBrush" Color="{ThemeResource BelizeHoleColor }" />
 
     <!--<Color x:Key="SystemColorControlAccentColor">#FF2980B9</Color>-->
     <!--修改系统前景色-->
@@ -50,7 +50,7 @@
     <Color x:Key="ChromeMediumMidColor">#FFA0A000</Color>
     <Color x:Key="ChromeMidColor">#FFD7D7D7</Color>
 
-    <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="{StaticResource CloudsColor }" />
+    <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="{ThemeResource CloudsColor }" />
     <SolidColorBrush x:Key="SystemControlChromeLowBackgroundBrush" Color="{ThemeResource ChromeLowColor}"  Opacity="0.8"/>
     <SolidColorBrush x:Key="SystemControlPageBackgroundChromeLowBrush" Color="{ThemeResource ChromeLowColor}" Opacity="0.8" />
     <SolidColorBrush x:Key="SystemControlChromePanelBackgroundBrush" Color="{ThemeResource ChromeLowColor}"/>

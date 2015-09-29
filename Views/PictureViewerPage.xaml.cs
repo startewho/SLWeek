@@ -34,6 +34,6 @@ namespace SLWeek.Views
         {
             base.OnNavigatedFrom(e);
         }
-
+        
     }
 }

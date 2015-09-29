@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace SLWeek.Utils
 {
  public  static class ThemeResourceManager
     {
-     private static void LoadBrushDictionary(string relativePath)
+     public static void LoadBrushDictionary(string relativePath)
         {
             if (string.IsNullOrEmpty(relativePath))
                 return;
@@ -19,10 +20,16 @@ namespace SLWeek.Utils
             {
                 ResourceDictionary resourceDictionary = new ResourceDictionary();
                 Application.LoadComponent((object)resourceDictionary, new Uri(relativePath, UriKind.RelativeOrAbsolute));
-                foreach (KeyValuePair<object, object> keyValuePair in (IEnumerable<KeyValuePair<object, object>>)resourceDictionary)
+                foreach (KeyValuePair<object, object> keyValuePair in (IEnumerable<KeyValuePair<object, object>>)resourceDictionary.ToList())
                 {
+                    var sourcekey = ((IDictionary<object, object>) Application.Current.Resources)[keyValuePair.Key];
                    
-                        ((IDictionary<object, object>)Application.Current.Resources)[keyValuePair.Key] = (object)new SolidColorBrush((Color)keyValuePair.Value);
+                    if (sourcekey!=null)
+                    {
+                        ((IDictionary<object, object>)Application.Current.Resources)[keyValuePair.Key] = keyValuePair.Value;
+                        Debug.WriteLine("Key:{0},Value:{1}", keyValuePair.Key, keyValuePair.Value);
+                    }
+                  
                 }
             }
             catch (Exception ex)
@@ -33,7 +40,7 @@ namespace SLWeek.Utils
 
         }
 
-        private static void LoadBrushByColorDictionary(string relativePath)
+        public static void LoadBrushByColorDictionary(string relativePath)
         {
             if (string.IsNullOrEmpty(relativePath))
                 return;

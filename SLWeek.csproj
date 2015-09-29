@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Control\DelayLoadImage.cs" />
+    <Compile Include="Control\PictureViewer.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter .cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Database\BookmarkDatabase.cs" />
@@ -197,10 +198,6 @@
     </ApplicationDefinition>
     <None Include="SLWeek_StoreKey.pfx" />
     <None Include="SLWeek_TemporaryKey.pfx" />
-    <None Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
     <Page Include="Views\PictureViewerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

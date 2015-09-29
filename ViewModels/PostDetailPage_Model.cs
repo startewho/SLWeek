@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using SLWeek.Models;
 using SLWeek.Database;
@@ -27,22 +28,34 @@ namespace SLWeek.ViewModels
                
             }
             this.VM = model;
+
             Init();
-            Pictures=new List<Picture>();
-            
+
         }
 
         private void Init()
         {
             IsBookmarked = BookmarkDatabase.FindPost(VM);
-
+            Pictures=new List<Picture>();
         }
-      
+
+
+        //protected override Task OnBindedViewLoad(MVVMSidekick.Views.IView view)
+        //{
+
+        //    if (!isLoaded)
+        //    {
+               
+        //        this.isLoaded = true;
+
+        //    }
+        //    return base.OnBindedViewLoad(view);
+        //}
         public PostDetail VM { get; set; }
 
 
 
-
+        private bool isLoaded;
         public bool IsBookmarked
         {
             get { return _IsBookmarkedLocator(this).Value; }
@@ -161,6 +174,7 @@ namespace SLWeek.ViewModels
                                 switch (link.Substring(0, Math.Min(4, link.Length)))
                                 {
                                     case "pict":
+                                        vm.Pictures.Clear();
                                         var picturls = link.Replace("picturelist", "").Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries); 
                                         for (int i = 0; i < picturls.Length; i++)
                                         {

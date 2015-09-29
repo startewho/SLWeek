@@ -68,16 +68,16 @@ namespace SLWeek.Views
 
         private async void webView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-            var arguments = new List<string>
-            {
-                "$(document).ready(function(){$(\'[href$=\".jpg\"]\').click (function() {window.external.notify(this.href+'|'+this.title); return false;});});"
+            //var arguments = new List<string>
+            //{
+            //    "$(document).ready(function(){$(\'[href$=\".jpg\"]\').click (function() {window.external.notify(this.href+'|'+this.title); return false;});});"
              
-            };
-            await webView.InvokeScriptAsync("eval", arguments);
+            //};
+            //await webView.InvokeScriptAsync("eval", arguments);
 
             var arguments1 = new List<string>
             {
-               
+
                  "$(document).ready(function(){$('a').click (function() {window.external.notify(this.href+'|'+$(this).html()); return false;});});"
             };
             await webView.InvokeScriptAsync("eval", arguments1);

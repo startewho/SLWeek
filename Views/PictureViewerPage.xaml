@@ -13,7 +13,7 @@
         <vm:PictureViewerPage_Model x:Key="DesignVM"/>
     </Page.Resources>
 
-    <Grid   DataContext="{StaticResource DesignVM}">
+    <Grid DataContext="{StaticResource DesignVM}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="40"/>
@@ -21,6 +21,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ChildrenTransitions>
             <TransitionCollection>
@@ -29,10 +30,12 @@
         </Grid.ChildrenTransitions>
         <FlipView ItemsSource="{Binding ListPictures}" ItemTemplate="{StaticResource PictureItemDataTemplate}" SelectedItem="{Binding SelectPicture,Mode=TwoWay}" Grid.Row="0" Grid.ColumnSpan="2"/>
         <TextBlock Text="{Binding SelectPicture.Des, Mode=OneWay}" TextTrimming="WordEllipsis"  Style="{StaticResource MenuTitleTextBlockStyle}" Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom" />
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-            <TextBlock Text="{Binding SelectPicture.Index, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
-            <TextBlock Text="/" Style="{StaticResource MenuTitleTextBlockStyle}" />
-            <TextBlock Text="{Binding ListPictures.Count, Mode=OneWay}" Style="{StaticResource MenuTitleTextBlockStyle}" />
-        </StackPanel>
+        <TextBlock Text="{Binding PictureIndexOf}" Grid.Row="1" Grid.Column="1" Style="{StaticResource MenuTitleTextBlockStyle}" HorizontalAlignment="Right"/>
+        <AppBar Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal">
+                <AppBarButton Icon="Refresh" Label="Refresh" Command="{Binding CommandRefresh}"/>
+                <AppBarButton Icon="Save" Label="Save" Command="{Binding CommandSavePicture}"/>
+            </StackPanel>
+        </AppBar>
     </Grid>
 </mvvm:MVVMPage>
