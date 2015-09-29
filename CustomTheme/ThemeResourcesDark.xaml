@@ -38,7 +38,7 @@
     <!--<Color x:Key="PhoneForegroundColor">#FFFFFFFF</Color>--><!--
     <Color x:Key="PhoneForegroundColor">#FFB0B0B0</Color>
     <Color x:Key="PhonePageBackgroundColor">#FF252525</Color>-->
-    <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="{StaticResource BelizeHoleColor }" />
+   
 
 
     <Color x:Key="ChromeContrastColor">#FFA0A000</Color>
@@ -47,7 +47,8 @@
     <Color x:Key="ChromeLowColor">#FFA0A000</Color>
     <Color x:Key="ChromeMediumMidColor">#FFA0A000</Color>
     <Color x:Key="ChromeMidColor">#FFA0A000</Color>
-    
+
+    <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="{StaticResource BelizeHoleColor }" />
     <SolidColorBrush x:Key="SystemControlChromeLowBackgroundBrush" Color="{ThemeResource ChromeLowColor}" Opacity="0.8" />
     <SolidColorBrush x:Key="SystemControlPageBackgroundChromeLowBrush" Color="{ThemeResource ChromeLowColor}" Opacity="0.8" />
     <SolidColorBrush x:Key="SystemControlChromePanelBackgroundBrush" Color="{ThemeResource ChromeLowColor}"/>
