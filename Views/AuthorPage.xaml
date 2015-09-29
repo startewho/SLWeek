@@ -24,7 +24,7 @@
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <TextBlock  Text="{Binding VM.Name}"  Grid.Row="0" FontWeight="Bold" Margin="10,0,0,0"/>
+        <TextBlock  Text="{Binding VM.Name}"  Grid.Row="0" FontWeight="Bold" Margin="0,0,10,0" HorizontalAlignment="Right"/>
         <ListView ItemsSource="{Binding VM.AuthorPostList}" ItemTemplate="{StaticResource AuthorPostDetailItemDataTemplate}" Grid.Row="1"/>
     </Grid>
 </mvvm:MVVMPage>
