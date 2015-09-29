@@ -25,7 +25,7 @@ namespace SLWeek.ViewModels
 
             if (!_isfirstTimeLoad)
             {
-                PropScribe();
+            
                 this._isfirstTimeLoad = true;
 
             }
@@ -39,21 +39,7 @@ namespace SLWeek.ViewModels
         }
 
 
-        private void PropScribe()
-        {
-            GetValueContainer<Picture>(vm => vm.SelectPicture).GetEventObservable().Subscribe(e =>
-            {
-                
-                var picture = e.EventArgs.NewValue;
-                if (picture!=null)
-                {
-                    PictureIndexOf = picture.Index + "/" + ListPictures.Count;
-                }
-
-                
-
-            }).DisposeWith(this);
-        }
+     
 
         public List<Picture> ListPictures
         {
@@ -83,7 +69,16 @@ namespace SLWeek.ViewModels
         public Picture SelectPicture
         {
             get { return _SelectPictureLocator(this).Value; }
-            set { _SelectPictureLocator(this).SetValueAndTryNotify(value); }
+            set
+            {
+                _SelectPictureLocator(this).SetValueAndTryNotify(value);
+                var picture = value;
+                if (picture != null)
+                {
+                    PictureIndexOf = picture.Index + "/" + ListPictures.Count;
+                }
+
+            }
         }
         #region Property Picture SelectPicture Setup        
         protected Property<Picture> _SelectPicture = new Property<Picture> { LocatorFunc = _SelectPictureLocator };
