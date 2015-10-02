@@ -15,8 +15,8 @@
         <x:String x:Key="AppName">My Application</x:String>
         <vm:HomePage_Model x:Key="DesignVM"/>
     </Page.Resources>
-  
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}" >
+
+    <Grid Background="{ThemeResource TurquoiseColorBrush}"  DataContext="{StaticResource DesignVM}" >
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>

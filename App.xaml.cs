@@ -214,6 +214,7 @@ namespace SLWeek
         {
 
              MainFrame.RequestedTheme = AppSettings.Instance.CurrentTheme;
+             Current.Resources["TurquoiseColorBrush"] = new SolidColorBrush() { Color = Colors.DarkRed };
             //int count = Current.Resources.ThemeDictionaries.Count;
             //var theme = Current.Resources.ThemeDictionaries.Values.ToList()[0] as ResourceDictionary;
             //var thmedata = Current.Resources.ThemeDictionaries["ApplicationPageBackgroundThemeBrush"] as SolidColorBrush;
