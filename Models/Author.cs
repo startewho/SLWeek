@@ -1,6 +1,6 @@
 ﻿using System;
-using SLWeek.Source;
 using MVVMSidekick.ViewModels;
+using SLWeek.Source;
 
 namespace SLWeek.Models
 {
@@ -22,7 +22,7 @@ namespace SLWeek.Models
         }
         #region Property IncrementalLoadingCollection<AuthorPostSource, PostDetail> AuthorPostList Setup        
         protected Property<IncrementalLoadingCollection<AuthorPostSource, PostDetail>> _AuthorPostList = new Property<IncrementalLoadingCollection<AuthorPostSource, PostDetail>> { LocatorFunc = _AuthorPostListLocator };
-        static Func<BindableBase, ValueContainer<IncrementalLoadingCollection<AuthorPostSource, PostDetail>>> _AuthorPostListLocator = RegisterContainerLocator<IncrementalLoadingCollection<AuthorPostSource, PostDetail>>("AuthorPostList", model => model.Initialize("AuthorPostList", ref model._AuthorPostList, ref _AuthorPostListLocator, _AuthorPostListDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<IncrementalLoadingCollection<AuthorPostSource, PostDetail>>> _AuthorPostListLocator = RegisterContainerLocator("AuthorPostList", model => model.Initialize("AuthorPostList", ref model._AuthorPostList, ref _AuthorPostListLocator, _AuthorPostListDefaultValueFactory));
         static Func<IncrementalLoadingCollection<AuthorPostSource, PostDetail>> _AuthorPostListDefaultValueFactory = () => default(IncrementalLoadingCollection<AuthorPostSource, PostDetail>);
         #endregion
 
@@ -34,7 +34,7 @@ namespace SLWeek.Models
         }
         #region Property string Icon Setup        
         protected Property<string> _Icon = new Property<string> { LocatorFunc = _IconLocator };
-        static Func<BindableBase, ValueContainer<string>> _IconLocator = RegisterContainerLocator<string>("Icon", model => model.Initialize("Icon", ref model._Icon, ref _IconLocator, _IconDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<string>> _IconLocator = RegisterContainerLocator("Icon", model => model.Initialize("Icon", ref model._Icon, ref _IconLocator, _IconDefaultValueFactory));
         static Func<string> _IconDefaultValueFactory = () => default(string);
         #endregion
 

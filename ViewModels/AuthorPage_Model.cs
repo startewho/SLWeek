@@ -1,5 +1,5 @@
-﻿using MVVMSidekick.ViewModels;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
+using MVVMSidekick.ViewModels;
 using SLWeek.Models;
 
 namespace SLWeek.ViewModels
@@ -15,7 +15,7 @@ namespace SLWeek.ViewModels
         public Author VM { get; set; }
         public AuthorPage_Model(Author author)
         {
-            this.VM = author;
+            VM = author;
         }
 
     }

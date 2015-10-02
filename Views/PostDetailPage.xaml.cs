@@ -19,14 +19,14 @@ namespace SLWeek.Views
         public PostDetailPage()
             : this(null)
         {
-            this.InitializeComponent();
+            InitializeComponent();
             
          
         }
         public PostDetailPage(PostDetailPage_Model model)
             : base(model)
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
 

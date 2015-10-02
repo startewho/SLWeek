@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Shapes;
-using Windows.UI.Xaml.Controls.Primitives;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SLWeek.Control
 {
@@ -35,7 +35,7 @@ namespace SLWeek.Control
 
         public SwipeableSplitView()
         {
-            this.DefaultStyleKey = typeof(SwipeableSplitView);
+            DefaultStyleKey = typeof(SwipeableSplitView);
         }
 
         #region properties
@@ -311,7 +311,7 @@ namespace SLWeek.Control
             // while we are panning the PanArea on X axis, let's sync the PaneRoot's position X too
             _paneRootTransform.TranslateX = _panAreaTransform.TranslateX = x;
 
-            if (sender == _paneRoot && this.IsPanSelectorEnabled)
+            if (sender == _paneRoot && IsPanSelectorEnabled)
             {
                 // un-highlight everything first
                 foreach (var item in _menuItems)
@@ -360,7 +360,7 @@ namespace SLWeek.Control
                 OpenSwipeablePane();
             }
 
-            if (this.IsPanSelectorEnabled)
+            if (IsPanSelectorEnabled)
             {
                 if (sender == _paneRoot)
                 {
@@ -412,12 +412,12 @@ namespace SLWeek.Control
 
         void OnOpenSwipeablePaneCompleted(object sender, object e)
         {
-            this.DismissLayer.IsHitTestVisible = true;
+            DismissLayer.IsHitTestVisible = true;
         }
 
         void OnCloseSwipeablePaneCompleted(object sender, object e)
         {
-            this.DismissLayer.IsHitTestVisible = false;
+            DismissLayer.IsHitTestVisible = false;
         }
 
         #endregion
@@ -427,9 +427,9 @@ namespace SLWeek.Control
         void OnPaneRootLoaded(object sender, RoutedEventArgs e)
         {
             // fill the local menu items collection for later use
-            if (this.IsPanSelectorEnabled)
+            if (IsPanSelectorEnabled)
             {
-                var border = (Border)this.PaneRoot.Children[0];
+                var border = (Border)PaneRoot.Children[0];
                 _menuHost = border.Child as Selector;
 
                 if (_menuHost == null)

@@ -1,10 +1,10 @@
-﻿using MVVMSidekick.ViewModels;
-using MVVMSidekick.Views;
-using System;
-using System.Threading.Tasks;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
+using MVVMSidekick.ViewModels;
+using MVVMSidekick.Views;
 using SLWeek.Models;
 using SLWeek.Utils;
 
@@ -16,10 +16,6 @@ namespace SLWeek.ViewModels
     {
         // If you have install the code sniplets, use "propvm + [tab] +[tab]" create a property。
         // 如果您已经安装了 MVVMSidekick 代码片段，请用 propvm +tab +tab 输入属性
-        public ChannelPage_Model()
-        {
-
-        }
 
 
         protected override Task OnBindedViewLoad(IView view)
@@ -75,7 +71,7 @@ namespace SLWeek.ViewModels
         }
         #region Property int SelectPivotItemIndex Setup        
         protected Property<int> _SelectPivotItemIndex = new Property<int> { LocatorFunc = _SelectPivotItemIndexLocator };
-        static Func<BindableBase, ValueContainer<int>> _SelectPivotItemIndexLocator = RegisterContainerLocator<int>("SelectPivotItemIndex", model => model.Initialize("SelectPivotItemIndex", ref model._SelectPivotItemIndex, ref _SelectPivotItemIndexLocator, _SelectPivotItemIndexDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<int>> _SelectPivotItemIndexLocator = RegisterContainerLocator("SelectPivotItemIndex", model => model.Initialize("SelectPivotItemIndex", ref model._SelectPivotItemIndex, ref _SelectPivotItemIndexLocator, _SelectPivotItemIndexDefaultValueFactory));
         static Func<int> _SelectPivotItemIndexDefaultValueFactory = () => default(int);
         #endregion
 
@@ -102,7 +98,7 @@ namespace SLWeek.ViewModels
         }
         #region Property Channel SelectedChannel Setup        
         protected Property<Channel> _SelectedChannel = new Property<Channel> { LocatorFunc = _SelectedChannelLocator };
-        static Func<BindableBase, ValueContainer<Channel>> _SelectedChannelLocator = RegisterContainerLocator<Channel>("SelectedChannel", model => model.Initialize("SelectedChannel", ref model._SelectedChannel, ref _SelectedChannelLocator, _SelectedChannelDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<Channel>> _SelectedChannelLocator = RegisterContainerLocator("SelectedChannel", model => model.Initialize("SelectedChannel", ref model._SelectedChannel, ref _SelectedChannelLocator, _SelectedChannelDefaultValueFactory));
         static Func<Channel> _SelectedChannelDefaultValueFactory = () => default(Channel);
         #endregion
 
@@ -114,7 +110,7 @@ namespace SLWeek.ViewModels
         }
         #region Property ObservableCollection<Channel> ObservableChannels Setup        
         protected Property<ObservableCollection<Channel>> _ObservableChannels = new Property<ObservableCollection<Channel>> { LocatorFunc = _ObservableChannelsLocator };
-        static Func<BindableBase, ValueContainer<ObservableCollection<Channel>>> _ObservableChannelsLocator = RegisterContainerLocator<ObservableCollection<Channel>>("ObservableChannels", model => model.Initialize("ObservableChannels", ref model._ObservableChannels, ref _ObservableChannelsLocator, _ObservableChannelsDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<ObservableCollection<Channel>>> _ObservableChannelsLocator = RegisterContainerLocator("ObservableChannels", model => model.Initialize("ObservableChannels", ref model._ObservableChannels, ref _ObservableChannelsLocator, _ObservableChannelsDefaultValueFactory));
         static Func<ObservableCollection<Channel>> _ObservableChannelsDefaultValueFactory = () => default(ObservableCollection<Channel>);
         #endregion
 

@@ -1,8 +1,7 @@
-﻿using MVVMSidekick.Views;
+﻿using System;
+using MVVMSidekick.Views;
 using SLWeek.ViewModels;
-using System;
 using SLWeek.Views;
-
 
 namespace MVVMSidekick.Startups
 {

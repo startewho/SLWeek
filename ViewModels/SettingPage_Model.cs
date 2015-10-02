@@ -1,13 +1,13 @@
-﻿using System.Reactive.Linq;
-using MVVMSidekick.ViewModels;
-using MVVMSidekick.Reactive;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Runtime.Serialization;
-using Windows.UI.Core;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using MVVMSidekick.EventRouting;
+using MVVMSidekick.Reactive;
+using MVVMSidekick.Utilities;
+using MVVMSidekick.ViewModels;
 using SLWeek.Models;
 using SLWeek.Utils;
 
@@ -61,25 +61,26 @@ namespace SLWeek.ViewModels
 
         private void PropScribe()
         {
-            GetValueContainer<bool>(vm => vm.IsImageMode).GetEventObservable().Subscribe(e =>
+            GetValueContainer(vm => vm.IsImageMode).GetEventObservable().Subscribe(e =>
             {
                 var isimagemode = e.EventArgs.NewValue;
                 AppSettings.Instance.IsEnableImageMode = isimagemode;
             }).DisposeWith(this);
 
-            GetValueContainer<bool>(vm => vm.IsLightTheme).GetEventObservable().Subscribe(async e => 
+            GetValueContainer(vm => vm.IsLightTheme).GetEventObservable().Subscribe(async e => 
             {
                 var islighttheme = e.EventArgs.NewValue;
                 AppSettings.Instance.CurrentTheme = islighttheme ? ElementTheme.Light : ElementTheme.Dark;
                 StageManager.DefaultStage.Frame.RequestedTheme = AppSettings.Instance.CurrentTheme;
-               await StageManager.DefaultStage.Show(new SettingPage_Model());
+                App.SetShellDecoration();
+                await StageManager.DefaultStage.Show(new SettingPage_Model());
                 // ((Page) this.StageManager.CurrentBindingView).RequestedTheme = AppSettings.Instance.CurrentTheme;
 
             }).DisposeWith(this);
 
 
             //CheckBox点击之后,马上更改设置,以实现实时更新
-            MVVMSidekick.EventRouting.EventRouter.Instance.GetEventChannel<Object>()
+            EventRouter.Instance.GetEventChannel<Object>()
                 .Where(x => x.EventName == "NotyCheckedByEventRouter")
                 .Subscribe(
                     async e =>
@@ -91,7 +92,7 @@ namespace SLWeek.ViewModels
                             AppSettings.Instance.SelectChannelTypes = query.ToList();
                         }
                        
-                        await MVVMSidekick.Utilities.TaskExHelper.Yield();
+                        await TaskExHelper.Yield();
                     }
                 ).DisposeWith(this);
 
@@ -109,7 +110,7 @@ namespace SLWeek.ViewModels
         protected Property<String> _Title = new Property<String> {LocatorFunc = _TitleLocator};
 
         private static Func<BindableBase, ValueContainer<String>> _TitleLocator =
-            RegisterContainerLocator<String>("Title",
+            RegisterContainerLocator("Title",
                 model => model.Initialize("Title", ref model._Title, ref _TitleLocator, _TitleDefaultValueFactory));
 
         private static Func<BindableBase, String> _TitleDefaultValueFactory = m => m.GetType().Name;
@@ -124,7 +125,7 @@ namespace SLWeek.ViewModels
         }
         #region Property List<PostType> SelectedPostTypes Setup        
         protected Property<List<PostType>> _SelectedPostTypes = new Property<List<PostType>> { LocatorFunc = _SelectedPostTypesLocator };
-        static Func<BindableBase, ValueContainer<List<PostType>>> _SelectedPostTypesLocator = RegisterContainerLocator<List<PostType>>("SelectedPostTypes", model => model.Initialize("SelectedPostTypes", ref model._SelectedPostTypes, ref _SelectedPostTypesLocator, _SelectedPostTypesDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<List<PostType>>> _SelectedPostTypesLocator = RegisterContainerLocator("SelectedPostTypes", model => model.Initialize("SelectedPostTypes", ref model._SelectedPostTypes, ref _SelectedPostTypesLocator, _SelectedPostTypesDefaultValueFactory));
         static Func<List<PostType>> _SelectedPostTypesDefaultValueFactory = () => default(List<PostType>);
         #endregion
 
@@ -144,7 +145,7 @@ namespace SLWeek.ViewModels
         };
 
         private static Func<BindableBase, ValueContainer<List<PostType>>> _ListPostTypesLocator =
-            RegisterContainerLocator<List<PostType>>("ListPostTypes",
+            RegisterContainerLocator("ListPostTypes",
                 model =>
                     model.Initialize("ListPostTypes", ref model._ListPostTypes, ref _ListPostTypesLocator,
                         _ListPostTypesDefaultValueFactory));
@@ -165,7 +166,7 @@ namespace SLWeek.ViewModels
         }
         #region Property bool IsLightTheme Setup        
         protected Property<bool> _IsLightTheme = new Property<bool> { LocatorFunc = _IsLightThemeLocator };
-        static Func<BindableBase, ValueContainer<bool>> _IsLightThemeLocator = RegisterContainerLocator<bool>("IsLightTheme", model => model.Initialize("IsLightTheme", ref model._IsLightTheme, ref _IsLightThemeLocator, _IsLightThemeDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<bool>> _IsLightThemeLocator = RegisterContainerLocator("IsLightTheme", model => model.Initialize("IsLightTheme", ref model._IsLightTheme, ref _IsLightThemeLocator, _IsLightThemeDefaultValueFactory));
         static Func<bool> _IsLightThemeDefaultValueFactory = () => default(bool);
         #endregion
 
@@ -183,7 +184,7 @@ namespace SLWeek.ViewModels
         protected Property<bool> _IsImageMode = new Property<bool> {LocatorFunc = _IsImageModeLocator};
 
         private static Func<BindableBase, ValueContainer<bool>> _IsImageModeLocator =
-            RegisterContainerLocator<bool>("IsImageMode",
+            RegisterContainerLocator("IsImageMode",
                 model =>
                     model.Initialize("IsImageMode", ref model._IsImageMode, ref _IsImageModeLocator,
                         _IsImageModeDefaultValueFactory));

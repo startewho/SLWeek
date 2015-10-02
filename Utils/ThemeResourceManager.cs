@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
@@ -19,14 +17,14 @@ namespace SLWeek.Utils
             try
             {
                 ResourceDictionary resourceDictionary = new ResourceDictionary();
-                Application.LoadComponent((object)resourceDictionary, new Uri(relativePath, UriKind.RelativeOrAbsolute));
+                Application.LoadComponent(resourceDictionary, new Uri(relativePath, UriKind.RelativeOrAbsolute));
                 foreach (KeyValuePair<object, object> keyValuePair in (IEnumerable<KeyValuePair<object, object>>)resourceDictionary.ToList())
                 {
-                    var sourcekey = ((IDictionary<object, object>) Application.Current.Resources)[keyValuePair.Key];
+                    var sourcekey = Application.Current.Resources[keyValuePair.Key];
                    
                     if (sourcekey!=null)
                     {
-                        ((IDictionary<object, object>)Application.Current.Resources)[keyValuePair.Key] = keyValuePair.Value;
+                        Application.Current.Resources[keyValuePair.Key] = keyValuePair.Value;
                         Debug.WriteLine("Key:{0},Value:{1}", keyValuePair.Key, keyValuePair.Value);
                     }
                   
@@ -47,11 +45,11 @@ namespace SLWeek.Utils
             try
             {
                 ResourceDictionary resourceDictionary = new ResourceDictionary();
-                Application.LoadComponent((object)resourceDictionary, new Uri(relativePath, UriKind.RelativeOrAbsolute));
-                foreach (KeyValuePair<object, object> keyValuePair in (IEnumerable<KeyValuePair<object, object>>)resourceDictionary)
+                Application.LoadComponent(resourceDictionary, new Uri(relativePath, UriKind.RelativeOrAbsolute));
+                foreach (KeyValuePair<object, object> keyValuePair in resourceDictionary)
                 {
                     if (keyValuePair.Value is Color)
-                        ((IDictionary<object, object>)Application.Current.Resources)[keyValuePair.Key] = (object)new SolidColorBrush((Color)keyValuePair.Value);
+                        Application.Current.Resources[keyValuePair.Key] = new SolidColorBrush((Color)keyValuePair.Value);
                 }
             }
             catch (Exception ex)
@@ -72,7 +70,7 @@ namespace SLWeek.Utils
                 if (keyValuePair.Value is Color)
                 {
                     object obj;
-                    ((IDictionary<object, object>)Application.Current.Resources).TryGetValue(keyValuePair.Key, out obj);
+                    Application.Current.Resources.TryGetValue(keyValuePair.Key, out obj);
                     SolidColorBrush solidColorBrush = obj as SolidColorBrush;
                     if (solidColorBrush != null)
                         solidColorBrush.Color=((Color)keyValuePair.Value);

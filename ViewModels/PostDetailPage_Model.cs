@@ -1,13 +1,14 @@
-﻿using MVVMSidekick.ViewModels;
-using MVVMSidekick.Reactive;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using SLWeek.Models;
+using MVVMSidekick.Reactive;
+using MVVMSidekick.Utilities;
+using MVVMSidekick.ViewModels;
 using SLWeek.Database;
+using SLWeek.Models;
+
 // ReSharper disable InconsistentNaming
 namespace SLWeek.ViewModels
 {
@@ -27,7 +28,7 @@ namespace SLWeek.ViewModels
                 VM.Title = "文章标题";
                
             }
-            this.VM = model;
+            VM = model;
 
             Init();
 
@@ -76,7 +77,7 @@ namespace SLWeek.ViewModels
         }
         #region Property bool IsBookmarked Setup        
         protected Property<bool> _IsBookmarked = new Property<bool> { LocatorFunc = _IsBookmarkedLocator };
-        static Func<BindableBase, ValueContainer<bool>> _IsBookmarkedLocator = RegisterContainerLocator<bool>("IsBookmarked", model => model.Initialize("IsBookmarked", ref model._IsBookmarked, ref _IsBookmarkedLocator, _IsBookmarkedDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<bool>> _IsBookmarkedLocator = RegisterContainerLocator("IsBookmarked", model => model.Initialize("IsBookmarked", ref model._IsBookmarked, ref _IsBookmarkedLocator, _IsBookmarkedDefaultValueFactory));
         static Func<bool> _IsBookmarkedDefaultValueFactory = () => default(bool);
         #endregion
 
@@ -88,7 +89,7 @@ namespace SLWeek.ViewModels
         }
         #region Property List<Picture> Pictures Setup        
         protected Property<List<Picture>> _Pictures = new Property<List<Picture>> { LocatorFunc = _PicturesLocator };
-        static Func<BindableBase, ValueContainer<List<Picture>>> _PicturesLocator = RegisterContainerLocator<List<Picture>>("Pictures", model => model.Initialize("Pictures", ref model._Pictures, ref _PicturesLocator, _PicturesDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<List<Picture>>> _PicturesLocator = RegisterContainerLocator("Pictures", model => model.Initialize("Pictures", ref model._Pictures, ref _PicturesLocator, _PicturesDefaultValueFactory));
         static Func<List<Picture>> _PicturesDefaultValueFactory = () => default(List<Picture>);
         #endregion
 
@@ -106,21 +107,21 @@ namespace SLWeek.ViewModels
         #region Property CommandModel<ReactiveCommand, String> CommandBack Setup        
 
         protected Property<CommandModel<ReactiveCommand, String>> _CommandBack = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandBackLocator };
-        static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandBackLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>("CommandBack", model => model.Initialize("CommandBack", ref model._CommandBack, ref _CommandBackLocator, _CommandBackDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandBackLocator = RegisterContainerLocator("CommandBack", model => model.Initialize("CommandBack", ref model._CommandBack, ref _CommandBackLocator, _CommandBackDefaultValueFactory));
         static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandBackDefaultValueFactory =
             model =>
             {
                 var resource = "CommandBack";           // Command resource  
                 var commandId = "CommandBack";
                 var vm = CastToCurrentType(model);
-                var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+                var cmd = new ReactiveCommand(true) { ViewModel = model }; //New Command Core
 
                 cmd.DoExecuteUIBusyTask(
                         vm,
                         async e =>
                         {
                             vm.StageManager.DefaultStage.Frame.GoBack();
-                            await MVVMSidekick.Utilities.TaskExHelper.Yield();
+                            await TaskExHelper.Yield();
                         
                            //vm.StageManager.DefaultStage.Frame.Navigate(typeof(ChannelPage));
                           //vm.StageManager.DefaultStage.Frame.GoBack();
@@ -133,9 +134,7 @@ namespace SLWeek.ViewModels
 
                 var cmdmdl = cmd.CreateCommandModel(resource);
 
-                cmdmdl.ListenToIsUIBusy(
-                    model: vm,
-                    canExecuteWhenBusy: false);
+                cmdmdl.ListenToIsUIBusy(vm, false);
                 return cmdmdl;
             };
 
@@ -152,14 +151,14 @@ namespace SLWeek.ViewModels
         #region Property CommandModel<ReactiveCommand, String> CommandViewPicturePage Setup        
 
         protected Property<CommandModel<ReactiveCommand, String>> _CommandViewPicturePage = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandViewPicturePageLocator };
-        static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandViewPicturePageLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>("CommandViewPicturePage", model => model.Initialize("CommandViewPicturePage", ref model._CommandViewPicturePage, ref _CommandViewPicturePageLocator, _CommandViewPicturePageDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandViewPicturePageLocator = RegisterContainerLocator("CommandViewPicturePage", model => model.Initialize("CommandViewPicturePage", ref model._CommandViewPicturePage, ref _CommandViewPicturePageLocator, _CommandViewPicturePageDefaultValueFactory));
         static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandViewPicturePageDefaultValueFactory =
             model =>
             {
                 var resource = "CommandViewPicturePage";           // Command resource  
                 var commandId = "CommandViewPicturePage";
                 var vm = CastToCurrentType(model);
-                var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+                var cmd = new ReactiveCommand(true) { ViewModel = model }; //New Command Core
 
                 cmd.DoExecuteUIBusyTask(
                         vm,
@@ -170,16 +169,16 @@ namespace SLWeek.ViewModels
                             {
 
                                 var link = notifyEventArgs.Value;
-                                var links = link.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                                var links = link.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
                                 switch (link.Substring(0, Math.Min(4, link.Length)))
                                 {
                                     case "pict":
                                         vm.Pictures.Clear();
-                                        var picturls = link.Replace("picturelist", "").Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries); 
+                                        var picturls = link.Replace("picturelist", "").Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries); 
                                         for (int i = 0; i < picturls.Length; i++)
                                         {
                                             var pic=picturls[i].Split(new[] { '|' },StringSplitOptions.RemoveEmptyEntries);
-                                            vm.Pictures.Add(new Picture()
+                                            vm.Pictures.Add(new Picture
                                             {
                                                 PictureUrl = pic[0],
                                                 Des=pic[1],
@@ -203,7 +202,7 @@ namespace SLWeek.ViewModels
                                         break;
 
                                     case "link":
-                                        var listpost = link.Split(new char[] {'|'},
+                                        var listpost = link.Split(new[] {'|'},
                                             StringSplitOptions.RemoveEmptyEntries);
 
                                         listpost[0] = listpost[0].Remove(0, 7).Replace('/', ' ');
@@ -213,13 +212,13 @@ namespace SLWeek.ViewModels
                                         break;
 
                                     default:
-                                        await MVVMSidekick.Utilities.TaskExHelper.Yield();
+                                        await TaskExHelper.Yield();
                                         break;
                                 }
 
                             }
                             //Todo: Add ViewPicturePage logic here, or
-                            await MVVMSidekick.Utilities.TaskExHelper.Yield();
+                            await TaskExHelper.Yield();
                         })
                     .DoNotifyDefaultEventRouter(vm, commandId)
                     .Subscribe()
@@ -227,9 +226,7 @@ namespace SLWeek.ViewModels
 
                 var cmdmdl = cmd.CreateCommandModel(resource);
 
-                cmdmdl.ListenToIsUIBusy(
-                    model: vm,
-                    canExecuteWhenBusy: false);
+                cmdmdl.ListenToIsUIBusy(vm, false);
                 return cmdmdl;
             };
 
@@ -245,21 +242,21 @@ namespace SLWeek.ViewModels
         #region Property CommandModel<ReactiveCommand, String> CommandBookmark Setup        
 
         protected Property<CommandModel<ReactiveCommand, String>> _CommandBookmark = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandBookmarkLocator };
-        static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandBookmarkLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>("CommandBookmark", model => model.Initialize("CommandBookmark", ref model._CommandBookmark, ref _CommandBookmarkLocator, _CommandBookmarkDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandBookmarkLocator = RegisterContainerLocator("CommandBookmark", model => model.Initialize("CommandBookmark", ref model._CommandBookmark, ref _CommandBookmarkLocator, _CommandBookmarkDefaultValueFactory));
         static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandBookmarkDefaultValueFactory =
             model =>
             {
                 var resource = "CommandBookmark";           // Command resource  
                 var commandId = "CommandBookmark";
                 var vm = CastToCurrentType(model);
-                var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+                var cmd = new ReactiveCommand(true) { ViewModel = model }; //New Command Core
 
                 cmd.DoExecuteUIBusyTask(
                         vm,
                         async e =>
                         {
                             //Todo: Add Bookmark logic here, or
-                            await MVVMSidekick.Utilities.TaskExHelper.Yield();
+                            await TaskExHelper.Yield();
                         })
                     .DoNotifyDefaultEventRouter(vm, commandId)
                     .Subscribe()
@@ -267,9 +264,7 @@ namespace SLWeek.ViewModels
 
                 var cmdmdl = cmd.CreateCommandModel(resource);
 
-                cmdmdl.ListenToIsUIBusy(
-                    model: vm,
-                    canExecuteWhenBusy: false);
+                cmdmdl.ListenToIsUIBusy(vm, false);
                 return cmdmdl;
             };
 

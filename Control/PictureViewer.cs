@@ -1,9 +1,9 @@
 ﻿using System;
 using Windows.Foundation;
 using Windows.UI.Input;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
 namespace SLWeek.Control
@@ -96,7 +96,7 @@ namespace SLWeek.Control
         protected override Size MeasureOverride(Size availableSize)
         {
             //Set clip, so when scaling image, image won't go outside its bounds.
-            Clip = new RectangleGeometry() { Rect = new Rect(new Point(), availableSize) };
+            Clip = new RectangleGeometry { Rect = new Rect(new Point(), availableSize) };
             return base.MeasureOverride(availableSize);
         }
 

@@ -1,8 +1,7 @@
 ﻿using System;
-using MVVMSidekick.ViewModels;
+using System.Runtime.Serialization;
 using SLWeek.Utils;
 using SQLite.Net.Attributes;
-using System.Runtime.Serialization;
 
 namespace SLWeek.Models
 {

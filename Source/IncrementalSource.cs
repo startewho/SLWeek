@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
-using System.Diagnostics;
 
 namespace SLWeek.Source
 {
@@ -35,9 +35,9 @@ namespace SLWeek.Source
 
         public IncrementalLoadingCollection(string query,int pageSize )
         {
-            this.source = new T();
+            source = new T();
             this.pageSize = pageSize;
-            this.hasMoreItems = true;
+            hasMoreItems = true;
             this.query = query;
         }
 
@@ -51,7 +51,7 @@ namespace SLWeek.Source
           
             var dispatcher = Window.Current.Dispatcher;
 
-            return Task.Run<LoadMoreItemsResult>(
+            return Task.Run(
                 async () =>
                 {
                     uint resultCount = 0;
@@ -67,7 +67,7 @@ namespace SLWeek.Source
                                 () =>
                                 {
                                     foreach (I item in result)
-                                        this.Add(item);
+                                        Add(item);
                                    
                                 });
                         if (resultCount < pageSize)
@@ -80,10 +80,10 @@ namespace SLWeek.Source
                         hasMoreItems = false;
                     }
 
-                    Debug.WriteLine("Already Loading count{0},Everytime loading count:{1}",this.Items.Count, count);
-                    return new LoadMoreItemsResult() { Count = resultCount };
+                    Debug.WriteLine("Already Loading count{0},Everytime loading count:{1}",Items.Count, count);
+                    return new LoadMoreItemsResult { Count = resultCount };
 
-                }).AsAsyncOperation<LoadMoreItemsResult>();
+                }).AsAsyncOperation();
         }
     }
 

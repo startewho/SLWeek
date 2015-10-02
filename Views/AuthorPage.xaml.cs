@@ -1,7 +1,7 @@
 ﻿
-using SLWeek.ViewModels;
-using MVVMSidekick.Views;
 using Windows.UI.Xaml.Navigation;
+using MVVMSidekick.Views;
+using SLWeek.ViewModels;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -16,12 +16,12 @@ namespace SLWeek.Views
         public AuthorPage()
             : this(null)
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
         public AuthorPage(AuthorPage_Model model)
             : base(model)
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
 

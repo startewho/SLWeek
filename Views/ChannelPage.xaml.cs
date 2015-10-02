@@ -18,13 +18,13 @@ namespace SLWeek.Views
         
         {
  
-            this.InitializeComponent();
+            InitializeComponent();
 
         }
         public ChannelPage(ChannelPage_Model model):base(model)
         {
          
-            this.InitializeComponent();
+            InitializeComponent();
          
         }
 

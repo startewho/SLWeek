@@ -37,6 +37,9 @@ namespace SLWeek
         }
         public double Offset;
 
+        public static Frame MainFrame;
+        
+
         public static async void InitNavigationConfigurationInThisAssembly()
         {
             StartupFunctions.RunAllConfig();
@@ -60,18 +63,18 @@ namespace SLWeek
             InitNavigationConfigurationInThisAssembly();
 
 
-            Frame mainFrame = Window.Current.Content as Frame;
+             MainFrame = Window.Current.Content as Frame;
 
           
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (mainFrame == null)
+            if (MainFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                mainFrame = new Frame();
+                MainFrame = new Frame();
 
                 // TODO: change this value to a cache size that is appropriate for your application
-                mainFrame.CacheSize = 1;
+                MainFrame.CacheSize = 1;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -80,24 +83,23 @@ namespace SLWeek
 
                 
                 // Place the frame in the current Window
-                Window.Current.Content = mainFrame;
+                Window.Current.Content = MainFrame;
               
             }
 
          
 
-            if (mainFrame.Content == null)
+            if (MainFrame.Content == null)
             {
                 // Removes the turnstile navigation for startup.
 
-                mainFrame.Name = "MainFrame";
-                mainFrame.Navigating += OnNavigating;
-                mainFrame.Navigated += OnNavigated;
+                MainFrame.Name = "MainFrame";
+                MainFrame.Navigated += OnNavigated;
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
 
-                if (!mainFrame.Navigate(typeof(MainPage), e.Arguments))
+                if (!MainFrame.Navigate(typeof(MainPage), e.Arguments))
                 {
                     throw new Exception("Failed to create initial page");
                 }
@@ -118,12 +120,7 @@ namespace SLWeek
             Window.Current.Activate();
         }
 
-        private void OnNavigating(object sender, NavigatingCancelEventArgs e)
-        {
-            var frame = sender as Frame;
-            if (frame != null) frame.RequestedTheme = AppSettings.Instance.CurrentTheme;
-        }
-
+       
 
         void OnNavigated(object sender, NavigationEventArgs e)
         {
@@ -153,7 +150,12 @@ namespace SLWeek
             deferral.Complete();
         }
 
-       void OnBackPressed(object sender, BackPressedEventArgs e)
+
+
+        #region BackButton
+
+       
+        void OnBackPressed(object sender, BackPressedEventArgs e)
         {
             var mainFrame = (Frame)Window.Current.Content;
             
@@ -201,7 +203,18 @@ namespace SLWeek
 
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = visibility;
         }
-    
+        #endregion
+
+
+        #region ThemeColor
+        public static void SetShellDecoration()
+        {
+
+         MainFrame.RequestedTheme = AppSettings.Instance.CurrentTheme;
+           
+        }
+
+        #endregion
 
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using SLWeek.Models;
 using SLWeek.Utils;
-using Newtonsoft.Json.Linq;
 
 namespace SLWeek.Source
 {
@@ -28,7 +28,7 @@ namespace SLWeek.Source
                     new KeyValuePair<string, string>("count", pageSize.ToString()),
                     new KeyValuePair<string, string>("uid", "13916551"),
                     new KeyValuePair<string, string>("platform", "a"),
-                    new KeyValuePair<string, string>("mobile", "Emnu"),
+                    new KeyValuePair<string, string>("mobile", "Emnu")
 
                 });
 
@@ -37,7 +37,7 @@ namespace SLWeek.Source
                 JObject postlist = JObject.Parse(jsontext);
                 var jsonList = postlist.SelectToken("list");
                 if (jsonList == null) return null;
-                var list = jsonList.Select(item => new PostDetail()
+                var list = jsonList.Select(item => new PostDetail
                 {
                     Title = (string)item["title"],
                     Des = (string)item["des"],

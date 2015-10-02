@@ -1,8 +1,9 @@
-﻿using MVVMSidekick.ViewModels;
-using System;
+﻿using System;
 using System.Runtime.Serialization;
-using SLWeek.Source;
+using MVVMSidekick.ViewModels;
 using SLWeek.Models;
+using SLWeek.Source;
+
 namespace SLWeek.ViewModels
 {
 
@@ -26,7 +27,7 @@ namespace SLWeek.ViewModels
         }
         #region Property String Title Setup
         protected Property<String> _Title = new Property<String> { LocatorFunc = _TitleLocator };
-        static Func<BindableBase, ValueContainer<String>> _TitleLocator = RegisterContainerLocator<String>("Title", model => model.Initialize("Title", ref model._Title, ref _TitleLocator, _TitleDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<String>> _TitleLocator = RegisterContainerLocator("Title", model => model.Initialize("Title", ref model._Title, ref _TitleLocator, _TitleDefaultValueFactory));
         static Func<BindableBase, String> _TitleDefaultValueFactory = m => m.GetType().Name;
         #endregion
 
@@ -37,7 +38,7 @@ namespace SLWeek.ViewModels
         }
         #region Property IncrementalLoadingCollection<AuthorSource,Author> AuthorListAuthor Setup        
         protected Property<IncrementalLoadingCollection<AuthorSource,Author>> _AuthorListAuthor = new Property<IncrementalLoadingCollection<AuthorSource,Author>> { LocatorFunc = _AuthorListAuthorLocator };
-        static Func<BindableBase, ValueContainer<IncrementalLoadingCollection<AuthorSource,Author>>> _AuthorListAuthorLocator = RegisterContainerLocator<IncrementalLoadingCollection<AuthorSource,Author>>("AuthorListAuthor", model => model.Initialize("AuthorListAuthor", ref model._AuthorListAuthor, ref _AuthorListAuthorLocator, _AuthorListAuthorDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<IncrementalLoadingCollection<AuthorSource,Author>>> _AuthorListAuthorLocator = RegisterContainerLocator("AuthorListAuthor", model => model.Initialize("AuthorListAuthor", ref model._AuthorListAuthor, ref _AuthorListAuthorLocator, _AuthorListAuthorDefaultValueFactory));
         static Func<IncrementalLoadingCollection<AuthorSource,Author>> _AuthorListAuthorDefaultValueFactory = () => default(IncrementalLoadingCollection<AuthorSource,Author>);
         #endregion
 

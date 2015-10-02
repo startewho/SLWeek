@@ -1,9 +1,9 @@
-﻿using SQLite.Net;
-using SLWeek.Utils;
-using SQLite.Net.Platform.WinRT;
-using SLWeek.Models;
-using System.IO;
+﻿using System.IO;
 using Windows.Storage;
+using SLWeek.Models;
+using SLWeek.Utils;
+using SQLite.Net;
+using SQLite.Net.Platform.WinRT;
 
 namespace SLWeek.Database
 {

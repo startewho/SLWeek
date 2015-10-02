@@ -1,9 +1,10 @@
 ﻿
 using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using SLWeek.ViewModels;
-using MVVMSidekick.Views;
 using Windows.UI.Xaml.Navigation;
+using MVVMSidekick.Views;
+using SLWeek.ViewModels;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -18,12 +19,12 @@ namespace SLWeek.Views
         public HomePage()
             : this(null)
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
         public HomePage(HomePage_Model model)
             : base(model)
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
 
@@ -37,7 +38,7 @@ namespace SLWeek.Views
             base.OnNavigatedFrom(e);
         }
 
-        private void ListView_SizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
+        private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             var listview = sender as ListView;
             if (listview == null) return;

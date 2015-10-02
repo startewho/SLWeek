@@ -15,7 +15,7 @@ namespace SLWeek.Models
         }
         #region Property string Name Setup        
         protected Property<string> _Name = new Property<string> { LocatorFunc = _NameLocator };
-        static Func<BindableBase, ValueContainer<string>> _NameLocator = RegisterContainerLocator<string>("Name", model => model.Initialize("Name", ref model._Name, ref _NameLocator, _NameDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<string>> _NameLocator = RegisterContainerLocator("Name", model => model.Initialize("Name", ref model._Name, ref _NameLocator, _NameDefaultValueFactory));
         static Func<string> _NameDefaultValueFactory = () => default(string);
         #endregion
 
@@ -28,7 +28,7 @@ namespace SLWeek.Models
         }
         #region Property string CNName Setup        
         protected Property<string> _CNName = new Property<string> { LocatorFunc = _CNNameLocator };
-        static Func<BindableBase, ValueContainer<string>> _CNNameLocator = RegisterContainerLocator<string>("CNName", model => model.Initialize("CNName", ref model._CNName, ref _CNNameLocator, _CNNameDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<string>> _CNNameLocator = RegisterContainerLocator("CNName", model => model.Initialize("CNName", ref model._CNName, ref _CNNameLocator, _CNNameDefaultValueFactory));
         static Func<string> _CNNameDefaultValueFactory = () => default(string);
         #endregion
 
@@ -40,7 +40,7 @@ namespace SLWeek.Models
         }
         #region Property bool IsSelected Setup        
         protected Property<bool> _IsSelected = new Property<bool> { LocatorFunc = _IsSelectedLocator };
-        static Func<BindableBase, ValueContainer<bool>> _IsSelectedLocator = RegisterContainerLocator<bool>("IsSelected", model => model.Initialize("IsSelected", ref model._IsSelected, ref _IsSelectedLocator, _IsSelectedDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<bool>> _IsSelectedLocator = RegisterContainerLocator("IsSelected", model => model.Initialize("IsSelected", ref model._IsSelected, ref _IsSelectedLocator, _IsSelectedDefaultValueFactory));
         static Func<bool> _IsSelectedDefaultValueFactory = () => default(bool);
         #endregion
 

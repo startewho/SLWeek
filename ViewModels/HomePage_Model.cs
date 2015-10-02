@@ -1,6 +1,6 @@
-﻿using MVVMSidekick.ViewModels;
-using System;
+﻿using System;
 using System.Runtime.Serialization;
+using MVVMSidekick.ViewModels;
 using SLWeek.Models;
 using SLWeek.Source;
 
@@ -28,7 +28,7 @@ namespace SLWeek.ViewModels
         }
         #region Property IncrementalLoadingCollection<TopPostSource,PostDetail> SoureList Setup        
         protected Property<IncrementalLoadingCollection<TopPostSource,PostDetail>> _SoureList = new Property<IncrementalLoadingCollection<TopPostSource,PostDetail>> { LocatorFunc = _SoureListLocator };
-        static Func<BindableBase, ValueContainer<IncrementalLoadingCollection<TopPostSource,PostDetail>>> _SoureListLocator = RegisterContainerLocator<IncrementalLoadingCollection<TopPostSource,PostDetail>>("SoureList", model => model.Initialize("SoureList", ref model._SoureList, ref _SoureListLocator, _SoureListDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<IncrementalLoadingCollection<TopPostSource,PostDetail>>> _SoureListLocator = RegisterContainerLocator("SoureList", model => model.Initialize("SoureList", ref model._SoureList, ref _SoureListLocator, _SoureListDefaultValueFactory));
         static Func<IncrementalLoadingCollection<TopPostSource,PostDetail>> _SoureListDefaultValueFactory = () => default(IncrementalLoadingCollection<TopPostSource,PostDetail>);
         #endregion
 
@@ -43,7 +43,7 @@ namespace SLWeek.ViewModels
         }
         #region Property PostType PostKind Setup        
         protected Property<PostType> _PostKind = new Property<PostType> { LocatorFunc = _PostKindLocator };
-        static Func<BindableBase, ValueContainer<PostType>> _PostKindLocator = RegisterContainerLocator<PostType>("PostKind", model => model.Initialize("PostKind", ref model._PostKind, ref _PostKindLocator, _PostKindDefaultValueFactory));
+        static Func<BindableBase, ValueContainer<PostType>> _PostKindLocator = RegisterContainerLocator("PostKind", model => model.Initialize("PostKind", ref model._PostKind, ref _PostKindLocator, _PostKindDefaultValueFactory));
         static Func<PostType> _PostKindDefaultValueFactory = () => default(PostType);
         #endregion
 

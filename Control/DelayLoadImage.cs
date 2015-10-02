@@ -40,7 +40,7 @@ namespace SLWeek.Control
                 _image.ImageOpened += image_ImageOpened;
             }
 
-            private bool imageLoaded = false;
+            private bool imageLoaded;
 
             public void image_ImageOpened(object sender, RoutedEventArgs e)
             {
