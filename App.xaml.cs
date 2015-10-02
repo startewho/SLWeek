@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation.Metadata;
 using Windows.Phone.UI.Input;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MVVMSidekick.Startups;
 using Q42.WinRT.Data;
@@ -210,8 +213,13 @@ namespace SLWeek
         public static void SetShellDecoration()
         {
 
-         MainFrame.RequestedTheme = AppSettings.Instance.CurrentTheme;
-           
+             MainFrame.RequestedTheme = AppSettings.Instance.CurrentTheme;
+            //int count = Current.Resources.ThemeDictionaries.Count;
+            //var theme = Current.Resources.ThemeDictionaries.Values.ToList()[0] as ResourceDictionary;
+            //var thmedata = Current.Resources.ThemeDictionaries["ApplicationPageBackgroundThemeBrush"] as SolidColorBrush;
+            //thmedata = new SolidColorBrush() {Color =Colors.DarkRed};
+            //var resoure = Current.Resources.MergedDictionaries[0];
+            //var data = resoure["PumpkinColorBrush"];
         }
 
         #endregion

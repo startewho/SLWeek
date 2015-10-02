@@ -2,9 +2,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
 
-	
-
-
     <!-- Flat UI Colors -->
 	<Color x:Key="TurquoiseColor">#FF1ABC9C</Color>
 	<Color x:Key="GreenSeaColor">#FF16A085</Color>
