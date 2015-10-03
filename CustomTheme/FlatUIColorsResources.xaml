@@ -25,7 +25,7 @@
 	<Color x:Key="AsbestosColor">#FF7F8C8D</Color>
 
     <!-- Flat UI Color Brushes -->
-	<SolidColorBrush x:Key="TurquoiseColorBrush" Color="{StaticResource TurquoiseColor}" />
+    <SolidColorBrush x:Key="TurquoiseColorBrush" Color="{StaticResource TurquoiseColor}" />
 	<SolidColorBrush x:Key="GreenSeaColorBrush" Color="{StaticResource GreenSeaColor}" />
 	<SolidColorBrush x:Key="EmerlandColorBrush" Color="{StaticResource EmerlandColor}" />
 	<SolidColorBrush x:Key="NephritisColorBrush" Color="{StaticResource NephritisColor}" />

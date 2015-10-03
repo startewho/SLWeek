@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation.Metadata;
 using Windows.Phone.UI.Input;
-using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MVVMSidekick.Startups;
 using Q42.WinRT.Data;
@@ -74,10 +71,9 @@ namespace SLWeek
             if (MainFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                MainFrame = new Frame();
+                MainFrame = new Frame {CacheSize = 1};
 
                 // TODO: change this value to a cache size that is appropriate for your application
-                MainFrame.CacheSize = 1;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -101,6 +97,8 @@ namespace SLWeek
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
+
+                SetShellDecoration();
 
                 if (!MainFrame.Navigate(typeof(MainPage), e.Arguments))
                 {
@@ -212,9 +210,15 @@ namespace SLWeek
         #region ThemeColor
         public static void SetShellDecoration()
         {
+            Current.Resources["TurquoiseColorBrush"] = AppSettings.Instance.AccentColor;
 
-             MainFrame.RequestedTheme = AppSettings.Instance.CurrentTheme;
-             Current.Resources["TurquoiseColorBrush"] = new SolidColorBrush() { Color = Colors.DarkRed };
+            MainFrame.RequestedTheme = AppSettings.Instance.CurrentTheme;
+
+            var mainpage = Window.Current.Content as MainPage;
+            if (mainpage!=null)
+            {
+                mainpage.RootFrame.RequestedTheme= AppSettings.Instance.CurrentTheme;
+            }
             //int count = Current.Resources.ThemeDictionaries.Count;
             //var theme = Current.Resources.ThemeDictionaries.Values.ToList()[0] as ResourceDictionary;
             //var thmedata = Current.Resources.ThemeDictionaries["ApplicationPageBackgroundThemeBrush"] as SolidColorBrush;

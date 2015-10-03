@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.Storage;
+using Windows.UI;
 using Windows.UI.Xaml;
 using SLWeek.Models;
 
@@ -52,7 +53,59 @@ namespace SLWeek.Utils
         }
 
 
-        #region 主题
+        #region 主题色列表
+        const string AccentColorsKeyName = "AccentColors";
+
+        private static readonly List<Color> AccentColorsKeyNameDefault = new List<Color>()
+                {
+                    Color.FromArgb(255, 0xff, 0x88, 0x00),
+                    Color.FromArgb(255, 241, 13, 162),
+                    Color.FromArgb(255, 240, 67, 98),
+                    Color.FromArgb(255, 239, 95, 65),
+                    Color.FromArgb(255, 46, 204, 113),
+                    Color.FromArgb(255, 52, 152, 219),
+                    Color.FromArgb(255, 155, 89, 182),
+                    Color.FromArgb(255, 52, 73, 94),
+                    Color.FromArgb(255, 22, 160, 133),
+                    Color.FromArgb(255, 39, 174, 96),
+                    Color.FromArgb(255, 41, 128, 185),
+                    Color.FromArgb(255, 142, 68, 173),
+                    Color.FromArgb(255, 44, 62, 80),
+                    Color.FromArgb(255, 241, 196, 15),
+                    Color.FromArgb(255, 230, 126, 34),
+                    Color.FromArgb(255, 231, 76, 60),
+                    Color.FromArgb(255, 243, 156, 18),
+                    Color.FromArgb(255, 211, 84, 0),
+                    Color.FromArgb(255, 192, 57, 43)
+                };
+
+        /// <summary>
+        /// 主题色列表
+        /// </summary>
+        public List<Color> AccentColors => GetValue(AccentColorsKeyName, AccentColorsKeyNameDefault);
+
+        #endregion
+
+        #region 所选主题色
+        const string AccentColorKeyName = "AccentColor";
+        /// <summary>
+        /// 所选主题色
+        /// </summary>
+        public Color AccentColor
+        {
+            get
+            {
+                return GetValue(AccentColorKeyName, Color.FromArgb(255, 0xff, 0x88, 0x00));
+            }
+            set
+            {
+                SetValue(AccentColorKeyName, value);
+              
+            }
+        }
+        #endregion
+
+        #region 所选栏目
         const string SelectChannelTypesKeyName = "SelectChannelTypes";
 
         private static readonly List<PostType> SelectChannelTypesDefault = new List<PostType>
@@ -63,7 +116,7 @@ namespace SLWeek.Utils
         };
 
         /// <summary>
-        /// 主题
+        /// 所选栏目
         /// </summary>
         public List<PostType> SelectChannelTypes
         {
@@ -77,7 +130,9 @@ namespace SLWeek.Utils
                 SetValue(SelectChannelTypesKeyName, value);
             }
         }
+
         #endregion
+
 
         #region 主题
         const string CurrentThemeKeyName = "CurrentTheme";
@@ -277,7 +332,6 @@ namespace SLWeek.Utils
             }
         }
 
-
-
+        
     }
 }

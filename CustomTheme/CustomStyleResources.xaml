@@ -48,6 +48,7 @@
 
     <Style x:Key="MenuTitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{ThemeResource TurquoiseColorBrush}"/>
     </Style>
 
     <Style x:Key="PageScrollViewerStyle" TargetType="ScrollViewer">
@@ -234,6 +235,27 @@
             <CheckBox Content="{Binding CNName}"  IsChecked="{Binding IsSelected ,Mode=TwoWay}" />
         </Grid>
     </DataTemplate>
+
+    <DataTemplate x:Key="GridViewSettingDatatemplate">
+        <Grid Height="75" Width="75">
+            <Grid.Background>
+                <SolidColorBrush Color="{Binding}" />
+            </Grid.Background>
+        </Grid>
+    </DataTemplate>
+
+    <Style x:Key="GridVieSettingwWrapItemsPanel" TargetType="GridView">
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid Orientation="Horizontal"
+                                           ItemHeight="75"
+                                           ItemWidth="75" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+  
 
     <!--#region PersonalControl Style-->
 

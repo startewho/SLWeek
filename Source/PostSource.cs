@@ -15,10 +15,10 @@ namespace SLWeek.Source
      
         public async Task<IEnumerable<PostDetail>> GetPagedItems(string query,int pageIndex, int pageSize)
         {
-            //if (pageIndex < 1)
-            //    throw new ArgumentOutOfRangeException("pageIndex");
-            //if (pageSize < 1)
-            //    throw new ArgumentOutOfRangeException("pageSize");
+            if (pageIndex < 1)
+                throw new ArgumentOutOfRangeException(nameof(pageIndex));
+            if (pageSize < 1)
+                throw new ArgumentOutOfRangeException(nameof(pageSize));
 
             var jsontext = await HttpHelper.GetTextByPost(AppStrings.PostListUri, query,
                 new List<KeyValuePair<string, string>>

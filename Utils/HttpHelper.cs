@@ -10,29 +10,28 @@ namespace SLWeek.Utils
     {
         public static void CreateHttpClient(ref HttpClient httpClient)
         {
-            if (httpClient != null)
-            {
-                httpClient.Dispose();
-            }
+            httpClient?.Dispose();
             httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.UserAgent.Add(new HttpProductInfoHeaderValue("ie", AppStrings.UerAgent));
         }
 
         public static async Task<string> GetTextByPost(string posturi, string poststr, List<KeyValuePair<string, string>> body)
         {
-            HttpClient httpClient = new HttpClient();
+            var httpClient = new HttpClient();
             CreateHttpClient(ref httpClient);
             var postData = new HttpFormUrlEncodedContent(body);
-            var response = await httpClient.PostAsync(new Uri(posturi), postData);
-            var responseString = await response.Content.ReadAsStringAsync();
+            string responseString;
+            using (var response = await httpClient.PostAsync(new Uri(posturi), postData))
+            {
+                responseString = await response.Content.ReadAsStringAsync();
+            }
             return responseString;
         }
 
         public static async Task<string> GetTextByGet(string posturi)
         {
-            HttpClient httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.GetAsync(new Uri(posturi));
-
+            var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync(new Uri(posturi));
             string responseString = await response.Content.ReadAsStringAsync();
             return responseString;
         }

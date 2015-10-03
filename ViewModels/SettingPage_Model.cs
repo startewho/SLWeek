@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Runtime.Serialization;
+using Windows.UI;
 using Windows.UI.Xaml;
 using MVVMSidekick.EventRouting;
 using MVVMSidekick.Reactive;
@@ -31,6 +32,9 @@ namespace SLWeek.ViewModels
             IsImageMode = AppSettings.Instance.IsEnableImageMode;
             IsLightTheme = ElementTheme.Light == AppSettings.Instance.CurrentTheme;
             SelectedPostTypes = AppSettings.Instance.SelectChannelTypes;
+            AccentColors = AppSettings.Instance.AccentColors;
+            AccentColor = AppSettings.Instance.AccentColor;
+
             ListPostTypes = new List<PostType>
         {
             new PostType {Name = "shehui", CNName = "社会", IsSelected = false},
@@ -67,16 +71,25 @@ namespace SLWeek.ViewModels
                 AppSettings.Instance.IsEnableImageMode = isimagemode;
             }).DisposeWith(this);
 
-            GetValueContainer(vm => vm.IsLightTheme).GetEventObservable().Subscribe(async e => 
+            GetValueContainer(vm => vm.IsLightTheme).GetEventObservable().Subscribe( async e => 
             {
                 var islighttheme = e.EventArgs.NewValue;
                 AppSettings.Instance.CurrentTheme = islighttheme ? ElementTheme.Light : ElementTheme.Dark;
-                StageManager.DefaultStage.Frame.RequestedTheme = AppSettings.Instance.CurrentTheme;
                 App.SetShellDecoration();
+                StageManager.DefaultStage.Frame.RequestedTheme = AppSettings.Instance.CurrentTheme;
                 await StageManager.DefaultStage.Show(new SettingPage_Model());
                 // ((Page) this.StageManager.CurrentBindingView).RequestedTheme = AppSettings.Instance.CurrentTheme;
 
             }).DisposeWith(this);
+
+            GetValueContainer(vm => vm.AccentColor).GetNewValueObservable().Subscribe(async e =>
+            {
+                var accentcolor = e.EventArgs;
+                AppSettings.Instance.AccentColor = accentcolor;
+                App.SetShellDecoration();
+                await StageManager.DefaultStage.Show(new SettingPage_Model());
+            }).DisposeWith(this);
+
 
 
             //CheckBox点击之后,马上更改设置,以实现实时更新
@@ -117,6 +130,40 @@ namespace SLWeek.ViewModels
 
         #endregion
 
+
+
+
+        public List<Color> AccentColors
+        {
+            get { return _AccentColorsLocator(this).Value; }
+            set
+            {
+                _AccentColorsLocator(this).SetValueAndTryNotify(value);
+              
+            }
+        }
+        #region Property List<Color> AccentColors Setup        
+        protected Property<List<Color>> _AccentColors = new Property<List<Color>> { LocatorFunc = _AccentColorsLocator };
+        static Func<BindableBase, ValueContainer<List<Color>>> _AccentColorsLocator = RegisterContainerLocator<List<Color>>("AccentColors", model => model.Initialize("AccentColors", ref model._AccentColors, ref _AccentColorsLocator, _AccentColorsDefaultValueFactory));
+        static Func<List<Color>> _AccentColorsDefaultValueFactory = () => default(List<Color>);
+        #endregion
+
+
+        public Color AccentColor
+        {
+            get { return _AccentColorLocator(this).Value; }
+            set
+            {
+                _AccentColorLocator(this).SetValueAndTryNotify(value);
+             
+            }
+        }
+        #region Property Color AccentColor Setup        
+        protected Property<Color> _AccentColor = new Property<Color> { LocatorFunc = _AccentColorLocator };
+        static Func<BindableBase, ValueContainer<Color>> _AccentColorLocator = RegisterContainerLocator<Color>("AccentColor", model => model.Initialize("AccentColor", ref model._AccentColor, ref _AccentColorLocator, _AccentColorDefaultValueFactory));
+        static Func<Color> _AccentColorDefaultValueFactory = () => default(Color);
+        #endregion
+       
 
         public List<PostType> SelectedPostTypes
         {
