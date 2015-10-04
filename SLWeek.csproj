@@ -102,6 +102,8 @@
     <Compile Include="Control\DelayLoadImage.cs" />
     <Compile Include="Control\PictureViewer.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter .cs" />
+    <Compile Include="Converters\ListItemBackgroudConverter.cs" />
+    <Compile Include="Converters\ListViewItemStyleSelector.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Database\BookmarkDatabase.cs" />
     <Compile Include="Database\IDatabase.cs" />

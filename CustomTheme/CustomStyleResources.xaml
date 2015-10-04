@@ -12,6 +12,8 @@
     <converter:ObjectToMenuItemConverter x:Key="ObjectToMenuItemConverter"/>
     <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     <converter:StringFormatConverter x:Key="StringFormatConverter"/>
+    <converter:ListItemBackgroudConverter x:Key="ListItemBackgroudConverter"/>
+    <converter:ListViewItemStyleSelector x:Key="ListViewItemStyleSelector"/>
     <!--#endregion-->
 
     <!--#region ControlTemplate Style-->
@@ -144,7 +146,15 @@
             </Setter.Value>
         </Setter>
     </Style>
-
+    <Style x:Key="ListItemBackgroud" TargetType="ListViewItem">
+        <Setter Property="Background" >
+            <Setter.Value>
+                <Binding RelativeSource="{RelativeSource Self}" Converter="{StaticResource ListItemBackgroudConverter}"/>
+                <!--<Binding RelativeSource="{RelativeSource Self}"  Converter="{StaticResource ListItemBackgroudConverter}"/>-->
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style x:Key="ListViewWrapItemsPanel" TargetType="ListView">
         <Setter Property="ItemsPanel">
             <Setter.Value>
@@ -1128,7 +1138,7 @@
 
     <DataTemplate x:Key="AuthorItemDataTemplate">
         <Grid Margin="0,5,5,0">
-            <Grid.ColumnDefinitions>
+          <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>

@@ -21,6 +21,6 @@
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-      <ListView ItemsSource="{Binding AuthorListAuthor}" ItemTemplate="{StaticResource AuthorItemDataTemplate}"/>
+      <ListView ItemsSource="{Binding AuthorListAuthor}" ItemTemplate="{StaticResource AuthorItemDataTemplate}" />
     </Grid>
 </mvvm:MVVMPage>
