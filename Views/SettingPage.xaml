@@ -12,8 +12,8 @@
     <Page.Resources>
        <vm:SettingPage_Model x:Key="DesignVM"/>
     </Page.Resources>
-   
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}" >
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="{StaticResource DefaultLeftMargin}"  DataContext="{StaticResource DesignVM}" >
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="Auto"/>
@@ -25,16 +25,19 @@
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-        <TextBlock Text="{Binding Title}" Style="{ThemeResource MenuTitleTextBlockStyle}"  Grid.Row="0" HorizontalAlignment="Right" />
-         <StackPanel Grid.Row="1" Margin="10,0,0,0">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Grid.Row="0">
+            <TextBlock Text="{Binding Title}" Style="{ThemeResource MenuTitleTextBlockStyle}"/>
+            <TextBlock Text="&#xE115;" Style="{ThemeResource IconTextBlockStyle}" />
+        </StackPanel>
+       <StackPanel Grid.Row="1" >
             <TextBlock Text="图片显示"/>
-            <ToggleSwitch  IsOn="{Binding IsImageMode,Mode=TwoWay}" OffContent="无图" OnContent="有图" Margin="12"/>
+            <ToggleSwitch  IsOn="{Binding IsImageMode,Mode=TwoWay}" OffContent="无图" OnContent="有图" />
             <TextBlock Text="主题设置"/>
-            <ToggleSwitch  IsOn="{Binding IsLightTheme,Mode=TwoWay}" OffContent="深色" OnContent="浅色" Margin="12" />
+            <ToggleSwitch  IsOn="{Binding IsLightTheme,Mode=TwoWay}" OffContent="深色" OnContent="浅色" />
             <TextBlock Text="频道选择"/>
             <ListView ItemsSource="{Binding ListPostTypes,Mode=TwoWay}" Style="{StaticResource ListViewWrapItemsPanel}" ItemTemplate="{StaticResource SelectChannelTypeDataTemplate}"/>
             <TextBlock Text="主题色列表"/>
         </StackPanel>
-        <GridView ItemsSource="{Binding AccentColors}" ItemTemplate="{StaticResource GridViewSettingDatatemplate}" Style="{StaticResource GridVieSettingwWrapItemsPanel}" SelectedItem="{Binding AccentColor, Mode=TwoWay}" Margin="10,10,0,0" Grid.Row="2"/>
+        <GridView ItemsSource="{Binding AccentColors}" ItemTemplate="{StaticResource GridViewSettingDatatemplate}" Style="{StaticResource GridVieSettingwWrapItemsPanel}" SelectedItem="{Binding AccentColor, Mode=TwoWay}" Grid.Row="2"/>
     </Grid>
 </mvvm:MVVMPage>

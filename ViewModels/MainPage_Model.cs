@@ -10,6 +10,7 @@ using MVVMSidekick.ViewModels;
 using MVVMSidekick.Views;
 using SLWeek.Models;
 using SLWeek.Source;
+using SLWeek.Utils;
 using SLWeek.Views;
 
 namespace SLWeek.ViewModels
@@ -25,7 +26,7 @@ namespace SLWeek.ViewModels
         {
             IsSplitViewPaneOpen = !IsSplitViewPaneOpen;
 
-            isLoaded = false;
+            _isLoaded = false;
 
             MenuItems.Add(new MenuItem { Icon = "\uE10F", Title = "主页", PageType = typeof(HomePage) });
             MenuItems.Add(new MenuItem { Icon = "\uE923", Title = "频道", PageType = typeof(ChannelPage) });
@@ -37,18 +38,15 @@ namespace SLWeek.ViewModels
 
 
 
-        private bool isLoaded;
+        private bool _isLoaded;
 
 
         protected override Task OnBindedViewLoad(IView view)
         {
+            if (_isLoaded) return base.OnBindedViewLoad(view);
 
-            if (!isLoaded)
-            {
-                SubscribeCommand();
-                isLoaded = true;
-               
-            }
+            SubscribeCommand();
+            _isLoaded = true;
             return base.OnBindedViewLoad(view);
         }
 
@@ -82,7 +80,7 @@ namespace SLWeek.ViewModels
                         var item = e.EventData as Author;
                         if (item != null)
                         {
-                            item.AuthorPostList=new IncrementalLoadingCollection<AuthorPostSource, PostDetail>(item.Id.ToString(),20);
+                            item.AuthorPostList=new IncrementalLoadingCollection<AuthorPostSource, PostDetail>(item.Id.ToString(),AppStrings.PageSize);
                             await StageManager.DefaultStage.Show(new AuthorPage_Model(item));
 
                             //StageManager.DefaultStage.Frame.Navigate(typeof(PostDetailPage),item);
@@ -101,6 +99,7 @@ namespace SLWeek.ViewModels
        
 
         public bool IsSplitViewPaneOpen
+
         {
             get { return _IsSplitViewPaneOpenLocator(this).Value; }
             set { _IsSplitViewPaneOpenLocator(this).SetValueAndTryNotify(value); }

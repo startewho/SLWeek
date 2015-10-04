@@ -16,7 +16,8 @@
 
     <!--#region ControlTemplate Style-->
     <Thickness x:Key="AutoSuggestListMargin">0,2,0,2</Thickness>
-    
+    <Thickness x:Key="DefaultLeftMargin">12,0,0,0</Thickness>
+    <Thickness x:Key="DefaultRightMargin">0,0,12,0</Thickness>
     <Style x:Key="AppTitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="Margin" Value="12,6,0,6" />
         <Setter Property="VerticalAlignment" Value="Center" />

@@ -25,7 +25,7 @@ namespace SLWeek.ViewModels
                       
             foreach (var channeltype in AppSettings.Instance.SelectChannelTypes)
             {
-                ObservableChannels.Add(new Channel(channeltype.Name, 20, false));
+                ObservableChannels.Add(new Channel(channeltype.Name, AppStrings.PageSize, false));
             }
 
             //SelectPivotItemIndex = 0;

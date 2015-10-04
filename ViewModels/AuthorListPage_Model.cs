@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using MVVMSidekick.ViewModels;
 using SLWeek.Models;
 using SLWeek.Source;
+using SLWeek.Utils;
 
 namespace SLWeek.ViewModels
 {
@@ -17,7 +18,7 @@ namespace SLWeek.ViewModels
 
         public AuthorListPage_Model()
         {
-                AuthorListAuthor=new IncrementalLoadingCollection<AuthorSource, Author>("",20);
+                AuthorListAuthor=new IncrementalLoadingCollection<AuthorSource, Author>("",AppStrings.PageSize);
                 Title = "zhuanlan";
         }
         public String Title

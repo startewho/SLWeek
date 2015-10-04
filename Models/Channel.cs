@@ -8,10 +8,10 @@ namespace SLWeek.Models
     public   class Channel:BindableBase<Channel>
     {
 
-        public Channel(string postkind,int pagecount,bool isselected)
+        public Channel(string postkind,int pagesize,bool isselected)
         {
-            //shehui
-            SoureList = new IncrementalLoadingCollection<PostSource, PostDetail>(postkind, 20);
+            PageSize = pagesize;
+            SoureList = new IncrementalLoadingCollection<PostSource, PostDetail>(postkind, pagesize);
             PostKind = new PostType {Name = postkind, CNName = AppStrings.PostTypeDic[postkind]};
             IsSelected = isselected;
         }
@@ -63,6 +63,17 @@ namespace SLWeek.Models
 
 
 
+
+        public int PageSize
+        {
+            get { return _PageSizeLocator(this).Value; }
+            set { _PageSizeLocator(this).SetValueAndTryNotify(value); }
+        }
+        #region Property int PageSize Setup        
+        protected Property<int> _PageSize = new Property<int> { LocatorFunc = _PageSizeLocator };
+        static Func<BindableBase, ValueContainer<int>> _PageSizeLocator = RegisterContainerLocator<int>("PageSize", model => model.Initialize("PageSize", ref model._PageSize, ref _PageSizeLocator, _PageSizeDefaultValueFactory));
+        static Func<int> _PageSizeDefaultValueFactory = () => default(int);
+        #endregion
 
 
 

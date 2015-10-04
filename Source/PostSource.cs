@@ -36,8 +36,7 @@ namespace SLWeek.Source
             {
                 JObject postlist = JObject.Parse(jsontext);
                 var jsonList = postlist.SelectToken("list");
-                if (jsonList == null) return null;
-                var list = jsonList.Select(item => new PostDetail
+                var list = jsonList?.Select(item => new PostDetail
                 {
                     Title = (string)item["title"],
                     Des = (string)item["des"],

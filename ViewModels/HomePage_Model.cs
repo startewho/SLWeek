@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using MVVMSidekick.ViewModels;
 using SLWeek.Models;
 using SLWeek.Source;
+using SLWeek.Utils;
 
 namespace SLWeek.ViewModels
 {
@@ -17,7 +18,7 @@ namespace SLWeek.ViewModels
         public HomePage_Model( )
         {
             //shehui
-            SoureList = new IncrementalLoadingCollection<TopPostSource, PostDetail>("960", 20);
+            SoureList = new IncrementalLoadingCollection<TopPostSource, PostDetail>("960", AppStrings.PageSize);
         }
 
 
