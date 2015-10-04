@@ -35,7 +35,7 @@
             <TextBlock Text="主题设置"/>
             <ToggleSwitch  IsOn="{Binding IsLightTheme,Mode=TwoWay}" OffContent="深色" OnContent="浅色" />
             <TextBlock Text="频道选择"/>
-            <ListView ItemsSource="{Binding ListPostTypes,Mode=TwoWay}" ItemContainerStyleSelector="{StaticResource  ListViewItemStyleSelector}" Style="{StaticResource ListViewWrapItemsPanel}" ItemTemplate="{StaticResource SelectChannelTypeDataTemplate}"/>
+            <ListView ItemsSource="{Binding ListPostTypes,Mode=TwoWay}" ItemContainerStyleSelector="{StaticResource ListViewItemStyleSelector}" Style="{StaticResource ListViewWrapItemsPanel}" ItemTemplate="{StaticResource SelectChannelTypeDataTemplate}"/>
             <TextBlock Text="主题色列表"/>
         </StackPanel>
         <GridView ItemsSource="{Binding AccentColors}" ItemTemplate="{StaticResource GridViewSettingDatatemplate}" Style="{StaticResource GridVieSettingwWrapItemsPanel}" SelectedItem="{Binding AccentColor, Mode=TwoWay}" Grid.Row="2"/>

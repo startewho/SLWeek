@@ -13,7 +13,7 @@
     <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     <converter:StringFormatConverter x:Key="StringFormatConverter"/>
     <converter:ListItemBackgroudConverter x:Key="ListItemBackgroudConverter"/>
-    <converter:ListViewItemStyleSelector x:Key="ListViewItemStyleSelector"/>
+    <converter:ListViewItemStyleSelector x:Key="ListViewItemStyleSelector" OddColorBrush="{StaticResource TurquoiseColorBrush}" EvenColorBrush="{StaticResource WisteriaColorBrush}"/>
     <!--#endregion-->
 
     <!--#region ControlTemplate Style-->

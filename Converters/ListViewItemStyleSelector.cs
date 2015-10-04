@@ -1,28 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Windows.ApplicationModel.Store;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
 namespace SLWeek.Converters
-{
+{  
+    /// <summary>
+    /// ListViewItem隔行变色,OddColorBrush奇数背景颜色,EvenColorBrush偶数行背景色
+    /// </summary>
     public   class ListViewItemStyleSelector: StyleSelector
     {
-        protected override Style SelectStyleCore(System.Object item, DependencyObject container)
+        public SolidColorBrush OddColorBrush { get; set; }
+        public SolidColorBrush EvenColorBrush { get; set; }
+        
+        protected override Style SelectStyleCore(object item, DependencyObject container)
         {
             var style = new Style {TargetType = typeof (ListViewItem)};
-            Setter backgroudSetter = new Setter {Property = Windows.UI.Xaml.Controls.Control.BackgroundProperty};
+            var backgroudSetter = new Setter {Property = Windows.UI.Xaml.Controls.Control.BackgroundProperty};
+
             var listview = ItemsControl.ItemsControlFromItemContainer(container) as ListView;
             if (listview != null)
             {
                 var index = listview.IndexFromContainer(container);
-                backgroudSetter.Value = index%2==0 ? new SolidColorBrush() {Color = Colors.Aqua} : new SolidColorBrush() { Color = Colors.Red };
+                backgroudSetter.Value = index%2==0 ? EvenColorBrush : OddColorBrush ;
             }
             style.Setters.Add(backgroudSetter);
+
             return style;
         }
     }
