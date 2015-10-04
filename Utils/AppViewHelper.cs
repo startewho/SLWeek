@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.ViewManagement;
@@ -12,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace SLWeek.Utils
 {
-  public  static class AppViewHelper
+    public  static class AppViewHelper
     {
         private const double DefaultTitleBarHeight = 40;
 

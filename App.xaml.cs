@@ -223,7 +223,7 @@ namespace SLWeek
 
             var currenttheme = AppSettings.Instance.CurrentTheme;
 
-            Current.Resources["TurquoiseColorBrush"] = forcecolor;
+            Current.Resources["AppForceBackgroudColorBrush"] = forcecolor;
 
             if (freshtheme)
             {

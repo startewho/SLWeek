@@ -1,5 +1,4 @@
-﻿
-using Windows.UI.Xaml.Navigation;
+﻿using Windows.UI.Xaml.Navigation;
 using MVVMSidekick.Views;
 using SLWeek.ViewModels;
 

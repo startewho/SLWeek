@@ -3,18 +3,14 @@
     x:Class="SLWeek.Views.SettingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SLWeek"
     xmlns:mvvm="using:MVVMSidekick.Views"     
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:SLWeek.ViewModels"
-    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     mc:Ignorable="d">
 
     <Page.Resources>
-        <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <vm:SettingPage_Model x:Key="DesignVM"/>
+       <vm:SettingPage_Model x:Key="DesignVM"/>
     </Page.Resources>
    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}" >
@@ -29,10 +25,10 @@
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-        <TextBlock Text="{Binding Title}"  Foreground="{ThemeResource TurquoiseColorBrush}"  Grid.Row="0" HorizontalAlignment="Right" />
+        <TextBlock Text="{Binding Title}" Style="{ThemeResource MenuTitleTextBlockStyle}"  Grid.Row="0" HorizontalAlignment="Right" />
          <StackPanel Grid.Row="1" Margin="10,0,0,0">
             <TextBlock Text="图片显示"/>
-            <CheckBox Content="有图" IsChecked="{Binding IsImageMode,Mode=TwoWay}" Margin="12"/>
+            <ToggleSwitch  IsOn="{Binding IsImageMode,Mode=TwoWay}" OffContent="无图" OnContent="有图" Margin="12"/>
             <TextBlock Text="主题设置"/>
             <ToggleSwitch  IsOn="{Binding IsLightTheme,Mode=TwoWay}" OffContent="深色" OnContent="浅色" Margin="12" />
             <TextBlock Text="频道选择"/>

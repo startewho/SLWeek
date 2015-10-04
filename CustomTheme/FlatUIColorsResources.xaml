@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
 
     <!-- Flat UI Colors -->
+    <Color x:Key="AppForceBackgroudColor">#FF1ABC9C</Color>
 	<Color x:Key="TurquoiseColor">#FF1ABC9C</Color>
 	<Color x:Key="GreenSeaColor">#FF16A085</Color>
 	<Color x:Key="EmerlandColor">#FF2ECC71</Color>
@@ -25,6 +26,7 @@
 	<Color x:Key="AsbestosColor">#FF7F8C8D</Color>
 
     <!-- Flat UI Color Brushes -->
+    <SolidColorBrush x:Key="AppForceBackgroudColorBrush" Color="{StaticResource AppForceBackgroudColor}" />
     <SolidColorBrush x:Key="TurquoiseColorBrush" Color="{StaticResource TurquoiseColor}" />
 	<SolidColorBrush x:Key="GreenSeaColorBrush" Color="{StaticResource GreenSeaColor}" />
 	<SolidColorBrush x:Key="EmerlandColorBrush" Color="{StaticResource EmerlandColor}" />
