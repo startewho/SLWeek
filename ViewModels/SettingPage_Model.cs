@@ -31,6 +31,7 @@ namespace SLWeek.ViewModels
             Title = "设置";
             IsImageMode = AppSettings.Instance.IsEnableImageMode;
             IsLightTheme = ElementTheme.Light == AppSettings.Instance.CurrentTheme;
+            IsAccentTitleBar = AppSettings.Instance.IsAccentColorTitleBar;
             SelectedPostTypes = AppSettings.Instance.SelectChannelTypes;
             AccentColors = AppSettings.Instance.AccentColors;
             AccentColor = AppSettings.Instance.AccentColor;
@@ -65,15 +66,15 @@ namespace SLWeek.ViewModels
 
         private void PropScribe()
         {
-            GetValueContainer(vm => vm.IsImageMode).GetEventObservable().Subscribe(e =>
+            GetValueContainer(vm => vm.IsImageMode).GetNewValueObservable().Subscribe(e =>
             {
-                var isimagemode = e.EventArgs.NewValue;
+                var isimagemode = e.EventArgs;
                 AppSettings.Instance.IsEnableImageMode = isimagemode;
             }).DisposeWith(this);
 
-            GetValueContainer(vm => vm.IsLightTheme).GetEventObservable().Subscribe( async e => 
+            GetValueContainer(vm => vm.IsLightTheme).GetNewValueObservable().Subscribe( async e => 
             {
-                var islighttheme = e.EventArgs.NewValue;
+                var islighttheme = e.EventArgs;
                 AppSettings.Instance.CurrentTheme = islighttheme ? ElementTheme.Light : ElementTheme.Dark;
                 App.SetShellDecoration();
                 StageManager.DefaultStage.Frame.RequestedTheme = AppSettings.Instance.CurrentTheme;
@@ -101,10 +102,10 @@ namespace SLWeek.ViewModels
                         var item = e.EventData as PostType;
                         if (item!=null)
                         {
-                            IEnumerable<PostType> query = ListPostTypes.Where(listPosttype => listPosttype.IsSelected);
+                            var query = ListPostTypes.Where(listPosttype => listPosttype.IsSelected);
                             AppSettings.Instance.SelectChannelTypes = query.ToList();
                         }
-                       
+
                         await TaskExHelper.Yield();
                     }
                 ).DisposeWith(this);
@@ -136,11 +137,7 @@ namespace SLWeek.ViewModels
         public List<Color> AccentColors
         {
             get { return _AccentColorsLocator(this).Value; }
-            set
-            {
-                _AccentColorsLocator(this).SetValueAndTryNotify(value);
-              
-            }
+            set { _AccentColorsLocator(this).SetValueAndTryNotify(value); }
         }
         #region Property List<Color> AccentColors Setup        
         protected Property<List<Color>> _AccentColors = new Property<List<Color>> { LocatorFunc = _AccentColorsLocator };
@@ -152,11 +149,7 @@ namespace SLWeek.ViewModels
         public Color AccentColor
         {
             get { return _AccentColorLocator(this).Value; }
-            set
-            {
-                _AccentColorLocator(this).SetValueAndTryNotify(value);
-             
-            }
+            set { _AccentColorLocator(this).SetValueAndTryNotify(value); }
         }
         #region Property Color AccentColor Setup        
         protected Property<Color> _AccentColor = new Property<Color> { LocatorFunc = _AccentColorLocator };
@@ -217,6 +210,17 @@ namespace SLWeek.ViewModels
         static Func<bool> _IsLightThemeDefaultValueFactory = () => default(bool);
         #endregion
 
+
+        public bool IsAccentTitleBar
+        {
+            get { return _IsAccentTitleBarLocator(this).Value; }
+            set { _IsAccentTitleBarLocator(this).SetValueAndTryNotify(value); }
+        }
+        #region Property bool IsAccentTitleBar Setup        
+        protected Property<bool> _IsAccentTitleBar = new Property<bool> { LocatorFunc = _IsAccentTitleBarLocator };
+        static Func<BindableBase, ValueContainer<bool>> _IsAccentTitleBarLocator = RegisterContainerLocator<bool>("IsAccentTitleBar", model => model.Initialize("IsAccentTitleBar", ref model._IsAccentTitleBar, ref _IsAccentTitleBarLocator, _IsAccentTitleBarDefaultValueFactory));
+        static Func<bool> _IsAccentTitleBarDefaultValueFactory = () => default(bool);
+        #endregion
 
 
 

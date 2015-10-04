@@ -154,6 +154,24 @@ namespace SLWeek.Utils
         }
         #endregion
 
+        #region
+        const string IsAccentColorTitleBaKeyName = "IsAccentColorTitleBar";
+        const bool IsAccentColorTitleBaKeyNameDefault = false;
+        /// <summary>
+        /// 标题栏底色设置
+        /// </summary>
+        public bool IsAccentColorTitleBar
+        {
+            get
+            {
+                return GetValue(IsAccentColorTitleBaKeyName, IsAccentColorTitleBaKeyNameDefault);
+            }
+            set
+            {
+                SetValue(IsAccentColorTitleBaKeyName, value);
+            }
+        }
+    #endregion
 
         #region 是否启用双击退出
         const string IsEnableDoubleBackKeyPressToExitKeyName = "IsEnableDoubleBackKeyPressToExit";

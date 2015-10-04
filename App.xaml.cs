@@ -28,9 +28,10 @@ namespace SLWeek
         /// </summary>
         public  App()
         {
-
+           
             InitializeComponent();
-           // InitSet();
+           
+            // InitSet();
             Suspending += OnSuspending;
             Offset = 0;
           
@@ -62,8 +63,9 @@ namespace SLWeek
             //Init MVVM-Sidekick Navigations:
             InitNavigationConfigurationInThisAssembly();
 
+            //AppViewHelper.SetTitleBar(true);
 
-             MainFrame = Window.Current.Content as Frame;
+            MainFrame = Window.Current.Content as Frame;
 
           
             // Do not repeat app initialization when the Window already has content,
@@ -80,7 +82,7 @@ namespace SLWeek
                     // TODO: Load state from previously suspended application
                 }
 
-                
+                SetShellDecoration();
                 // Place the frame in the current Window
                 Window.Current.Content = MainFrame;
               
@@ -98,7 +100,7 @@ namespace SLWeek
                 // configuring the new page by passing required information as a navigation
                 // parameter
 
-                SetShellDecoration();
+                
 
                 if (!MainFrame.Navigate(typeof(MainPage), e.Arguments))
                 {
@@ -219,6 +221,10 @@ namespace SLWeek
             {
                 mainpage.RootFrame.RequestedTheme= AppSettings.Instance.CurrentTheme;
             }
+            AppViewHelper.SetAppView(AppSettings.Instance.AccentColor);
+            var titleBar = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TitleBar;
+            //AppViewHelper.SetTitleBar(true);
+            //Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = AppSettings.Instance.IsAccentColorTitleBar;
             //int count = Current.Resources.ThemeDictionaries.Count;
             //var theme = Current.Resources.ThemeDictionaries.Values.ToList()[0] as ResourceDictionary;
             //var thmedata = Current.Resources.ThemeDictionaries["ApplicationPageBackgroundThemeBrush"] as SolidColorBrush;
