@@ -29,7 +29,7 @@
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-        <TextBlock Text="{Binding Title}" Style="{StaticResource MenuTitleTextBlockStyle}"  Grid.Row="0" HorizontalAlignment="Right" />
+        <TextBlock Text="{Binding Title}"  Foreground="{ThemeResource TurquoiseColorBrush}"  Grid.Row="0" HorizontalAlignment="Right" />
          <StackPanel Grid.Row="1" Margin="10,0,0,0">
             <TextBlock Text="图片显示"/>
             <CheckBox Content="有图" IsChecked="{Binding IsImageMode,Mode=TwoWay}" Margin="12"/>

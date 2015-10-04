@@ -82,7 +82,7 @@ namespace SLWeek
                     // TODO: Load state from previously suspended application
                 }
 
-                SetShellDecoration();
+               
                 // Place the frame in the current Window
                 Window.Current.Content = MainFrame;
               
@@ -96,6 +96,10 @@ namespace SLWeek
 
                 MainFrame.Name = "MainFrame";
                 MainFrame.Navigated += OnNavigated;
+
+                //设置主题
+                SetShellDecoration(false);
+
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
@@ -108,22 +112,26 @@ namespace SLWeek
                 }
             }
 
-           
+             AttachBackButton();
 
             // listen for back button clicks (both soft- and hardware)
 
+
+
+            // Ensure the current window is active
+            Window.Current.Activate();
+        }
+
+
+        private static void AttachBackButton()
+        {
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
 
             if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
             {
                 HardwareButtons.BackPressed += OnBackPressed;
             }
-
-            // Ensure the current window is active
-            Window.Current.Activate();
         }
-
-       
 
         void OnNavigated(object sender, NavigationEventArgs e)
         {
@@ -157,8 +165,7 @@ namespace SLWeek
 
         #region BackButton
 
-       
-        void OnBackPressed(object sender, BackPressedEventArgs e)
+        static void OnBackPressed(object sender, BackPressedEventArgs e)
         {
             var mainFrame = (Frame)Window.Current.Content;
             
@@ -170,7 +177,7 @@ namespace SLWeek
         }
 
         // handle software back button press
-        void OnBackRequested(object sender, BackRequestedEventArgs e)
+        static void OnBackRequested(object sender, BackRequestedEventArgs e)
         {
             var mainFrame = (Frame)Window.Current.Content;
             
@@ -210,19 +217,38 @@ namespace SLWeek
 
 
         #region ThemeColor
-        public static void SetShellDecoration()
+        public static void SetShellDecoration(bool freshtheme)
         {
-            Current.Resources["TurquoiseColorBrush"] = AppSettings.Instance.AccentColor;
+            var forcecolor = AppSettings.Instance.AccentColor;
 
-            MainFrame.RequestedTheme = AppSettings.Instance.CurrentTheme;
+            var currenttheme = AppSettings.Instance.CurrentTheme;
 
-            var mainpage = Window.Current.Content as MainPage;
-            if (mainpage!=null)
+            Current.Resources["TurquoiseColorBrush"] = forcecolor;
+
+            if (freshtheme)
             {
-                mainpage.RootFrame.RequestedTheme= AppSettings.Instance.CurrentTheme;
+                AppViewHelper.FrameFresh(MainFrame, currenttheme);
             }
+            MainFrame.RequestedTheme = currenttheme;
+
+            // MainFrame.Navigate(typeof (MainPage));
+            // AttachBackButton();
+
+            //主页Frame设置
+            var mainpage = MainFrame.Content as MainPage;
+            if (mainpage != null)
+            {
+                if (freshtheme)
+                {
+                    AppViewHelper.FrameFresh(mainpage.RootFrame, currenttheme);
+                }
+                mainpage.RootFrame.RequestedTheme = currenttheme;
+            }
+
+            //设置标题栏
             AppViewHelper.SetAppView(AppSettings.Instance.AccentColor);
-            var titleBar = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TitleBar;
+
+           // var titleBar = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TitleBar;
             //AppViewHelper.SetTitleBar(true);
             //Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = AppSettings.Instance.IsAccentColorTitleBar;
             //int count = Current.Resources.ThemeDictionaries.Count;

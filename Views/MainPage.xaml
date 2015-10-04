@@ -6,7 +6,7 @@
     xmlns:c="using:SLWeek.Control" 
     xmlns:mvvm="using:MVVMSidekick.Views"
     xmlns:vm="using:SLWeek.ViewModels"
-    xmlns:m="using:SLWeek.Models" 
+    xmlns:m="using:SLWeek.Models"
     NavigationCacheMode="Required"
    >
     <Page.Resources>
@@ -27,7 +27,7 @@
                 </ListBox>
             </SplitView.Pane>
             <SplitView.Content>
-                <Frame x:Name="VMFrame" SourcePageType="{Binding SelectedPageType, Mode=TwoWay}" Navigating="VMFrame_Navigating"/>
+                <Frame x:Name="VMFrame" SourcePageType="{Binding SelectedPageType, Mode=TwoWay}"/>
             </SplitView.Content>
         </c:SwipeableSplitView>
 

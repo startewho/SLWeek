@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace SLWeek.Utils
 {
@@ -91,5 +93,26 @@ namespace SLWeek.Utils
                 // ignored
             }
         }
+
+
+      public static void FrameFresh(Frame frame, ElementTheme currenttheme)
+      {
+          if (frame == null) throw new ArgumentNullException(nameof(frame));
+          switch (currenttheme)
+            {
+                case ElementTheme.Dark:
+                    frame.RequestedTheme = ElementTheme.Light;
+                    break;
+                case ElementTheme.Light:
+                    frame.RequestedTheme = ElementTheme.Dark;
+                    break;
+                case ElementTheme.Default:
+                    break;
+                default:
+                    frame.RequestedTheme = ElementTheme.Dark;
+                    break;
+
+            }
+      }
     }
 }

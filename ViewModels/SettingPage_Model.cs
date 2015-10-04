@@ -76,19 +76,21 @@ namespace SLWeek.ViewModels
             {
                 var islighttheme = e.EventArgs;
                 AppSettings.Instance.CurrentTheme = islighttheme ? ElementTheme.Light : ElementTheme.Dark;
-                App.SetShellDecoration();
-                StageManager.DefaultStage.Frame.RequestedTheme = AppSettings.Instance.CurrentTheme;
-                await StageManager.DefaultStage.Show(new SettingPage_Model());
+                App.SetShellDecoration(false);
+                //StageManager.DefaultStage.Frame.RequestedTheme = AppSettings.Instance.CurrentTheme;
+                await TaskExHelper.Yield();
+                // await StageManager.DefaultStage.Show(new SettingPage_Model());
                 // ((Page) this.StageManager.CurrentBindingView).RequestedTheme = AppSettings.Instance.CurrentTheme;
 
             }).DisposeWith(this);
 
-            GetValueContainer(vm => vm.AccentColor).GetNewValueObservable().Subscribe(async e =>
+            GetValueContainer(vm => vm.AccentColor).GetNewValueObservable().Subscribe( e =>
             {
                 var accentcolor = e.EventArgs;
                 AppSettings.Instance.AccentColor = accentcolor;
-                App.SetShellDecoration();
-                await StageManager.DefaultStage.Show(new SettingPage_Model());
+                App.SetShellDecoration(true);
+                
+                //  await StageManager.DefaultStage.Show(new SettingPage_Model());
             }).DisposeWith(this);
 
 
@@ -137,7 +139,11 @@ namespace SLWeek.ViewModels
         public List<Color> AccentColors
         {
             get { return _AccentColorsLocator(this).Value; }
-            set { _AccentColorsLocator(this).SetValueAndTryNotify(value); }
+            set
+            {
+                _AccentColorsLocator(this).SetValueAndTryNotify(value);
+              
+            }
         }
         #region Property List<Color> AccentColors Setup        
         protected Property<List<Color>> _AccentColors = new Property<List<Color>> { LocatorFunc = _AccentColorsLocator };
@@ -149,7 +155,11 @@ namespace SLWeek.ViewModels
         public Color AccentColor
         {
             get { return _AccentColorLocator(this).Value; }
-            set { _AccentColorLocator(this).SetValueAndTryNotify(value); }
+            set
+            {
+                _AccentColorLocator(this).SetValueAndTryNotify(value);
+              
+            }
         }
         #region Property Color AccentColor Setup        
         protected Property<Color> _AccentColor = new Property<Color> { LocatorFunc = _AccentColorLocator };
