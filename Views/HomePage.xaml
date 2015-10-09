@@ -22,7 +22,6 @@
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <ListView  ItemsSource="{Binding SoureList}" utils:ListViewExtensions.NewWidth="{Binding RelativeSource={RelativeSource Self},Path=ActualWidth}"
-        Style="{StaticResource ListViewWrapItemsPanel}"  ItemTemplate="{StaticResource PostDetailItemDataTemplate}" SizeChanged="ListView_SizeChanged"/>
+        <ListView  ItemsSource="{Binding SoureList}" Style="{StaticResource ListViewWrapItemsPanel}"  ItemTemplate="{StaticResource PostDetailItemDataTemplate}" SizeChanged="ListView_SizeChanged"/>
         </Grid>
 </mvvm:MVVMPage>
