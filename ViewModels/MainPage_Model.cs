@@ -32,7 +32,7 @@ namespace SLWeek.ViewModels
             MenuItems.Add(new MenuItem { Icon = "\uE923", Title = "频道", PageType = typeof(ChannelPage) });
             MenuItems.Add(new MenuItem { Icon = "\uE779", Title = "专栏", PageType = typeof(AuthorListPage) });
             MenuItems.Add(new MenuItem { Icon = "\uE713", Title = "设置", PageType = typeof(SettingPage) });
-            SelectedMenuItem = MenuItems.First(item => item.Title== "主页");
+            SelectedMenuItem = MenuItems.First(item => item.Title== "设置");
            
         }
 

@@ -11,8 +11,6 @@ namespace SLWeek.Source
     public class PostSource : IIncrementalSource<PostDetail>
     {
 
-
-     
         public async Task<IEnumerable<PostDetail>> GetPagedItems(string query,int pageIndex, int pageSize)
         {
             //if (pageIndex < 1)

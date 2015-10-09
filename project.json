@@ -14,7 +14,7 @@
     "Rx-Main": "2.3.0-beta2",
     "Rx-PlatformServices": "2.3.0-beta2",
     "SQLite.Net-PCL": "3.0.5",
-    "Unity": "3.5.1404"
+    "Unity": "4.0.1"
   },
   "frameworks": {
     "uap10.0": {}

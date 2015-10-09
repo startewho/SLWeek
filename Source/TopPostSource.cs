@@ -19,15 +19,15 @@ namespace SLWeek.Source
             //if (pageSize < 1)
             //    throw new ArgumentOutOfRangeException("pageSize");
 
-            var jsontext = await HttpHelper.GetTextByPost(AppStrings.TopPostListUri, query,
-                new List<KeyValuePair<string, string>>
-                {
-                    new KeyValuePair<string, string>("height", query),
-                    new KeyValuePair<string, string>("uid", "13916551"),
-                    new KeyValuePair<string, string>("platform", "a"),
-                    new KeyValuePair<string, string>("mobile", "Emnu")
+            var querylist = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("height", query),
+                new KeyValuePair<string, string>("uid", "13916551"),
+                new KeyValuePair<string, string>("platform", "a"),
+                new KeyValuePair<string, string>("mobile", "Emnu")
 
-                });
+            };
+            var jsontext = await HttpHelper.GetTextByPost(AppStrings.TopPostListUri, query,querylist);
 
             if (jsontext!=null)
             {

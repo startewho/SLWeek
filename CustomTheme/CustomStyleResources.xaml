@@ -7,13 +7,14 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:behaviors="using:MVVMSidekick.Behaviors"
+    xmlns:utils="using:SLWeek.Utils"
     >
     <!--#region Converters-->
     <converter:ObjectToMenuItemConverter x:Key="ObjectToMenuItemConverter"/>
     <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     <converter:StringFormatConverter x:Key="StringFormatConverter"/>
-    <converter:ListItemBackgroudConverter x:Key="ListItemBackgroudConverter"/>
-    <converter:ListViewItemStyleSelector x:Key="ListViewItemStyleSelector" OddColorBrush="{StaticResource TurquoiseColorBrush}" EvenColorBrush="{StaticResource WisteriaColorBrush}"/>
+    <converter:ListItemBackgroudConverter x:Key="ListItemBackgroudConverter"  OddColorBrush="{StaticResource SilverColorBrush}" EvenColorBrush="{StaticResource AsbestosColorBrush}"/>
+    <converter:ListViewItemStyleSelector x:Key="ListViewItemStyleSelector" OddColorBrush="{StaticResource SilverColorBrush}" EvenColorBrush="{StaticResource AsbestosColorBrush}"/>
     <!--#endregion-->
 
     <!--#region ControlTemplate Style-->
@@ -54,7 +55,7 @@
 
     <Style x:Key="MenuTitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Foreground" Value="{ThemeResource AppForceBackgroudColorBrush}"/>
+        <!--<Setter Property="Foreground" Value="{ThemeResource AppForceBackgroudColorBrush}"/>-->
     </Style>
 
     <Style x:Key="PageScrollViewerStyle" TargetType="ScrollViewer">
@@ -147,10 +148,15 @@
         </Setter>
     </Style>
     <Style x:Key="ListItemBackgroud" TargetType="ListViewItem">
-        <Setter Property="Background" >
+        <!--<Setter Property="Background" >
             <Setter.Value>
                 <Binding RelativeSource="{RelativeSource Self}" Converter="{StaticResource ListItemBackgroudConverter}"/>
-                <!--<Binding RelativeSource="{RelativeSource Self}"  Converter="{StaticResource ListItemBackgroudConverter}"/>-->
+                --><!--<Binding RelativeSource="{RelativeSource Self}"  Converter="{StaticResource ListItemBackgroudConverter}"/>--><!--
+            </Setter.Value>
+        </Setter>-->
+        <Setter Property="utils:SetterValueBindingHelper.PropertyBinding">
+            <Setter.Value>
+                <utils:SetterValueBindingHelper Type="Control" Property="Background" Binding="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource ListItemBackgroudConverter}}"/>
             </Setter.Value>
         </Setter>
     </Style>

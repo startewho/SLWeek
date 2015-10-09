@@ -11,7 +11,9 @@ namespace SLWeek.Converters
     /// </summary>
     public  sealed class ListItemBackgroudConverter:IValueConverter
     {
-       public object Convert(object value, Type targetType, object parameter, string language)
+        public SolidColorBrush OddColorBrush { get; set; }
+        public SolidColorBrush EvenColorBrush { get; set; }
+        public object Convert(object value, Type targetType, object parameter, string language)
        {
            var item = value as ListViewItem;
            if (item != null)
@@ -20,7 +22,7 @@ namespace SLWeek.Converters
                if (listView != null)
                {
                    var index = listView.IndexFromContainer(item);
-                   return index % 2 == 0 ? new SolidColorBrush() { Color = Colors.DarkRed } : new SolidColorBrush() { Color = Colors.LightCyan };
+                   return index % 2 == 0 ? EvenColorBrush : OddColorBrush;
                }
            }
 

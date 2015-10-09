@@ -15,10 +15,10 @@ namespace SLWeek.Utils
             httpClient.DefaultRequestHeaders.UserAgent.Add(new HttpProductInfoHeaderValue("ie", AppStrings.UerAgent));
         }
 
-        public static async Task<string> GetTextByPost(string posturi, string poststr, List<KeyValuePair<string, string>> body)
+        public static async Task<string> GetTextByPost(string posturi, string poststr, IEnumerable<KeyValuePair<string, string>> body)
         {
             var httpClient = new HttpClient();
-            CreateHttpClient(ref httpClient);
+            //CreateHttpClient(ref httpClient);
             var postData = new HttpFormUrlEncodedContent(body);
             string responseString;
             using (var response = await httpClient.PostAsync(new Uri(posturi), postData))
