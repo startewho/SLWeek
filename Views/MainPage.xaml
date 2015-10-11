@@ -12,12 +12,13 @@
     <Page.Resources>
         <vm:MainPage_Model x:Key="DesignVM"/>
     </Page.Resources>
+    
     <Grid DataContext="{StaticResource DesignVM}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <c:SwipeableSplitView x:Name="SplitView" DisplayMode="Overlay" IsSwipeablePaneOpen="{Binding IsSplitViewPaneOpen, Mode=TwoWay}">
             <SplitView.Pane>
                 <ListBox ItemsSource="{Binding MenuItems}" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}" SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay, Converter={StaticResource ObjectToMenuItemConverter}}" ItemContainerStyle="{StaticResource MenuListBoxItemStyle}">
                     <ListBox.ItemTemplate>
-                        <DataTemplate >
+                        <DataTemplate x:DataType="m:MenuItem">
                             <StackPanel Orientation="Horizontal" Height="48">
                                 <TextBlock Text="{Binding Icon, Mode=OneWay}" Style="{ThemeResource IconTextBlockStyle}" />
                                 <TextBlock Text="{Binding Title, Mode=OneWay}" Style="{ThemeResource MenuTitleTextBlockStyle}" />

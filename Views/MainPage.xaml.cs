@@ -22,6 +22,7 @@ namespace SLWeek.Views
             transitions.Add(transition);
             VMFrame.ContentTransitions = transitions;
           //ToggleStatusBar();
+          
         }
 
         //private async void ToggleStatusBar()

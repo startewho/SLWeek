@@ -105,6 +105,9 @@
     <Compile Include="Converters\ListItemBackgroudConverter.cs" />
     <Compile Include="Converters\ListViewItemStyleSelector.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
+    <Compile Include="CustomTheme\DataTemplaterResources.xaml.cs">
+      <DependentUpon>DataTemplaterResources.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Database\BookmarkDatabase.cs" />
     <Compile Include="Database\IDatabase.cs" />
     <Compile Include="Models\Picture.cs" />
@@ -202,6 +205,11 @@
     </ApplicationDefinition>
     <None Include="SLWeek_StoreKey.pfx" />
     <None Include="SLWeek_TemporaryKey.pfx" />
+    <Page Include="CustomTheme\DataTemplaterResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="Views\PictureViewerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

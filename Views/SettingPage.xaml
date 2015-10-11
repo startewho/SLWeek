@@ -26,7 +26,7 @@
         </Grid.ChildrenTransitions>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Grid.Row="0">
-            <TextBlock Text="{Binding Title}" Style="{ThemeResource MenuTitleTextBlockStyle}"/>
+            <TextBlock Text="{Binding Title}" Style="{StaticResource MenuTitleTextBlockStyle}"/>
             <TextBlock Text="&#xE115;" Style="{ThemeResource IconTextBlockStyle}" />
         </StackPanel>
        <StackPanel Grid.Row="1" >
@@ -36,8 +36,8 @@
             <ToggleSwitch  IsOn="{Binding IsLightTheme,Mode=TwoWay}" OffContent="深色" OnContent="浅色" />
             <TextBlock Text="频道选择"/>
             <ListView ItemsSource="{Binding ListPostTypes,Mode=TwoWay}" ItemContainerStyle="{StaticResource ListItemBackgroud}" Style="{StaticResource ListViewWrapItemsPanel}" ItemTemplate="{StaticResource SelectChannelTypeDataTemplate}"/>
-            <TextBlock Text="主题色列表"/>
+            <TextBlock Text="前景色列表"/>
         </StackPanel>
-        <GridView ItemsSource="{Binding AccentColors}" ItemTemplate="{StaticResource GridViewSettingDatatemplate}" Style="{StaticResource GridVieSettingwWrapItemsPanel}" SelectedItem="{Binding AccentColor, Mode=TwoWay}" Grid.Row="2"/>
+        <GridView ItemsSource="{Binding AccentColors}" ItemTemplate="{StaticResource GridViewSettingDatatemplate}" Style="{StaticResource GridVieSettingwWrapItemsPanel}"  SelectedItem="{Binding AccentColor, Mode=TwoWay}" Grid.Row="2"/>
     </Grid>
 </mvvm:MVVMPage>

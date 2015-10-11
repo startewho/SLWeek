@@ -7,6 +7,7 @@ using Windows.Phone.UI.Input;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MVVMSidekick.Startups;
 using Q42.WinRT.Data;
@@ -223,7 +224,7 @@ namespace SLWeek
 
             var currenttheme = AppSettings.Instance.CurrentTheme;
 
-            Current.Resources["AppForceBackgroudColorBrush"] = forcecolor;
+            Current.Resources["AppForceBackgroudColorBrush"] = new SolidColorBrush() {Color = forcecolor};
 
             if (freshtheme)
             {
@@ -234,7 +235,7 @@ namespace SLWeek
             // MainFrame.Navigate(typeof (MainPage));
             // AttachBackButton();
 
-            //主页Frame设置
+            // 主页Frame设置
             var mainpage = MainFrame.Content as MainPage;
             if (mainpage != null)
             {

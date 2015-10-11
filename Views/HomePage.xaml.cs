@@ -19,6 +19,8 @@ namespace SLWeek.Views
             : this(null)
         {
             InitializeComponent();
+          
+          
         }
         public HomePage(HomePage_Model model)
             : base(model)
@@ -26,10 +28,14 @@ namespace SLWeek.Views
             InitializeComponent();
         }
 
+      
 
+      
+     
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+           
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
