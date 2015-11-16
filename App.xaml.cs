@@ -99,7 +99,7 @@ namespace SLWeek
                 MainFrame.Navigated += OnNavigated;
 
                 //设置主题
-                SetShellDecoration(false);
+              //  SetShellDecoration(false);
 
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
@@ -128,10 +128,10 @@ namespace SLWeek
         {
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
 
-            if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
-            {
-                HardwareButtons.BackPressed += OnBackPressed;
-            }
+            //if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
+            //{
+            //    HardwareButtons.BackPressed += OnBackPressed;
+            //}
         }
 
         void OnNavigated(object sender, NavigationEventArgs e)
